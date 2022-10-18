@@ -6,7 +6,8 @@
   "scripts": {
     "start": "concurrently \"webpack-dev-server --mode development --hot --open --color\"",
     "dev": "webpack-dev-server --mode development --hot --color",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "electron": "electron ."
   },
   "repository": {
     "type": "git",
@@ -54,9 +55,6 @@
     "webpack-dev-server": "^4.11.1"
   },
   "electronmon": {
-    "patterns": [
-
-    ]
+    "patterns": []
   }
-  
 }
