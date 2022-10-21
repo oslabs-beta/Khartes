@@ -33376,7 +33376,18 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 const ReactDOM = __importStar(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
 const Index = () => {
-    return React.createElement("div", null, "Hello React!");
+    //function to call the fetch request to the server
+    const getPolo = () => {
+        console.log("Reached getPolo function.");
+        fetch('http://localhost:8000/polo')
+            .then(() => alert("Fetching..."))
+            // .then(res => res.json())
+            // .then((data) => console.log(data))
+            .catch(err => `"Error found in getPolo fetch request: "${err}`);
+    };
+    return (React.createElement("div", null,
+        "Hello React!",
+        React.createElement("button", { onClick: getPolo }, "Marco!")));
 };
 ReactDOM.render(React.createElement(Index, null), document.getElementById('app'));
 
