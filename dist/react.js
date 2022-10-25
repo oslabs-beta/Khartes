@@ -33388,11 +33388,11 @@ const Index = () => {
     return (React.createElement("div", null,
         React.createElement("h1", null, "Welcome to Khartes!"),
         React.createElement("h3", null, "Make sure your Kubectl is connected to your K8s."),
-        React.createElement("h1", null, "test"),
-        React.createElement("h2", null, "test2"),
+        React.createElement("h1", null, "Hi KuberBuddies. IT WORKS!"),
+        React.createElement("h2", null, "test5"),
         React.createElement("button", { onClick: getPolo }, "Marco!")));
 };
-ReactDOM.render(React.createElement(Index, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(Index, null), document.getElementById('root'));
 
 
 /***/ })
