@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
     "start": "npm run express-dev & npm run build && ENV=development electron ./dist/electron.js",
+    "front-dev": "npm run build && ENV=development electron ./dist/electron.js",
     "express-build": "npx tsc",
     "express-start": "node dist/server/index.js",
     "express-dev": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\""

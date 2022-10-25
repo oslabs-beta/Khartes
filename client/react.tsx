@@ -15,7 +15,9 @@ const Index = () => {
 
     return (
         <div>
-        Hello React!
+            <h1>Welcome to Khartes!</h1>
+            <h3>Make sure your Kubectl is connected to your K8s.</h3>
+            
         <button onClick={getPolo}>Marco!</button>
         </div>
     )
