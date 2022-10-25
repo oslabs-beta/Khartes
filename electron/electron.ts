@@ -1,13 +1,20 @@
 const { app, BrowserWindow } = require('electron');
-// requiring express server to connect to backend
-// require('../server/index.ts'); // this is where the error is, cannot get these connected
-// const server = require('./app'); still not working..
+const path = require('path');
+// import electronReload from "electron-reload"; // downloading this, we can utilize electron hot-reloading
+// // requiring express server to connect to backend
+// // require('../server/index.ts'); // this is where the error is, cannot get these connected
+// // const server = require('./app'); still not working..
+
+// electronReload(__dirname, {}); // this function allows us to hot Reload in electron
+// try {
+// 	require('electron-reloader')(module);
+// } catch {}
 
 function createWindow () {
   // Create the browser window.
   let win = new BrowserWindow({
-    width: 1000,
-    height: 1000,
+    width: 800,
+    height: 800,
     webPreferences: {
       nodeIntegration: true
     }

@@ -1,9 +1,10 @@
   const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+  const CopyPlugin = require('copy-webpack-plugin');
+  const fs = require('fs');
 module.exports = [
   {
     mode: 'development',
-    entry: './electron/electron.ts',
+    entry: './client/react.tsx',
      target: 'electron-main',
      module: {
        rules: [{
@@ -15,7 +16,28 @@ module.exports = [
      output: {
        path: __dirname + '/dist',
        filename: 'electron.js'
-     }
+     },
+    //  devServer: {
+    //   contentBase: path.join(__dirname, './client'),
+    //   compress: true,
+    //   hot: true,
+    //   host,
+    //   port: 3000,
+    //   publicPath: '/',
+    // },
+    // plugins: [
+    //   new HtmlWebpackPlugin({
+    //     template: './client/index.html'
+    //   }),
+      // new CopyPlugin({
+      //   patterns: [
+      //     {from: './dist'}
+      //   ]
+      // })
+    // ],
+    resolve: {
+      extensions: ['.ts', ".js", ".tsx"],
+    }
   },
   {
     mode: 'development',
@@ -31,10 +53,22 @@ module.exports = [
       path: __dirname + '/dist',
       filename: 'react.js'
     },
+    // devServer: {
+    //   contentBase: path.join(__dirname, 'dist'),
+    //   port: 9002,
+    // },
     plugins: [
       new HtmlWebpackPlugin({
         template: './client/index.html'
-      })
-    ]
+      }),
+      // new CopyPlugin({
+      //   patterns: [
+      //     {from: './dist'}
+      //   ]
+      // })
+    ],
+    resolve: {
+      extensions: ['.ts', ".js", ".tsx"],
+    },
   }
 ];

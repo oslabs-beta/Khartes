@@ -17,10 +17,12 @@ const Index = () => {
         <div>
             <h1>Welcome to Khartes!</h1>
             <h3>Make sure your Kubectl is connected to your K8s.</h3>
-            
+            <h1>test</h1>
+            <h2>test2</h2>
+
         <button onClick={getPolo}>Marco!</button>
         </div>
     )
 };
  
-ReactDOM.render(<Index />, document.getElementById('app'));
+ReactDOM.render(<Index />, document.getElementById('root'));
