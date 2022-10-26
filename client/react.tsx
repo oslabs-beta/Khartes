@@ -15,10 +15,14 @@ const Index = () => {
 
     return (
         <div>
-        Hello React!
+            <h1>Welcome to Khartes!</h1>
+            <h3>Make sure your Kubectl is connected to your K8s.</h3>
+            <h1>Hi KuberBuddies. IT WORKS!</h1>
+            <h2>test5</h2>
+
         <button onClick={getPolo}>Marco!</button>
         </div>
     )
 };
  
-ReactDOM.render(<Index />, document.getElementById('app'));
+ReactDOM.render(<Index />, document.getElementById('root'));

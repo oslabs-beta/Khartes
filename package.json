@@ -5,9 +5,8 @@
   "main": "/electron/electron.ts",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
-    "start": "npm run express-dev & npm run build && ENV=development electron ./dist/electron.js",
-    "express-build": "npx tsc",
-    "express-start": "node dist/server/index.js",
+    "start": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\" \"webpack --config ./webpack.config.js\" \"electron ./dist/electron.js\"",
+    "dev": "concurrently \"webpack --watch --config ./webpack.config.js\" \"wait-on ./dist/electron.js && electronmon ./dist/electron.js\"",
     "express-dev": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\""
   },
   "keywords": [],
@@ -15,7 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "electron-reload": "^2.0.0-alpha.1",
+    "electronmon": "^2.0.2",
+    "express": "^4.18.2",
+    "wait-on": "^6.0.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.14",
@@ -23,7 +25,9 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "concurrently": "^7.4.0",
+    "copy-webpack-plugin": "^11.0.0",
     "electron": "^21.2.0",
+    "electron-reloader": "^1.2.3",
     "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.20",
     "react": "^18.2.0",
@@ -31,6 +35,7 @@
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   }
 }
