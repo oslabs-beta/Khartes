@@ -17,6 +17,7 @@
     "electron-reload": "^2.0.0-alpha.1",
     "electronmon": "^2.0.2",
     "express": "^4.18.2",
+    "react-router-dom": "^6.4.2",
     "wait-on": "^6.0.1"
   },
   "devDependencies": {
