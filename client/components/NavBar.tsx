@@ -2,13 +2,15 @@ import * as React from 'react';
 
 const NavBar = () => {
 
-// this component will be our home page and possibly a template for other pages
-// styling needs: a basic size and set of elements
+// this component will hace conditional logic if different pages need to render different Navs
+// home button, back button?
     return(
       <div>
-        <nav> </nav>
+        <nav> 
+        <a href="/html/">HTML</a> |
+        </nav>
       </div>
     )
   }
   
-  export default NavBr;
+  export default NavBar;

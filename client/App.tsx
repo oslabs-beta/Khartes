@@ -1,6 +1,12 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { BrowserRouter, Link } from "react-router-dom";
+import { HashRouter, Link, Route, Routes } from "react-router-dom";
+
+// import pages for React Router
+// Welcome
+// Home
+// Alerts
+// Yaml
+
 
 const App = () => {
 
