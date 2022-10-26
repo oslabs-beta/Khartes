@@ -24,18 +24,18 @@ const App = () => {
             <WelcomePage />
           }
           />
-          {/* <Route path="/home" element= {
+          <Route path="/home" element= {
             <HomePage />
           }
-          /> */}
-          {/* <Route path="/alerts" element= {
+          />
+          <Route path="/alerts" element= {
             <AlertsPage />
           }
           />
           <Route path="/yaml" element = {
             <YamlPage />
           }
-          /> */}
+          />
         </Routes>
       {/* Link to Home */}
       </main>
