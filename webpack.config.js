@@ -36,7 +36,7 @@ module.exports = [
 },
 {
   mode: 'development',
-  entry: './client/react.tsx',
+  entry: './client/index.tsx',
   target: 'electron-renderer',
   devtool: 'source-map',
   module: { rules: [{
@@ -46,7 +46,7 @@ module.exports = [
   }] },
   output: {
     path: __dirname + '/dist',
-    filename: 'react.js'
+    filename: 'index.js'
   },
   // devServer: {
   //   contentBase: path.join(__dirname, 'dist'),
