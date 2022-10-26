@@ -6,8 +6,8 @@ const YamlPage = () => {
     // sub component YamlView these will need props? to pass in correct yaml to render
         return(
           <div>
-            <YamlView />
-            <YamlView />
+            {/* <YamlView />
+            <YamlView /> */}
           </div>
         )
       }

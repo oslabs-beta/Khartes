@@ -11,8 +11,9 @@ list (this is a box, also maybe modular for re-use that will host individual pro
 */
     return(
       <div>
-        <NavBar />
-        <List />
+        Home Page Renders!
+        {/* <NavBar />
+        <List /> */}
       </div>
     )
   }

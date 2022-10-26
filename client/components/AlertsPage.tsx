@@ -6,8 +6,8 @@ const AlertsPage = () => {
     // buttons may need to be updated with new content based on our shifting MVP
         return(
           <div>
-            <NavBar />
-           <Chart />
+            {/* <NavBar />
+           <Chart /> */}
            <div> Description of Issues </div>
            <button> Auto-fix </button>
            <button> Fix options </button>
