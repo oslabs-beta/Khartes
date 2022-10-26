@@ -39,11 +39,19 @@ module.exports = [
   entry: './client/index.tsx',
   target: 'electron-renderer',
   devtool: 'source-map',
-  module: { rules: [{
+  module: { 
+    rules: [
+      {
     test: /\.ts(x?)$/,
     include: /client/,
     use: [{ loader: 'ts-loader' }]
-  }] },
+  },
+  {
+    test: /css$/,
+    exclude: /node_modules/,
+    use: ['style-loader', 'css-loader', 'sass-loader'],
+},
+] },
   output: {
     path: __dirname + '/dist',
     filename: 'index.js'
