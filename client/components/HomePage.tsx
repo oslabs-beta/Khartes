@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import ProblemObject from './problemobject';
+
 const Home = () => {
 
 /* this component will be our home page and possibly a template for other pages
@@ -12,8 +14,24 @@ list (this is a box, also maybe modular for re-use that will host individual pro
     return(
       <div>
         Home Page Renders!
-        {/* <NavBar />
-        <List /> */}
+        <div className="contents">
+              {/* <div id="list"> */}
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+                <ProblemObject />
+              {/* </div> */}
+            {/* <NavBar />
+           <Chart /> */}
+           </div>
       </div>
     )
   }

@@ -13,11 +13,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "css-loader": "^6.7.1",
     "dotenv": "^16.0.3",
     "electron-reload": "^2.0.0-alpha.1",
     "electronmon": "^2.0.2",
     "express": "^4.18.2",
     "react-router-dom": "^6.4.2",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "style-loader": "^3.3.1",
     "wait-on": "^6.0.1"
   },
   "devDependencies": {
