@@ -14,13 +14,13 @@ div {
 }
 
 #blue {
-    background-color: #1d47e0;
+    background-color: #4a71ff;
 }
 
 .contents {
     background-color: #f2f2f2;
-     width: 55vw;
-    height: 20vw;
+     width: 80vw;
+    height: 100vw;
     /* padding: 20vw; */
     overflow-y: scroll;
 }
