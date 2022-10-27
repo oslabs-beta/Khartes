@@ -8,6 +8,7 @@ const YamlPage = () => {
           <div>
             {/* <YamlView />
             <YamlView /> */}
+            Yaml File
           </div>
         )
       }
