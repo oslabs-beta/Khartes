@@ -9,10 +9,12 @@ import NavBar from './components/NavBar';
 
 // import pages for React Router
 import WelcomePage from './components/WelcomePage';
+import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import AlertsPage from './components/AlertsPage';
 import YamlPage from './components/YamlPage';
 
+// Created frontend routes with Welcome Page default. Navbar consists of links to routes.
 const App = () => {
 
   return(
@@ -22,6 +24,7 @@ const App = () => {
           <Link to="/">
           <h1 id="company">Khartes</h1>
           </Link>
+          <NavBar />
         </div>
         <Routes>
           <Route path="/" element= {
