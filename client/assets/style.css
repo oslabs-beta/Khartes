@@ -1,6 +1,6 @@
 body {
     display: flex;
-    background-color: #f2f2f2;
+    background-color: #1d47e0;
     color: black
 }
 
@@ -10,9 +10,59 @@ div {
 }
 
 #yellow {
-    background-color: yellow;
+    background-color: #face2f;
 }
 
 #blue {
-    background-color: blue;
+    background-color: #1d47e0;
+}
+
+#contents {
+    background-color: #f2f2f2;
+     width: 55vw;
+    height: 20vw;
+    padding: 20vw;
+    overflow-y: scroll;
+}
+
+#list {
+    display: flex;
+    flex-direction: column;
+    background-color: #face2f;
+    width: 95%;
+    height: 95%;
+    /* justify-content: space-between; */
+    padding: 5px;
+}
+
+.problemobject {
+    /* display: table-row; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 98%;
+    height: 30px;
+    margin: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    background-color: darkgrey;
+    justify-content: center;
+}
+
+/* .problemobject >  */
+#left {
+    justify-content: left;
+    align-items: left;
+    float: left;
+}
+/* .problemobject >  */
+#right {
+    align-items: right;
+    float: right;
+    justify-self: center;
+}
+
+button {
+    margin: 2px;
+    float: right;
 }
