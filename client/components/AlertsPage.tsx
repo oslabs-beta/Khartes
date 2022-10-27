@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import ProblemObject from './problemobject';
+
 
 const AlertsPage = () => {
 
@@ -8,24 +8,7 @@ const AlertsPage = () => {
     // buttons may need to be updated with new content based on our shifting MVP
         return(
           <div>
-            <div id="contents">
-              <div id="list">
-                <ProblemObject />
-                <ProblemObject />
-                <ProblemObject />
-                <ProblemObject />
-                <ProblemObject />
-                <ProblemObject />
-                  <ProblemObject />
-                <ProblemObject />
-                <ProblemObject />
-                <ProblemObject />
-                <ProblemObject />
-                <ProblemObject />
-              </div>
-            {/* <NavBar />
-           <Chart /> */}
-           </div>
+            
           </div>
         )
       }

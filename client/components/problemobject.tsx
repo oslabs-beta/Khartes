@@ -5,7 +5,7 @@ const ProblemObject = () => {
 // this component will receive data about particualr pods/pvs etc and be rendered repeatedly in the list on the home page
     return(
       <div>
-        <div class="problemobject">
+        <div className="problemobject">
           <div id="left">
            Pod/Volume Alerts 
           </div>

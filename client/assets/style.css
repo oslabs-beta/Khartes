@@ -17,22 +17,39 @@ div {
     background-color: #1d47e0;
 }
 
-#contents {
+.contents {
     background-color: #f2f2f2;
      width: 55vw;
     height: 20vw;
-    padding: 20vw;
+    /* padding: 20vw; */
     overflow-y: scroll;
 }
 
-#list {
+.yamlcontents {
+    background-color: #f2f2f2;
+     width: 100%;
+    height: 100%;
+    padding: 2px;
+    overflow-y: scroll;
+    border: solid;
+    
+}
+
+.yamlpagecontents {
     display: flex;
+    background-color: #f2f2f2;
+     width: 55vw;
+    height: 20vw;
+    /* padding: 20vw; */
+}
+
+#list {
+    /* display: flex;
     flex-direction: column;
     background-color: #face2f;
     width: 95%;
     height: 95%;
-    /* justify-content: space-between; */
-    padding: 5px;
+    padding: 5px; */
 }
 
 .problemobject {
@@ -45,8 +62,11 @@ div {
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    background-color: darkgrey;
+    background-color: #face2f;
     justify-content: center;
+    box-shadow:5px 5px 15px -5px #c9a66a;
+    border-radius: 2px;
+    padding: 4px;
 }
 
 /* .problemobject >  */

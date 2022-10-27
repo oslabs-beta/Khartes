@@ -5,7 +5,7 @@ import { HashRouter, useNavigate, Link, Route, Routes } from "react-router-dom";
 
 import './assets/style.css';
 
-import NavBar from './components/NavBar.tsx';
+import NavBar from './components/NavBar';
 
 // import pages for React Router
 import WelcomePage from './components/WelcomePage';
