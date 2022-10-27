@@ -6,24 +6,25 @@ const WelcomePage = () => {
 // ONLY INSIDE ROUTER PAGES
   const navigate = useNavigate();
 
+  // WE DO NOT NEED BELOW FUNCTION ANYMORE, ADDED NAV BAR 
   // function to move to Home page on button click
-  const handleButton = (event: any, button: any) => {
-    if (button == "home"){
-      navigate('/home');
-    } else if (button == "alerts"){
-      navigate('/alerts');
-    } else {
-      navigate('/yaml');
-    }
-  }
+  // const handleButton = (event: any, button: any) => {
+  //   if (button == "home"){
+  //     navigate('/home');
+  //   } else if (button == "alerts"){
+  //     navigate('/alerts');
+  //   } else {
+  //     navigate('/yaml');
+  //   }
+  // }
 
   return (
     <div>
-      Welcome to Khartes!
+      Welcome to Khartes! Make sure your Kubectl is connected to your K8s cluster.
       {/* how to pass a parameter into a handle click, want to pass in name of button */}
-      <button onClick={event => handleButton(event, "home")}>Home</button>
+      {/* <button onClick={event => handleButton(event, "home")}>Home</button>
       <button onClick={event => handleButton(event, "alerts")}>Alerts</button>
-      <button onClick={event => handleButton(event, "yaml")}>Yaml</button>
+      <button onClick={event => handleButton(event, "yaml")}>Yaml</button> */}
     </div>
   )
 }
