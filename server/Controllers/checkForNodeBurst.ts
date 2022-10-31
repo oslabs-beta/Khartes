@@ -1,0 +1,7 @@
+/*
+Look at yaml files and look for pods with allowed memory that could go above the allowed memory for the node. 
+Bad configuration. 
+
+
+return boolean
+*/

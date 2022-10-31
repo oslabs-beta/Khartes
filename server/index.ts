@@ -1,3 +1,22 @@
+/*
+We need to serve up:
+  GET /alerts         do a DB pull and serve an array of alert objects.
+  POST /fix           change yaml file per user input. This will send the whole alert object from front end which includes the old yaml.
+                      We will strip the container section, change it and send it back in the response.
+
+
+  *potential additions*
+  /yamls        serve up fixed yaml files
+  /push         push yaml file to github
+  /write        write yaml file to disk
+  /deploy       apply yaml fixes to the cluster/namespace?
+
+*/
+
+
+
+
+
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 
@@ -9,6 +28,8 @@ const port = process.env.PORT;
 app.get('/polo', (req: Request, res: Response) => {
   res.send('Polo!');
 });
+
+//app.get('/alerts')
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
