@@ -15,8 +15,8 @@ const AlertsPage = () => {
             {/* <NavBar />
            <Chart /> */}
            <div> Alert Details </div>
-           <button> Description of Alerts </button>
-           <button onClick={fixOptions}> Fix options </button>
+           <button className="button"> Description of Alerts </button>
+           <button className="button" onClick={fixOptions}> Fix options </button>
           </div>
         )
       }
