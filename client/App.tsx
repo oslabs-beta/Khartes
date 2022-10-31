@@ -3,9 +3,8 @@ import { HashRouter, useNavigate, Link, Route, Routes } from "react-router-dom";
 // we need to import navigate so that we can navigate between paths ONLY INSIDE ROUTER PAGES
 // const navigate = useNavigate();
 
+import { AlertProvider } from "./contexts/AlertContext";
 import './assets/style.css';
-
-import NavBar from './components/NavBar';
 
 // import pages for React Router
 import WelcomePage from './components/WelcomePage';
@@ -18,35 +17,38 @@ import YamlPage from './components/YamlPage';
 const App = () => {
 
   return(
-    <HashRouter basename="/">
-      <main id="page">
-        <div id="welcome-page">
-          <Link to="/">
-          <h1 id="company">Khartes</h1>
-          </Link>
-          <NavBar />
-        </div>
-        <Routes>
-          <Route path="/" element= {
-            <WelcomePage />
-          }
-          />
-          <Route path="/home" element= {
-            <HomePage />
-          }
-          />
-          <Route path="/alerts" element= {
-            <AlertsPage />
-          }
-          />
-          <Route path="/yaml" element = {
-            <YamlPage />
-          }
-          />
-        </Routes>
-      {/* Link to Home */}
-      </main>
-    </HashRouter>
+    <AlertProvider>
+      <HashRouter basename="/">
+        <main id="page">
+          <div id="welcome-page">
+            <Link to="/">
+            {/* <h1 id="company">Khartes</h1> */}
+            {/* <img src="./assets/Map.png"></img> */}
+            </Link>
+            <NavBar />
+          </div>
+          <Routes>
+            <Route path="/" element= {
+              <WelcomePage />
+            }
+            />
+            <Route path="/home" element= {
+              <HomePage />
+            }
+            />
+            <Route path="/alerts" element= {
+              <AlertsPage />
+            }
+            />
+            <Route path="/yaml" element = {
+              <YamlPage />
+            }
+            />
+          </Routes>
+        {/* Link to Home */}
+        </main>
+      </HashRouter>
+    </AlertProvider>
   )
 }
 
