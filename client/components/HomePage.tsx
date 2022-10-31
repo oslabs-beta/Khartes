@@ -13,7 +13,6 @@ list (this is a box, also maybe modular for re-use that will host individual pro
 */
     return(
       <div>
-        Home Page Renders!
         <div className="contents">
               {/* <div id="list"> */}
                 <ProblemObject />
