@@ -60,7 +60,6 @@ const getAlerts = () => {
 
     return(
       <div>
-        Home Page Renders!
         <div className="contents">
               {/* <div id="list"> */}
               /* i think here we will have conditional logic that renders one <ProblemObject /> for each element in alertsList
