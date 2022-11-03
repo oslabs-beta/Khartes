@@ -1,1 +1,8 @@
-node_modules
+.DS_Store
+dist/
+node_modules/
+thumbs.db
+.idea/
+.env
+package-lock.json
+dist
