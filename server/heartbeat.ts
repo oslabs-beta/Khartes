@@ -1,10 +1,14 @@
+import getPodYamls from "./Controllers/getPods"; // calling this should return an array of yamls for each pod
+import getPrometheusData from "./Controllers/getPrometheusData";
+import createAlert from "./Controllers/createAlert";
+import checkForOomkill from "./Controllers/checkForOomkill";
 /*
 
 First Up:
 getPods
 
 
-reoccuring
+reoccurring
 getPods
 poll the list. 
 check the data
@@ -47,3 +51,39 @@ write to DB
 
 
 */
+
+
+//call getPods to get the list of pods and their associated nodes in an object.
+const podsList = getPodYamls();
+
+
+// getPrometheusData(pod, node)
+//iterate through this list and plug the associated pod and node into getPrometheusData (send a complete promQL query) Specifically for DiskFull
+//we will receive back the data point from prometheus
+//send this data point to checkForDiskFull. If it returns true. We need to build an alert with createAlert.
+
+
+
+//iterate through this list and plug the associated pod and node into getPrometheusData (send a complete promQL query) Specifically for NodeBurst
+//we will receive back the data point from prometheus
+//send this data point to checkForNodeBurst. If it returns true. We need to build an alert with createAlert.
+
+
+
+
+//iterate through this list and plug the associated pod and node into getPrometheusData (send a complete promQL query) Specifically for OomKill
+//we will receive back the data point from prometheus
+//send this data point to checkForOomkill. If it returns true. We need to build an alert with createAlert.
+for(let i = 0; i < podsList.length; i++){
+    const memUsage = getPrometheusData(podsList[i].podname, 'container_memory_usage_bytes');
+    const memLimit = getPrometheusData(podsList[i].podname, 'container_spec_memory_limit_bytes');
+    const needAlert = checkForOomkill(memUsage, memLimit);
+
+    if(needAlert){
+        createAlert();
+    }
+};
+
+
+//check request vs limit for overallocated resources if we want to do Over allocated resources
+

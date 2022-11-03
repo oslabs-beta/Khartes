@@ -1,7 +1,28 @@
 import * as React from 'react';
 const jsyaml = require('js-yaml');
+const yaml = require('yaml');
 
 const YamlView = () => {
+
+  /* as of 3:09 pm on 11/3 we are going to be getting pod data and storing cpu/memory limits
+  like so,
+
+items[0]. : 
+spec.container.resources.limits.cpu
+spec.container.resources.limits.memory
+spec.container.resources.requests.cpu
+spec.container.resources.requests.memory
+
+ resources:
+        limits:
+          cpu: 200m
+          memory: 200M
+        requests:
+          cpu: 100m
+          memory: 100M
+
+so our fetch with request some portion of the above, maybe the whole resources key
+*/
 
   const yamlText = `{{- if (include "postgresql.primary.createConfigmap" .) }}
   apiVersion: v1
@@ -28,6 +49,14 @@ const YamlView = () => {
     {{- end }}
   {{- end }}`
 
+  const resourcesText = ` resources:
+  limits:
+    cpu: 200m
+    memory: 200M
+  requests:
+    cpu: 100m
+    memory: 100M`
+
 //   const getYamlFile = () => {
 //   let fileHandle;
  
@@ -52,12 +81,15 @@ const YamlView = () => {
 // .then()
 // }
 
-const yaml = jsyaml.load(yamlText)
+// const display = jsyaml.dump(resourcesText)
+const display = yaml.stringify(resourcesText);
+// const display = yaml.parse(resourcesText)
 
     // this component will display a yaml file
         return(
           <div>
-            <div> {yaml} </div>
+            <div> {display} </div>
+            WORDS
           </div>
         )
       }
