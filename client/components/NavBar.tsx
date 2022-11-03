@@ -7,9 +7,9 @@ const NavBar = () => {
 // home button, back button?
     return(
       <nav className="nav"> 
-        <div className="page"><Link to='/home'><u>Home</u></Link></div>
+        <div className="page"><Link to='/'><u>Welcome</u></Link></div>
         <div className="page"><Link to='/alerts'><u>Alerts</u></Link></div>
-        <div className="page"><Link to='/yaml'><u>Yaml</u></Link></div>
+        {/* <div className="page"><Link to='/yaml'><u>Yaml</u></Link></div> */}
       </nav>
     )
   }
