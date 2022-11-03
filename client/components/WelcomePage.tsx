@@ -21,6 +21,9 @@ const WelcomePage = () => {
   return (
     <div>
       Welcome to Khartes! Make sure your Kubectl is connected to your K8s cluster.
+    
+      When you have addressed an issue, but the cluster has not been updated change status to Pending
+      When the issues has been resolved and the cluster has been updates delete the alert.
       {/* how to pass a parameter into a handle click, want to pass in name of button */}
       {/* <button onClick={event => handleButton(event, "home")}>Home</button>
       <button onClick={event => handleButton(event, "alerts")}>Alerts</button>
