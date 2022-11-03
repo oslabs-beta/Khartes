@@ -27,14 +27,12 @@ const getAlerts = () => {
     }) 
       .catch()
     }, 30000);
-
+  
     return () => clearInterval(intervalId); // the return statement will clear the interval when the component unmounts... does the component unmount when we navigate away?
   }, []); // the array has to do with things that will update during the component lifecycle
-
+}
     return(
       <div>
-        {/* <NavBar /> */}
-        Home Page Renders!
         <div className="contents">
               {/* <div id="list"> */}
               /* i think here we will have conditional logic that renders one <ProblemObject /> for each element in alertsList
@@ -60,5 +58,5 @@ const getAlerts = () => {
       </div>
     )
   }
-}
+
   export default Home;

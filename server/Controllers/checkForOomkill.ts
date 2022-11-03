@@ -1,0 +1,6 @@
+/*
+See if the used memory is approaching the limit. 
+
+return boolean
+
+*/

@@ -16,8 +16,8 @@ const YamlPage = () => {
     // sub component YamlView these will need props? to pass in correct yaml to render
         return(
           <div className="yamlpagecontents">
-            <div className="yamlcontents"> 1st YAML</div>
-            <div className="yamlcontents"> 2nd YAML </div>
+            <div className="yamlcontents"> Suggested YAML Configurations</div>
+            <div className="yamlcontents"> History of YAML </div>
           </div>
         )
       }

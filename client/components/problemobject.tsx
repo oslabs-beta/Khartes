@@ -11,8 +11,8 @@ const ProblemObject = () => {
           </div>
           <div id="right">
           {/* Aut-fix View Details */}
-            <button> Auto-fix </button>
-            <button> Details </button>
+            <button className="home-buttons"> Auto-fix </button>
+            <button className="home-buttons"> Details </button>
           </div>
         </div>
       </div>    

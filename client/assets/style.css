@@ -1,7 +1,21 @@
 body {
     display: flex;
-    background-color: #1d47e0;
-    color: black
+    background-color: #afe0ef;
+    color: black;
+    padding-top: 50px;
+    font-family: 'Inconsolata', monospace;
+}
+
+.button {
+    background-color: #3c78d8;
+    color: white;
+    font-family: 'Inconsolata', monospace;
+}
+
+.home-buttons {
+    background-color: white;
+    color: black;
+    font-family: 'Inconsolata', monospace;
 }
 
 div {
@@ -14,7 +28,7 @@ div {
 }
 
 #blue {
-    background-color: #4a71ff;
+    background-color: #afe0ef;
 }
 
 .contents {
@@ -23,6 +37,7 @@ div {
     height: 100vw;
     /* padding: 20vw; */
     overflow-y: scroll;
+    box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
 }
 
 .yamlcontents {
@@ -44,12 +59,13 @@ div {
 }
 
 #list {
-    /* display: flex;
+    display: flex;
     flex-direction: column;
     background-color: #face2f;
     width: 95%;
     height: 95%;
-    padding: 5px; */
+    padding: 5px;
+    
 }
 
 .problemobject {
@@ -62,7 +78,7 @@ div {
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    background-color: #face2f;
+    background-color: #d4ac80;
     justify-content: center;
     box-shadow:5px 5px 15px -5px #c9a66a;
     border-radius: 2px;
@@ -88,13 +104,24 @@ button {
 }
 
 .nav {
+    padding-left: 5px;
     height: 20px;
     width: 100%;
     display: flex;
     align-items: center;
-    position: relative;
+    justify-items: right;
+    position: fixed;
+    top: 0;
     padding: 0.5rem 0rem;
-    background-color: #fff;
-    color: black;
+    background-color: rgb(25, 135, 246);
+    color: rgb(250, 249, 249);
     box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+}
+
+#welcome-page {
+    display: flex;
+}
+
+u {
+    color: white;
 }
