@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useLocation, Link } from "react-router-dom"
-
+import Graph from './Graph'
 
 const Visualization = () => {
 
@@ -23,7 +23,8 @@ const Visualization = () => {
            
            <h3> Visualization Page </h3>
            <p> LEFT SIDE: Alert Details</p>
-           <p>RIGHT SIDE Chart</p>
+            <p>RIGHT SIDE Chart</p>
+            <Graph/>
            <p>{alertObj.issue}</p>
            <button>Default of 20%?</button>
            <button className="button"> Description of Alerts </button>
