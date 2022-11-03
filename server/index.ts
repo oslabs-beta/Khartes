@@ -1,6 +1,6 @@
 /*
 We need to serve up:
-  GET /alerts         do a DB pull and serve an array of alert objects.
+  /alerts         do a DB pull and serve an array of alert objects.
   POST /fix           change yaml file per user input. This will send the whole alert object from front end which includes the old yaml.
                       We will strip the container section, change it and send it back in the response.
 
@@ -16,14 +16,24 @@ We need to serve up:
 
 
 
-
-import express, { Express, Request, Response } from 'express';
+//Set up stuff
+import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
-
 dotenv.config();
-
 const app: Express = express();
 const port = process.env.PORT;
+
+//Get the controllers
+import {dbController} from './Controllers/dbController';
+
+
+
+app.get('/alerts', 
+  dbController.read,
+  (request: Request, response: Response ) => {response.json(response.locals.db);}
+  );
+
+
 
 app.get('/polo', (req: Request, res: Response) => {
   res.send('Polo!');
