@@ -3,7 +3,7 @@ import { HashRouter, useNavigate, Link, Route, Routes } from "react-router-dom";
 // we need to import navigate so that we can navigate between paths ONLY INSIDE ROUTER PAGES
 // const navigate = useNavigate();
 
-import { AlertProvider } from "./contexts/AlertContext";
+// import { AlertProvider } from "./contexts/AlertContext";
 import './assets/style.css';
 
 // import pages for React Router
@@ -17,7 +17,7 @@ import YamlPage from './components/YamlPage';
 const App = () => {
 
   return(
-    <AlertProvider>
+    // <AlertProvider>
       <HashRouter basename="/">
         <main id="page">
           <div id="welcome-page">
@@ -48,7 +48,7 @@ const App = () => {
         {/* Link to Home */}
         </main>
       </HashRouter>
-    </AlertProvider>
+    {/* </AlertProvider> */}
   )
 }
 
