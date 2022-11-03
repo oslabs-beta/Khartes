@@ -11,6 +11,7 @@ fetch request to prometheus server.
     data.result[1]
 
     container_memory_usage_bytes{pod="deployment-polo-67cd6dd5cf-54vbd"}
+    localhost:9090/api/v1/query?query=container_memory_usage_bytes{pod="deployment-polo-67cd6dd5cf-54vbd"}[5m]
 
 returns one data point
 

@@ -9,8 +9,8 @@ import './assets/style.css';
 // import pages for React Router
 import WelcomePage from './components/WelcomePage';
 import NavBar from './components/NavBar';
-import HomePage from './components/HomePage';
-import AlertsPage from './components/AlertsPage';
+import Alerts from './components/Alerts';
+import Visualization from './components/Visualization';
 import YamlPage from './components/YamlPage';
 
 // Created frontend routes with Welcome Page default. Navbar consists of links to routes.
@@ -32,12 +32,12 @@ const App = () => {
               <WelcomePage />
             }
             />
-            <Route path="/home" element= {
-              <HomePage />
+            <Route path="/alerts" element= {
+              <Alerts />
             }
             />
-            <Route path="/alerts" element= {
-              <AlertsPage />
+            <Route path="/visualization" element= {
+              <Visualization />
             }
             />
             <Route path="/yaml" element = {
@@ -48,7 +48,7 @@ const App = () => {
         {/* Link to Home */}
         </main>
       </HashRouter>
-    {/* </AlertProvider> */}
+    // </AlertProvider>
   )
 }
 
