@@ -28,9 +28,9 @@ import path from 'path';
 export const dbController = {
     
     read: async (request: Request, response: Response, next: NextFunction) => {
-        console.log('Where are we?', __dirname);
+        //console.log('Where are we?', __dirname);
         const db = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
-        console.log('What is db?', db, typeof db)
+        //console.log('What is db?', db, typeof db)
         response.locals.db = JSON.parse(db);
         return next();
     }
