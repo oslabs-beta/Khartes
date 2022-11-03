@@ -117,16 +117,27 @@ export const dbController = {
         const dbAsArray = JSON.parse(dbAsText);
         
         //find appropriate alert object  [{}, {}, {}]
-        //And delete it. 
-        for(let index = 0; index < dbAsArray.length; index++){
-            if(dbAsArray[index].id === id){
-                dbAsArray[index].status = newStatus;
+        //And delete it. Use splice. 
+        //while loop, checking dbAsArray[counter].id
+        //remember to grab deleted alert to return it. 
+        let newDbAsArray = [];
+        let counter:number = 0;
+
+        while(newDbAsArray[0] === undefined){
+            if(dbAsArray[counter].id === id){ 
+                response.locals.deleted = dbAsArray[counter];
+                //use slice to remove the one we don't want. 
+                //Alerts before our deleted alert
+                newDbAsArray.push(dbAsArray.slice(0,counter));
+                //Alerts after our deleted alert
+                newDbAsArray.push(dbAsArray.slice(counter + 1))
             }
-        }
+            counter++;
+        };
         
         //write it all back to the DB.
-        await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(dbAsArray));
-        
+        await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(newDbAsArray));
+
         return next();
     },
     
