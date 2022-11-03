@@ -34,12 +34,22 @@ app.get('/alerts',
   );
 
 
+app.patch('/alerts/:id/:status', 
+  dbController.update,
+  (request: Request, response: Response ) => {response.json(response.locals.db);}
+  );
+
+app.delete('/alerts/:id', 
+  dbController.delete,
+  (request: Request, response: Response ) => {response.json(response.locals.db);}
+  );
+
+
 
 app.get('/polo', (req: Request, res: Response) => {
   res.send('Polo!');
 });
 
-//app.get('/alerts')
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
