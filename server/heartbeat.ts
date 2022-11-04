@@ -2,20 +2,8 @@ import getPodYamls from "./Controllers/getPods"; // calling this should return a
 import getPrometheusData from "./Controllers/getPrometheusData";
 import createAlert from "./Controllers/createAlert";
 import checkForOomkill from "./Controllers/checkForOomkill";
+const { exec } = require('child_process')
 /*
-
-First Up:
-getPods
-
-
-reoccurring
-getPods
-poll the list. 
-check the data
-
-
-get pods to create a  list of pods to look at.
-    How often are we updating this list? Every 300s? sure. 
 
 
 Pull data every X(15) seconds, calls the correct controllers.
@@ -24,7 +12,6 @@ Pull data every X(15) seconds, calls the correct controllers.
     get memory limits
     get HD used
     get HD limits
-
 
     
 check the data
@@ -43,15 +30,22 @@ check the data
             new yaml: empty    
 
 
-
-
-
 write to DB
-
-
-
 */
 
+//portforward on app opening
+//const portForward = () =>
+    exec("kubectl --namespace monitoring port-forward prometheus-server-5b87dc7765-sl2zk 9090", (error, stdout, stderr) => {
+        if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+        // return;
+        }
+    }
+    )
 
 //call getPods to get the list of pods and their associated nodes in an object.
 const podsList = getPodYamls();

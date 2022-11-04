@@ -29,6 +29,7 @@ const getPrometheusData = async (podName: string, query: string, nodeName?: stri
         try {
             const queryResult = await fetch(`http:localhost:9090/api/v1/query?query=${query}{${podOrNode}=${podName}}`)
             let info = queryResult.json();
+            console.log(info);
             console.log(info.data.result[0].value)
             return info.data.result[0].value; 
         }
