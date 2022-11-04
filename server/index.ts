@@ -29,19 +29,19 @@ import {dbController} from './Controllers/dbController';
 
 
 app.get('/alerts', 
-  dbController.read,
+  dbController.getAllAlerts,
   (request: Request, response: Response ) => {response.json(response.locals.db);}
   );
 
 
 app.patch('/alerts/:id/:status', 
-  dbController.update,
-  (request: Request, response: Response ) => {response.json(response.locals.db);}
+  dbController.updateStatusById,
+  (request: Request, response: Response ) => {response.json(response.locals.updated);}
   );
 
 app.delete('/alerts/:id', 
-  dbController.delete,
-  (request: Request, response: Response ) => {response.json(response.locals.db);}
+  dbController.deleteById,
+  (request: Request, response: Response ) => {response.json(response.locals.deleted);}
   );
 
 
