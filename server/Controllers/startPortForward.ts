@@ -14,9 +14,10 @@ items[index].metadata.labels.app = prometheus
 
 //run the kubectl command for all pods
 //turn it into a yaml
-const startPortForward = () => {
+
+export const startPortForward = ():void => {
 let allPodsYamlObject:any = {};
-exec("kubectl get pods -A -o yaml", (error, output, stderr) => {
+exec("kubectl get pods -A -o yaml", (error: Error, output: any, stderr:string) => {
     if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -48,7 +49,7 @@ for(let i = 0; i < allPodsYamlObject.items.length; i++){
 
 
 //portforward on app opening
-exec(`kubectl --namespace ${namespace} ${podName} 1337:9090`, (error, stdout, stderr) => {
+exec(`kubectl --namespace ${namespace} ${podName} 1337:9090`, (error:any, stdout:any, stderr:any) => {
   if (error) {
     console.log(`error: ${error.message}`);
     return;
@@ -62,4 +63,4 @@ exec(`kubectl --namespace ${namespace} ${podName} 1337:9090`, (error, stdout, st
 };
 
 
-export default startPortForward;
+//export default startPortForward;
