@@ -29,8 +29,19 @@ import {dbController} from './Controllers/dbController';
 
 
 app.get('/alerts', 
-  dbController.read,
+  dbController.getAllAlerts,
   (request: Request, response: Response ) => {response.json(response.locals.db);}
+  );
+
+
+app.patch('/alerts/:id/:status', 
+  dbController.updateStatusById,
+  (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  );
+
+app.delete('/alerts/:id', 
+  dbController.deleteById,
+  (request: Request, response: Response ) => {response.json(response.locals.deleted);}
   );
 
 
@@ -39,7 +50,6 @@ app.get('/polo', (req: Request, res: Response) => {
   res.send('Polo!');
 });
 
-//app.get('/alerts')
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
