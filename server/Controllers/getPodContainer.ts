@@ -23,8 +23,7 @@ const getPodContainer = (podname: string) => {
       const containerYaml = yamls.spec.containers;
       console.log(yamls.spec.containers);
 
-      return containerYaml;
-
+      return YAML.stringify(containerYaml);
 });
 }
 

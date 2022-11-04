@@ -1,8 +1,14 @@
-import getPodYamls from "./Controllers/getPods"; // calling this should return an array of yamls for each pod
+import getPods from "./Controllers/getPods"; // calling this should return an array of yamls for each pod
 import getPrometheusData from "./Controllers/getPrometheusData";
 import createAlert from "./Controllers/createAlert";
 import checkForOomkill from "./Controllers/checkForOomkill";
+import startPortForward from "./Controllers/startPortForward";
 const { exec } = require('child_process')
+
+//Standardize our alerts
+const oomkillIssue = "Potential OomKill detected"
+const diskFullIssue = "Potential Disk Full issue detected"
+const nodeBurstIssue = "Potential Node Burst issue detected"
 /*
 
 
@@ -33,22 +39,14 @@ check the data
 write to DB
 */
 
-//portforward on app opening
-//const portForward = () =>
-    exec("kubectl --namespace monitoring port-forward prometheus-server-5b87dc7765-sl2zk 9090", (error, stdout, stderr) => {
-        if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-        // return;
-        }
-    }
-    )
+
+//Start port-forwarding
+startPortForward();
+
+
 
 //call getPods to get the list of pods and their associated nodes in an object.
-const podsList = getPodYamls();
+const podsList = getPods();
 
 
 // getPrometheusData(pod, node)
@@ -71,9 +69,11 @@ const podsList = getPodYamls();
 for(let i = 0; i < podsList.length; i++){
     const memUsage = getPrometheusData(podsList[i].podname, 'container_memory_usage_bytes');
     const memLimit = getPrometheusData(podsList[i].podname, 'container_spec_memory_limit_bytes');
-    const needAlert = checkForOomkill(memUsage, memLimit);
+    const oomkill = checkForOomkill(memUsage, memLimit);
 
-    if(needAlert){
+    if(oomkill){
+        //check if the alert is already in the db. 
+        //needs {pod, issue}
         createAlert();
     }
 };

@@ -60,7 +60,7 @@ const getPods = () => {
         // console.log(`stdout: ${stdout}`);
         const yamls = YAML.parse(stdout).items;
     
-        const arrPodsNodes = [];
+        const arrPodsNodes:any = [];
         
         yamls.forEach((el) => {
             const name = el.metadata.name;
@@ -80,6 +80,5 @@ const getPods = () => {
 }
 
 console.log(getPods());
-// getPodYamls();
 
 export default getPods;
