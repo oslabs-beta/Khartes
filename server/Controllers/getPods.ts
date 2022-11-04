@@ -1,26 +1,15 @@
-// import {exec} from 'child_process';
-// import { ModuleFilenameHelpers } from 'webpack';
-// import * as YAML from 'yaml';
+
+
+interface PodNode {
+  pod: string
+  node: string
+}
 
 const { exec } = require('child_process')
 const { ModuleFilenameHelpers } = require('webpack');
 const YAML = require('yaml');
 /*
-exec("kubectl get deploy marco -o yaml", (error, stdout, stderr) => {
-    if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-    }
-    if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-    }
-    console.log(`stdout: ${stdout}`);
-})
 
-Get a list of pods in the system.$
-use kubectl to get pods as a yaml,
-// do command to get the YAML (kubectl get pods -o yaml)
 
 items[0].metadata.name to get the pod name
 items[0].spec.nodename to get node name
@@ -46,9 +35,11 @@ return an array of user deployed pods and the nodes they're in.
 
 */
 
-const getPodYamls = () => {
+
+
+const getPods = () => {
     
-    return exec("kubectl get pods -o yaml", (error, stdout, stderr) => {
+    return exec("kubectl get pods -o yaml", (error:any, stdout:any, stderr:any) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
@@ -59,15 +50,13 @@ const getPodYamls = () => {
         }
         // console.log(`stdout: ${stdout}`);
         const yamls = YAML.parse(stdout).items;
-    
-        const arrPodsNodes = [];
         
-        yamls.forEach((el) => {
+        const arrPodsNodes:PodNode[] = [];          //[{}, {}]
+        
+        yamls.forEach((el:any) => {
             const name = el.metadata.name;
             const node = el.spec.nodeName;
-            const obj = {name: null, node: null};
-            obj.name = name;
-            obj.node = node;
+            const obj = {pod: name, node: node};
             arrPodsNodes.push(obj)
         })
         console.log(arrPodsNodes)
@@ -79,7 +68,6 @@ const getPodYamls = () => {
 });
 }
 
-console.log(getPodYamls());
-// getPodYamls();
+console.log(getPods());
 
-export default getPodYamls;
+export default getPods;

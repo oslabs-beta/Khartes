@@ -129,7 +129,7 @@ export const dbController = {
     },
 
     //
-    checkIfAlertAlreadyExists: async (babyAlert:object) => {
+    checkIfAlertAlreadyExists: async (babyAlert:any) => {
         
         //get new alert, db as text, and db as array of alert objects.                                                              //Might need to change this in future?
         const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')

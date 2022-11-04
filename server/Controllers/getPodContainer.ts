@@ -9,7 +9,7 @@ const YAML = require('yaml');
 
 const getPodContainer = (podname: string) => {
     
-  return exec(`kubectl get pod ${podname} -o yaml`, (error, stdout, stderr) => {
+  return exec(`kubectl get pod ${podname} -o yaml`, (error:any, stdout:any, stderr:any) => {
       if (error) {
           console.log(`error: ${error.message}`);
           return;
@@ -23,8 +23,7 @@ const getPodContainer = (podname: string) => {
       const containerYaml = yamls.spec.containers;
       console.log(yamls.spec.containers);
 
-      return containerYaml;
-
+      return YAML.stringify(containerYaml);
 });
 }
 
