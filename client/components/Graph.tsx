@@ -2,36 +2,46 @@ import React from "react";
 
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement } from "chart.js";
-
+import type { ChartData, ChartOptions } from 'chart.js';
+import { AlertsInterface, numOrStr, GraphProps } from '../Types';
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
-const data = {
-  labels: [15, 30, 45, 60, 75],
-  datasets: [{
-    label: 'pod abc',
-    data: [1, 2, 3, 4, 5]
-  }]
-}
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
-  },
-};
 
-
-const Graph = () => (
-  <div>
+const Graph = (props: GraphProps):JSX.Element => {
+  const xAxis: number[] = [];
+  console.log(props);
+// each el of historical metrics [1667512028.505, '37163008'] [bytes, seconds]
+  const yAxis: number[] = props.alert.historicalMetrics.map((el: numOrStr[]):number => {
+    console.log('graph 15: ',el);
+    // xAxis.push(el[0]/60/60/24/365.25)
+    return 1;
+  })
+  const data: ChartData<'line'> = {
+    labels: [15, 30, 45, 60, 75],
+    datasets: [{
+      label: 'pod abc',
+      data: []
+    }]
+  }
+  const options:ChartOptions<'line'> = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart',
+      },
+    },
+  };
+  return (
+    
+    <div>
     <h1>Line Chart</h1>
-    <Line options={options}  data={data} />
+    <Line options={options} data={data} />
   </div>
-  // <Line/>
 )
+}
 
 
 export default Graph;

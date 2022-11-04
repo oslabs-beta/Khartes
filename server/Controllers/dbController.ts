@@ -56,26 +56,6 @@ export const dbController = {
         
         return next();
     },
-
-    //Need to update an alert status.
-    //ID and new status should come in as parameters. 
-    //Will need to read it, json parse it to an array of objects, change it...
-    //Then restringify and write it. 
-    write: async (request: Request, response: Response, next: NextFunction) => {
-        
-        //get new alert, db as text, and db as array of alert objects. 
-        const newAlert = request.body;                                                                      //Might need to change this in future?
-        const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
-        const dbAsArray = JSON.parse(dbAsText);
-        
-        //push new alert onto array of alert objects.
-        dbAsArray.push(newAlert);
-        
-        //write it all back to the DB.
-        await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(dbAsArray));
-        
-        return next();
-    },
     
 };
 
