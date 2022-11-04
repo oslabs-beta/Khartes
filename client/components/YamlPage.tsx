@@ -1,4 +1,5 @@
 import * as React from 'react';
+import YamlView from './YamlView';
 
 const YamlPage = () => {
 
@@ -16,8 +17,8 @@ const YamlPage = () => {
     // sub component YamlView these will need props? to pass in correct yaml to render
         return(
           <div className="yamlpagecontents">
-            <div className="yamlcontents"> Suggested YAML Configurations</div>
-            <div className="yamlcontents"> History of YAML </div>
+            <div className="yamlcontents"> <YamlView /></div>
+            <div className="yamlcontents"> <YamlView /> </div>
           </div>
         )
       }
