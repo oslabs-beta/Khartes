@@ -46,7 +46,7 @@ return an array of user deployed pods and the nodes they're in.
 
 */
 
-const getPodYamls = () => {
+const getPods = () => {
     
     return exec("kubectl get pods -o yaml", (error, stdout, stderr) => {
         if (error) {
@@ -79,7 +79,7 @@ const getPodYamls = () => {
 });
 }
 
-console.log(getPodYamls());
+console.log(getPods());
 // getPodYamls();
 
-export default getPodYamls;
+export default getPods;

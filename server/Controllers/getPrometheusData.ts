@@ -18,6 +18,9 @@ returns one data point
     //data.result[0].value
 
 
+
+
+
 */
 const getPrometheusData = async (podName: string, query: string, nodeName?: string) => {
     let podOrNode = "pod";
@@ -27,7 +30,7 @@ const getPrometheusData = async (podName: string, query: string, nodeName?: stri
         podOrNode = "node";
     }
         try {
-            const queryResult = await fetch(`http:localhost:9090/api/v1/query?query=${query}{${podOrNode}=${podName}}`)
+            const queryResult = await fetch(`http:localhost:1337/api/v1/query?query=${query}{${podOrNode}=${podName}}`)
             let info = queryResult.json();
             console.log(info);
             console.log(info.data.result[0].value)

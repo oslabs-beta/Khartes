@@ -16,3 +16,4 @@ Routes
     get: gets the alert objects in the db.
     patch: send ID and then new status in parameters, will update the DB. 
     delete: send the ID and it will delete the alert from the DB.
+    
