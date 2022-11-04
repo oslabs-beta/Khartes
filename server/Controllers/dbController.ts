@@ -101,7 +101,7 @@ export const dbController = {
         };
         
         //write it all back to the DB.
-        await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(newDbAsArray));
+        await fs.writeFileSync(path.join(__dirname, '../../../server/db.json'), JSON.stringify(newDbAsArray));
 
         return next();
     },
@@ -123,7 +123,7 @@ export const dbController = {
         dbAsArray.push(newAlert);
         
         //write it all back to the DB.
-        await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(dbAsArray));
+        await fs.writeFileSync(path.join(__dirname, '../../../server/db.json'), JSON.stringify(dbAsArray));
         
         return 'Done';
     },
@@ -137,7 +137,7 @@ export const dbController = {
         
         //check if it's there.
         for(let index = 0; index < dbAsArray.length; index++){
-            if(dbAsArray[index].node === babyAlert.node && dbAsArray[index].issue === babyAlert.issue){
+            if(dbAsArray[index].pod === babyAlert.pod && dbAsArray[index].issue === babyAlert.issue){
                 return true;
             }
         }
