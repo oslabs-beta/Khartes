@@ -51,6 +51,8 @@ export const dbController = {
         const newStatus:string = request.params.status;                                                                  //Might need to change this in future?
         const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
         let dbAsArray = JSON.parse(dbAsText);
+
+        console.log('id: ', id, ' new status: ', newStatus, ' db as array: ', dbAsArray)
         
         //find appropriate alert object  [{}, {}, {}]
         //And change it's status. 
@@ -61,6 +63,9 @@ export const dbController = {
             }
         }
         
+        console.log(' db as array: ', dbAsArray)
+
+
         //write it all back to the DB.
         await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(dbAsArray));
         
