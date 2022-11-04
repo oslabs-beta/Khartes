@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { json } from 'stream/consumers';
 import { AlertsInterface } from '../Types';
 import ProblemObject from './problemobject';
+import YamlView from './YamlView';
 
 // const [deletedAlerts, setDeletedAlerts] = React.useState<AlertsInterface[]>([]);
 
@@ -141,6 +142,7 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{
     return(
       <div className="contents">
         {alertsObjs}
+        
       </div>
     )
   }

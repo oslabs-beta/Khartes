@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { HashRouter, useNavigate, Link, Route, Routes } from "react-router-dom";
+import YamlView from './YamlView';
 
 const WelcomePage = () => {
 // we need to import navigate so that we can navigate between paths 
@@ -28,6 +29,11 @@ const WelcomePage = () => {
       {/* <button onClick={event => handleButton(event, "home")}>Home</button>
       <button onClick={event => handleButton(event, "alerts")}>Alerts</button>
       <button onClick={event => handleButton(event, "yaml")}>Yaml</button> */}
+          {/* <div className="yamlpagecontents">
+            <div className="yamlcontents"> <YamlView /></div>
+            <div className="yamlcontents"> <YamlView /> </div>
+          </div> */}
+          <div className="yamlcontents"> <YamlView /> </div>
     </div>
   )
 }
