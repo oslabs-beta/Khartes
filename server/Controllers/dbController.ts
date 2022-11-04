@@ -13,7 +13,9 @@ update      given an ID and a status, update the alert object.
 
 
 /*To Do
-test 
+test checkIfAlertAlreadyExists
+test    writeNewAlertToDb
+write error handling
 
 
 */
