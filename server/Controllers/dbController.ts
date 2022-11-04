@@ -122,7 +122,7 @@ export const dbController = {
     },
 
     //Need to check 
-    checkIfAlertAlreadyExists: async (newAlert:object) => {
+    checkIfAlertAlreadyExists: async (babyAlert:object) => {
         
         //get new alert, db as text, and db as array of alert objects.                                                              //Might need to change this in future?
         const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
@@ -130,8 +130,11 @@ export const dbController = {
         
         //check if it's there.
         for(let index = 0; index < dbAsArray.length; index++){
-            if()
+            if(dbAsArray[index].node === babyAlert.node && dbAsArray[index].issue === babyAlert.issue){
+                return true;
+            }
         }
+        return false;
     },
 
 
