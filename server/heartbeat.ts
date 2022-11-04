@@ -2,9 +2,9 @@ import getPods from "./Controllers/getPods"; // calling this should return an ar
 import getPrometheusData from "./Controllers/getPrometheusData";
 import createAlert from "./Controllers/createAlert";
 import checkForOomkill from "./Controllers/checkForOomkill";
-import { startPortForward } from "./Controllers/startPortForward";
+// import { startPortForward } from "./Controllers/startPortForward";
 import { dbController } from "./Controllers/dbController";
-const { exec } = require('child_process')
+const { exec } = require('child_process');
 
 //Standardize our alerts
 //list of issues
@@ -42,7 +42,7 @@ write to DB
 
 
 //Start port-forwarding
-startPortForward();
+// startPortForward();
 
 
 
