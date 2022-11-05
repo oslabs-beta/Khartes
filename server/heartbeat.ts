@@ -73,9 +73,9 @@ for(let i = 0; i < podsList.length; i++){
     const memLimit:any = getPrometheusData(podsList[i].pod, 'container_spec_memory_limit_bytes');
     const oomkill = checkForOomkill(memUsage, memLimit);
 
-    if(oomkill && !dbController.checkIfAlertAlreadyExists({pod: podsList[i], issue: oomkillIssue})){
+    if(oomkill && !dbController.checkIfAlertAlreadyExists({pod: podsList[i].pod, issue: oomkillIssue})){
         //create an alert
-        
+        createAlert(podsList[i].node, podsList[i].pod, oomkillIssue);
     }
 
 
