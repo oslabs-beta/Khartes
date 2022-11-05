@@ -24,7 +24,7 @@ Math.floor(Math.random() * 1000000000);
 */
 
 interface newAlertObject {
-  id: string
+  id: number
   issue: string
   status: string
   node: string
@@ -52,20 +52,6 @@ const createAlert = (node:String, pod:String, issue:String) => {
   //add oldyaml prop: call getPodContainer
   //add newyaml prop: blank (something is added here when fix button is pushed on frontend)
 
-
-  const newAlertObject:any = {
-      id:Number: Math.floor(Math.random() * 1000000000),
-      issue: text,
-      status: resolved/new
-      node: name,
-      pod: name,
-      container: name,
-      metrics: {limits: X,
-      data: Y,},
-      historicalMetrics: ?
-      oldyaml: yamlString
-      newyaml: yamlString
-  }
 
 
 

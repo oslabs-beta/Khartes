@@ -9,8 +9,9 @@ Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 const Graph = (props: GraphProps):JSX.Element => {
   const xAxis: number[] = [];
   console.log(props);
+  console.log(props.alert);
 // each el of historical metrics [1667512028.505, '37163008'] [bytes, seconds]
-  const yAxis: number[] = props.alert.historicalMetrics.map((el: numOrStr[]):number => {
+  const yAxis: number[] = props.alert.historicalMetrics!.map((el: numOrStr[]):number => {
     console.log('graph 15: ',el);
     // xAxis.push(el[0]/60/60/24/365.25)
     return 1;

@@ -1,0 +1,130 @@
+apiVersion: v1
+  kind: Pod
+  metadata:
+    creationTimestamp: "2022-10-31T21:39:47Z"
+    generateName: deployment-memoryuser-564878964b-
+    labels:
+      basic: apps
+      octopusexport: OctopusExport
+      pod-template-hash: 564878964b
+    name: deployment-memoryuser-564878964b-8kvtg
+    namespace: default
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: deployment-memoryuser-564878964b
+      uid: 926688f1-7bed-4586-a2d5-897e399f17e0
+    resourceVersion: "2755658"
+    uid: 81eace8e-0a47-418f-96c8-5dc31878590b
+  spec:
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - web
+            topologyKey: kubernetes.io/hostname
+          weight: 100
+    containers:
+    - image: gcr.io/my-kubernetes-project-365523/memoryuser
+      imagePullPolicy: Always
+      name: memoryuser
+      ports:
+      - containerPort: 3002
+        name: memory
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 500m
+          memory: 600M
+        requests:
+          cpu: 500m
+          memory: 600M
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-fdfxm
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: gke-khartes-default-pool-051f007c-9702
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-fdfxm
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-31T21:39:47Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-31T21:39:51Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-31T21:39:51Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-31T21:39:47Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://72da42e84efb240c2968597e793e1fc2705820d30177b1a2e968a80cfbfbe18d
+      image: gcr.io/my-kubernetes-project-365523/memoryuser:latest
+      imageID: gcr.io/my-kubernetes-project-365523/memoryuser@sha256:92abaed57a778bf63dc0a10f393d3fd8d554b530b80dcb8eb5afb32790ac7af5
+      lastState: {}
+      name: memoryuser
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2022-10-31T21:39:51Z"
+    hostIP: 10.138.0.22
+    phase: Running
+    podIP: 10.0.0.8
+    podIPs:
+    - ip: 10.0.0.8
+    qosClass: Guaranteed
+    startTime: "2022-10-31T21:39:47Z"
