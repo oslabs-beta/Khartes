@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { HashRouter, useNavigate, Link, Route, Routes } from "react-router-dom";
-import YamlView from './YamlView';
+// import YamlView from './YamlView';
 
 const WelcomePage = () => {
 // we need to import navigate so that we can navigate between paths 

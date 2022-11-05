@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useLocation, Link } from "react-router-dom"
-import YamlView from './YamlView';
+// import YamlView from './YamlView';
 const { useEffect } = require("react");
 import { useRef } from 'react';
 import { AlertsInterface } from '../Types';
@@ -33,7 +33,7 @@ const Visualization = () => {
         .then(res => { // response will be the entire alertObj
           console.log("made it back from PATCH");
           let response = res.json()
-          display - response.newYaml;
+          // display3 = response.newYaml;
         })
         .catch((err) => {
           console.log('There was an error in updateAlerts fetch request.');

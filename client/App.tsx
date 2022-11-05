@@ -11,7 +11,7 @@ import WelcomePage from './components/WelcomePage';
 import NavBar from './components/NavBar';
 import Alerts from './components/Alerts';
 import Visualization from './components/Visualization';
-import YamlPage from './components/YamlPage';
+// import YamlPage from './components/YamlPage';
 
 // Created frontend routes with Welcome Page default. Navbar consists of links to routes.
 const App = () => {
@@ -40,10 +40,10 @@ const App = () => {
               <Visualization />
             }
             />
-            <Route path="/yaml" element = {
+            {/* <Route path="/yaml" element = {
               <YamlPage />
             }
-            />
+            /> */}
           </Routes>
         {/* Link to Home */}
         </main>
