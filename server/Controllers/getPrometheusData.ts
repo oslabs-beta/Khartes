@@ -35,7 +35,7 @@ const getPrometheusData = async (podName: string, query: string, nodeName?: stri
             let info:any = queryResult.json();     //[1234.12, 1234]
             console.log(info);
             console.log(info.data.result[0].value)
-            // return info.data.result[0].value; 
+            return info.data.result[0].value; 
         }
         catch {
             console.log("error in fetching prometheus data");
