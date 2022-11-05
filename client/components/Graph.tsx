@@ -7,21 +7,37 @@ import { AlertsInterface, numOrStr, GraphProps } from '../Types';
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
 const Graph = (props: GraphProps):JSX.Element => {
-  const xAxis: number[] = [];
+  const timeData: number[] = [];
   console.log(props);
-// each el of historical metrics [1667512028.505, '37163008'] [bytes, seconds]
-  const yAxis: number[] = props.alert.historicalMetrics.map((el: numOrStr[]):number => {
-    console.log('graph 15: ',el);
-    // xAxis.push(el[0]/60/60/24/365.25)
-    return 1;
+// each el of historical metrics [1667512028.505, '37163008'] <--[seconds since jan 1 1970, bytes]
+  
+  const metricData: number[] = props.alert.historicalMetrics.map((el):number => {
+    console.log('graph 15: ', el);
+    const seconds: number = el[0];
+    const megabytes: number = Number(el[1])/1000000;
+    const time: any = new Date(seconds * 1000).toString().slice(15,28);
+    // console.log('date: ', time);
+    timeData.push(time);
+    return megabytes;
   })
+
+  // (5) [Thu Nov 03 2022 14:47:08 GMT-0700 (Mountain Standard Time)]
+
+  console.log(timeData);
+  console.log(metricData);
   const data: ChartData<'line'> = {
-    labels: [15, 30, 45, 60, 75],
+    labels: timeData,
     datasets: [{
-      label: 'pod abc',
-      data: []
+      label: 'memory',
+      data: metricData,
+      strokeColor: "rgba(220,220,220,0.8)",
+    },
+    {
+      label: 'limit',
+      data: Array(metricData.length).fill(props.alert.limit/1000000)
     }]
   }
+
   const options:ChartOptions<'line'> = {
     responsive: true,
     plugins: {

@@ -12,7 +12,7 @@ export interface AlertsInterface {
   metrics: number,
   oldYaml: object,
   newYaml: object
-  historicalMetrics: numOrStr[][],
+  historicalMetrics: any[][],
   limit: number
 }
 
