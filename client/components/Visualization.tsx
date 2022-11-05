@@ -3,6 +3,14 @@ import { useLocation, Link } from "react-router-dom"
 import YamlView from './YamlView';
 const { useEffect } = require("react");
 import { useRef } from 'react';
+import { AlertsInterface } from '../Types';
+import Graph from './Graph'
+
+// declare namespace JSX{
+//   interface ElementAttributesProperty {
+//     props:
+//   }
+// }
 
 const Visualization = () => {
   // logic for passing down props using location. Location needs a state object
@@ -54,6 +62,9 @@ const Visualization = () => {
 const display = alertObj.oldYaml;
 const display2 = alertObj.newYaml;  
 
+  // props: {
+  //   alert ?: AlertsInterface;
+  // }
     // this component will display graphs, issue descript and two buttons auto-fix or fix options
     // buttons may need to be updated with new content based on our shifting MVP
         return(

@@ -131,17 +131,19 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{
   
   
   useEffect(() => {
-    const intervalId = setInterval(() => { // fetchinterval pings the server every 30 seconds, until the component unmounts
+    const fetchAlerts = ():void => { // fetchinterval pings the server every 30 seconds, until the component unmounts
       fetch('http://localhost:8000/alerts')
-      .then(response => response.json()) // refine this, but basically update state with alert list the fetch returns
-      .then(data => {
-        if (data !== alerts){
-          setAlerts(data);
-      }
-    }) 
-      .catch() // error handler
-    }, 30000);
-
+        .then(response => response.json()) // refine this, but basically update state with alert list the fetch returns
+        .then(data => {
+          if (data !== alerts) {
+            console.log('received updated alerts');
+            setAlerts(data);
+          }
+        })
+        .catch() // error handler
+    };
+    fetchAlerts();
+    const intervalId = setInterval(fetchAlerts, 5000);
     return () => clearInterval(intervalId); // the return statement will clear the interval when the component unmounts... does the component unmount when we navigate away?
   }, []); // the array has to do with things that will update during the component lifecycle. Use effect will only run on component mount since we pass empty array as second arg
   
@@ -154,7 +156,7 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{
   for */
   const alertsObjs = [];
   for (let i = 0; i < alerts.length; i++) {
-    alertsObjs.push(<ProblemObject alertObj={alerts[i]} />);
+    alertsObjs.push(<ProblemObject key={alerts[i].id} alertObj={alerts[i]} />);
   }
 
     return(

@@ -72,6 +72,20 @@ async function makeExamples(){
         "historicalMetrics": [],
         "oldYaml": {},
         "newYaml": {},
+      },
+    
+      {
+        "id": 000000004,
+        "issue": "Potential Node Burst config",
+        "status": "new",
+        "node": "gke-khartes-default-pool-051f007c-mt19",
+        "pod": "deployment-memoryuser-564878964b-pfctt",
+        "container": "",
+        "metrics": 200000,
+        "limit": 200000,
+        "historicalMetrics": [],
+        "oldYaml": {},
+        "newYaml": {},
       }]
 
     await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(testCases));
