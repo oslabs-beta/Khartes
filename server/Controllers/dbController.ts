@@ -90,7 +90,7 @@ export const dbController = {
         //And add new YAML. 
         for(let index = 0; index < dbAsArray.length; index++){
             if(dbAsArray[index].id === id){
-                dbAsArray[index].status = newStatus;
+                dbAsArray[index].newYaml = newYaml;
                 response.locals.updated = dbAsArray[index];
             }
         }

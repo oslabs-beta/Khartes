@@ -15,3 +15,7 @@ How are we doing the port forwarding?
 return array of arrays. Each item is [time, data].
 
 */
+
+export const getHistoricalPrometheusData = (pod) => {
+
+}

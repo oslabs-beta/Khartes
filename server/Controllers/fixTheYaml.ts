@@ -26,7 +26,15 @@ export const makeNewYaml: async (request: Request, response: Response, next: Nex
     let newYaml:any = YAML.parse(oldYaml);
 
     // I want to change yaml[0].resources.limits.memory. 
-    // but it's text. "200M"
+    // but it's text. "200M". How to parse? Separate numbers and letters, change numbers, restringify, add back together. 
+    // const test = "200M";
+
+    // const numbers = Number(test.replace(/\D/g, ''));
+    // console.log(numbers);
+
+    
+    let numberPartOfString:string = 
+    let stringPartOfString:string = 
 
     newYaml[0].resources.limits.memory *= (1 + (percentageToFixBy / 100));
 

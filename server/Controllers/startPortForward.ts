@@ -61,6 +61,3 @@ exec(`kubectl --namespace ${namespace} ${podName} 1337:9090`, (error:any, stdout
 }
 );
 };
-
-
-//export default startPortForward;

@@ -2,7 +2,7 @@ import getPods from "./Controllers/getPods"; // calling this should return an ar
 import getPrometheusData from "./Controllers/getPrometheusData";
 import createAlert from "./Controllers/createAlert";
 import checkForOomkill from "./Controllers/checkForOomkill";
-// import { startPortForward } from "./Controllers/startPortForward";
+import { startPortForward } from "./Controllers/startPortForward";
 import { dbController } from "./Controllers/dbController";
 const { exec } = require('child_process');
 
@@ -42,7 +42,7 @@ write to DB
 
 
 //Start port-forwarding
-// startPortForward();
+startPortForward();
 
 
 
@@ -75,7 +75,7 @@ for(let i = 0; i < podsList.length; i++){
 
     if(oomkill && !dbController.checkIfAlertAlreadyExists({pod: podsList[i].pod, issue: oomkillIssue})){
         //create an alert
-        createAlert(podsList[i].node, podsList[i].pod, oomkillIssue);
+        createAlert(podsList[i].node, podsList[i].pod, oomkillIssue, memUsage, memLimit);
     }
 
 
