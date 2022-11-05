@@ -74,6 +74,33 @@ export const dbController = {
         return next();
     },
 
+    //Need to update an alert status.
+    //ID and new status should come in as parameters.
+    //Will need to read it, json parse it to an array of objects, change it...
+    //Then restringify and write it. 
+    addNewYamlById: async (request: Request, response: Response, next: NextFunction) => {
+        
+        //get everything I need.
+        const id:number = parseInt(request.params.id);
+        const newYaml:string = request.params.newYaml;                                                                  //Might need to change this in future?
+        const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
+        let dbAsArray = JSON.parse(dbAsText);
+        
+        //find appropriate alert object  [{}, {}, {}]
+        //And add new YAML. 
+        for(let index = 0; index < dbAsArray.length; index++){
+            if(dbAsArray[index].id === id){
+                dbAsArray[index].status = newStatus;
+                response.locals.updated = dbAsArray[index];
+            }
+        }
+        
+        //write it all back to the DB.
+        await fs.writeFileSync(path.join(__dirname, '../../../server/db.json'), JSON.stringify(dbAsArray));
+        
+        return next();
+    },
+
     deleteById: async (request: Request, response: Response, next: NextFunction) => {
         
         //get everything I need.

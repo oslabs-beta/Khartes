@@ -42,8 +42,8 @@ async function makeExamples(){
               "37163008"
           ]
       ],
-        "oldYaml": {},
-        "newYaml": {},
+        "oldYaml": 'yaml string',
+        "newYaml": 'yaml string',
       },
       
       {
@@ -56,8 +56,8 @@ async function makeExamples(){
         "metric": 15000,
         "limit": 15000,
         "historicalMetrics": [],
-        "oldYaml": {},
-        "newYaml": {},
+        "oldYaml": 'yaml string',
+        "newYaml": 'yaml string',
       },
       
       {
@@ -70,8 +70,8 @@ async function makeExamples(){
         "metric": 200000,
         "limit": 200000,
         "historicalMetrics": [],
-        "oldYaml": {},
-        "newYaml": {},
+        "oldYaml": 'yaml string',
+        "newYaml": 'yaml string',
       },
     
       {
@@ -84,8 +84,8 @@ async function makeExamples(){
         "metric": 200000,
         "limit": 200000,
         "historicalMetrics": [],
-        "oldYaml": {},
-        "newYaml": {},
+        "oldYaml": 'yaml string',
+        "newYaml": 'yaml string',
       }]
 
     await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(testCases));

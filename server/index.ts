@@ -44,7 +44,9 @@ app.delete('/alerts/:id',
   (request: Request, response: Response ) => {response.json(response.locals.deleted);}
   );
 
-
+  app.patch('/fix/:percentage', 
+  (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  );
 
 app.get('/polo', (req: Request, res: Response) => {
   res.send('Polo!');
