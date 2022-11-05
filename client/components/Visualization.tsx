@@ -16,6 +16,8 @@ const Visualization = () => {
   // logic for passing down props using location. Location needs a state object
   const location = useLocation();
   const alertObj = location.state;
+  console.log("Visualization page");
+  console.log(alertObj);
   // Obtaining the text input value from the input field
   let textInput = React.useRef<HTMLInputElement | null>(null);
 
@@ -80,6 +82,7 @@ const display2 = alertObj.newYaml;
            <input id="input" type="text" ref={textInput} defaultValue='20'></input>
            <div><h2>%</h2></div>
            <button className="button" onClick={fixOptions}> Fix by Button </button>
+           <Graph alert={alertObj}/>
            <div>Your configuration details:</div>
            <div className="yamlcontents"> 
            {/* <YamlView alertObj={alertObj} fixWasApplied={fixWasApplied}/>  */}
@@ -94,6 +97,7 @@ const display2 = alertObj.newYaml;
             {fixWasApplied === true &&
         <div>
               <div> CORRECTED YAML, this is conditionally rendered if fixWasApplied = true </div>
+              <div> Please copy this text into the 'container' section of the yaml file for your pod</div>
             <pre> {display3} </pre>
             </div>}
 
