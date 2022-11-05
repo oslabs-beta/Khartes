@@ -25,8 +25,14 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{
   pod: 'name',
   container: 'name',
   metrics: {limits: 'X variable', data: 'Y variable'},
-  oldYaml: {'blah blah': 'blah'},
-  newYaml: {'blah blah blah': 'blah'}
+  oldYaml: ` resources:
+  limits:
+    disk size: 200m
+    disk size: 200M`,
+  newYaml: ` resources:
+  limits:
+    disk size: 20000m
+    disk size: 20000M`
 },
 {
   id: 2,
@@ -36,8 +42,20 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{
   pod: 'name',
   container: 'name',
   metrics: {limits: 'X variable', data: 'Y variable'},
-  oldYaml: {'blah blah': 'blah'},
-  newYaml: {'blah blah blah': 'blah'}
+  oldYaml: ` resources:
+  limits:
+    cpu: 200m
+    memory: 200M
+  requests:
+    cpu: 100m
+    memory: 100M`,
+  newYaml: ` resources:
+  limits:
+    cpu: 20000m
+    memory: 20000M
+  requests:
+    cpu: 10000m
+    memory: 700000M`
 }]); 
 
   //functionality to add Alerts

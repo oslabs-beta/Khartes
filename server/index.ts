@@ -27,7 +27,6 @@ const port = process.env.PORT;
 import {dbController} from './Controllers/dbController';
 
 
-
 app.get('/alerts', 
   dbController.read,
   (request: Request, response: Response ) => {response.json(response.locals.db);}
