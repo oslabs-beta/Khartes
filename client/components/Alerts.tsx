@@ -126,7 +126,7 @@ const Alerts = () => {
         .catch() // error handler
     };
     fetchAlerts();
-    const intervalId = setInterval(fetchAlerts, 5000);
+    const intervalId = setInterval(fetchAlerts, 15000);
     return () => clearInterval(intervalId); // the return statement will clear the interval when the component unmounts... does the component unmount when we navigate away?
   }, []); // the array has to do with things that will update during the component lifecycle. Use effect will only run on component mount since we pass empty array as second arg
   

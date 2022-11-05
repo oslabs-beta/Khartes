@@ -1,127 +1,86 @@
 import React from "react";
-
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement } from "chart.js";
 import type { ChartData, ChartOptions } from 'chart.js';
 import { AlertsInterface, numOrStr, GraphProps } from '../Types';
+
+// chart js tree-shakeable, so it is necessary to import and register the controllers, elements, scales and plugins you are going to use.
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
-const Graph = (props: GraphProps):JSX.Element => {
+
+const Graph = (props: GraphProps): JSX.Element => {
+ 
+  // creating an array of timestamps that correspond with metrics to populate our line graph
+  // each element of historical metrics property looks like this [1667512028.505, '37163008']
+  // where [seconds since jan 1 1970, bytes]
   const timeData: number[] = [];
-  console.log(props);
-// each el of historical metrics [1667512028.505, '37163008'] <--[seconds since jan 1 1970, bytes]
-  
   const metricData: number[] = props.alert.historicalMetrics.map((el):number => {
-    console.log('graph 15: ', el);
     const seconds: number = el[0];
+    // converting bytes into megabytes and converting full date string into local hh:mm:ss only
+    // full time stamp looks like this - Thu Nov 03 2022 14:47:08 GMT-0700 (Mountain Standard Time)] and will automatically be in your machines timezone
     const megabytes: number = Number(el[1])/1000000;
-    const time: any = new Date(seconds * 1000).toString().slice(15,28);
-    // console.log('date: ', time);
+    const time: any = new Date(seconds * 1000).toString().slice(15,24);
     timeData.push(time);
     return megabytes;
   })
 
-  // (5) [Thu Nov 03 2022 14:47:08 GMT-0700 (Mountain Standard Time)]
 
-  console.log(timeData);
-  console.log(metricData);
+  // to create a Line chart component we need a data object and an options object
+  // here we are creating a data object that has a data set for the limit and usage. The x-axis is set to the time stamp data
   const data: ChartData<'line'> = {
     labels: timeData,
     datasets: [{
       label: 'memory',
       data: metricData,
-      strokeColor: "rgba(220,220,220,0.8)",
+      borderColor: 'rgb(0,0,255)',
+      backgroundColor:'rgb(0,0,255)'
     },
     {
       label: 'limit',
-      data: Array(metricData.length).fill(props.alert.limit/1000000)
+      data: Array(metricData.length).fill(props.alert.limit / 1000),
+      borderColor: 'rgb(255, 0,0)',
+      backgroundColor: 'rgb(255, 0,0)',
     }]
   }
 
+  // finding the users preferrend language used in a x-axis parameter
+  const lang: string = navigator.language;
+  // here we are creating options object for line component. We set the axis-labels and create the legend
   const options:ChartOptions<'line'> = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const,
+    scales: {
+      y: {
+        // ticks: {
+        //   callback: function(value, i, ticks) {
+        //     return value + ' mb';
+        //   }
+        // },
+        title: {
+          display: true,
+          text: 'megabytes'
+        }
       },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart',
-      },
-    },
+       x: {
+        title: {
+          display: true,
+          // utilizing internationalization API to get the local time zone of the machine
+          // text: 'time zone: ' + Intl.DateTimeFormat().resolvedOptions().timeZone 
+          text:new Date().toLocaleDateString(lang, {timeZoneName: 'long'})
+        }
+      }
+    }
   };
   return (
     
-    <div>
+    <>
     <h1>Line Chart</h1>
+    <div className="graph-container">
     <Line options={options} data={data} />
-  </div>
+    </div>
+    </>
 )
 }
 
 
 export default Graph;
 
-
-
-
-// import React from 'react';
-// import {
-//   Chart as ChartJS,
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-//   Title,
-//   Tooltip,
-//   Legend,
-// } from 'chart.js';
-// import { Line } from 'react-chartjs-2';
-// import faker from 'faker';
-
-// ChartJS.register(
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-//   Title,
-//   Tooltip,
-//   Legend
-// );
-
-// export const options = {
-//   responsive: true,
-//   plugins: {
-//     legend: {
-//       position: 'top' as const,
-//     },
-//     title: {
-//       display: true,
-//       text: 'Chart.js Line Chart',
-//     },
-//   },
-// };
-
-// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-// export const data = {
-//   labels,
-//   datasets: [
-//     {
-//       label: 'Dataset 1',
-//       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-//       borderColor: 'rgb(255, 99, 132)',
-//       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-//     },
-//     {
-//       label: 'Dataset 2',
-//       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-//       borderColor: 'rgb(53, 162, 235)',
-//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-//     },
-//   ],
-// };
-
-// export function App() {
-//   return <Line options={options} data={data} />;
-// }
