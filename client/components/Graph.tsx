@@ -1,11 +1,11 @@
 import React from "react";
 import { Line } from 'react-chartjs-2';
-import { Chart, CategoryScale, LinearScale, PointElement, LineElement } from "chart.js";
+import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import type { ChartData, ChartOptions } from 'chart.js';
-import { AlertsInterface, numOrStr, GraphProps } from '../Types';
+import { GraphProps } from '../Types';
 
 // chart js tree-shakeable, so it is necessary to import and register the controllers, elements, scales and plugins you are going to use.
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
+Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 
 const Graph = (props: GraphProps): JSX.Element => {
@@ -13,13 +13,13 @@ const Graph = (props: GraphProps): JSX.Element => {
   // creating an array of timestamps that correspond with metrics to populate our line graph
   // each element of historical metrics property looks like this [1667512028.505, '37163008']
   // where [seconds since jan 1 1970, bytes]
-  const timeData: number[] = [];
+  const timeData: string[] = [];
   const metricData: number[] = props.alert.historicalMetrics.map((el):number => {
     const seconds: number = el[0];
     // converting bytes into megabytes and converting full date string into local hh:mm:ss only
     // full time stamp looks like this - Thu Nov 03 2022 14:47:08 GMT-0700 (Mountain Standard Time)] and will automatically be in your machines timezone
     const megabytes: number = Number(el[1])/1000000;
-    const time: any = new Date(seconds * 1000).toString().slice(15,24);
+    const time: string = new Date(seconds * 1000).toString().slice(15,24);
     timeData.push(time);
     return megabytes;
   })
@@ -46,8 +46,16 @@ const Graph = (props: GraphProps): JSX.Element => {
   // finding the users preferrend language used in a x-axis parameter
   const lang: string = navigator.language;
   // here we are creating options object for line component. We set the axis-labels and create the legend
-  const options:ChartOptions<'line'> = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        labels: {
+          padding: 16,
+        },
+      }
+    },
     scales: {
       y: {
         // ticks: {
@@ -71,14 +79,11 @@ const Graph = (props: GraphProps): JSX.Element => {
     }
   };
   return (
-    
-    <>
-    <h1>Line Chart</h1>
     <div className="graph-container">
-    <Line options={options} data={data} />
+      <h2>Metrics From Prior Hour</h2>
+      <Line options={options} data={data} />
     </div>
-    </>
-)
+  )
 }
 
 
