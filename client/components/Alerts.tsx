@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { json } from 'stream/consumers';
-import { AlertsInterface } from '../Types';
+import { AlertsInterface } from '../../Types';
 import ProblemObject from './problemobject';
 // import YamlView from './YamlView';
 

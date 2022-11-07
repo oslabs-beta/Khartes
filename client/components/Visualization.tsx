@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom"
 // import YamlView from './YamlView';
 import { useEffect } from "react";
 import { useRef } from 'react';
-import { AlertsInterface } from '../Types';
+import { AlertsInterface } from '../../Types';
 import Graph from './Graph'
 
 // declare namespace JSX{
@@ -16,7 +16,7 @@ const Visualization = () => {
   // logic for passing down props using location. Location needs a state object
   const location = useLocation();
   const alertObj = location.state;
-  let display3: String = "display3";
+  const display3 = "display3";
   console.log("Visualization page");
   console.log(alertObj);
   // Obtaining the text input value from the input field
@@ -58,7 +58,7 @@ const Visualization = () => {
     //Hopefullly the following code will updte fixWasApplied if the oldYaml is changed
     // this should drill down to YamlView and cause a re-render
     // const [oldYaml, setYaml] = React.useState<string>;
-    const [fixWasApplied, setFixWasApplied] = React.useState<Boolean>(false);
+    const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
     console.log(fixWasApplied);
     
     // useEffect(() => {

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { AlertsInterface } from '../Types';
+import { AlertsInterface } from '../../Types';
 import { useNavigate } from 'react-router-dom';
 
 type problemObjectProps = {
   alertObj: AlertsInterface
-  className: String
+  className: string
 };
 
 const ProblemObject = (props: problemObjectProps):JSX.Element => {
@@ -22,7 +22,7 @@ const ProblemObject = (props: problemObjectProps):JSX.Element => {
   oldYaml: string,
   newYaml: string
 } */
-  let status = 'new-buttons';
+  const status = 'new-buttons';
   if (props.className === 'Resolved'){
     status === 'resolved-buttons'
   }

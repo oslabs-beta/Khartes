@@ -2,7 +2,12 @@ import React from "react";
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import type { ChartData, ChartOptions } from 'chart.js';
-import { GraphProps } from '../Types';
+import { AlertsInterface } from "../../Types";
+
+// creating type for props passed down to Graph component
+export interface GraphProps {
+  alert: AlertsInterface
+}
 
 // chart js tree-shakeable, so it is necessary to import and register the controllers, elements, scales and plugins you are going to use.
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -18,7 +23,7 @@ const Graph = (props: GraphProps): JSX.Element => {
     const seconds: number = el[0];
     // converting bytes into megabytes and converting full date string into local hh:mm:ss only
     // full time stamp looks like this - Thu Nov 03 2022 14:47:08 GMT-0700 (Mountain Standard Time)] and will automatically be in your machines timezone
-    const megabytes: number = Number(el[1])/1000000;
+    const megabytes: number = el[1]/1000000;
     const time: string = new Date(seconds * 1000).toString().slice(15,24);
     timeData.push(time);
     return megabytes;
