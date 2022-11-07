@@ -47,7 +47,7 @@ export const dbController = {
 
 
 
-
+    //Deprecated! Keeping here just in case, but needs to be deleted eventually. 
     //Need to update an alert status.
     //ID and new status should come in as parameters.
     //Will need to read it, json parse it to an array of objects, change it...
@@ -148,9 +148,9 @@ export const dbController = {
                 response.locals.deleted = dbAsArray[counter];
                 //use slice to remove the one we don't want. 
                 //Alerts before our deleted alert
-                newDbAsArray.push(dbAsArray.slice(0,counter));
+                newDbAsArray.push(...dbAsArray.slice(0,counter));
                 //Alerts after our deleted alert
-                newDbAsArray.push(dbAsArray.slice(counter + 1))
+                newDbAsArray.push(...dbAsArray.slice(counter + 1))
             }
             counter++;
         };
