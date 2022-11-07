@@ -16,11 +16,12 @@ const Visualization = () => {
   // logic for passing down props using location. Location needs a state object
   const location = useLocation();
   const alertObj = location.state;
-  let display3: String = "display3";
+  let display3: string = "display3";
   console.log("Visualization page");
   console.log(alertObj);
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
+ 
 
     const fixOptions = () => {
       // Obtain the input percentage
@@ -58,7 +59,7 @@ const Visualization = () => {
     //Hopefullly the following code will updte fixWasApplied if the oldYaml is changed
     // this should drill down to YamlView and cause a re-render
     // const [oldYaml, setYaml] = React.useState<string>;
-    const [fixWasApplied, setFixWasApplied] = React.useState<Boolean>(false);
+    const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
     console.log(fixWasApplied);
     
     // useEffect(() => {
@@ -75,6 +76,7 @@ const Visualization = () => {
 
 const display = alertObj.oldYaml;
 const display2 = alertObj.newYaml;  
+
 
 
 
@@ -98,7 +100,7 @@ const display2 = alertObj.newYaml;
               </div>
               <div className='fixcontents'>
                 <h3> Fix Options </h3>
-                <h3> How much percent would you like to change? </h3>
+                <h3> Raise you limit by: </h3>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
                 <div><h2>%</h2></div>
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
