@@ -16,11 +16,12 @@ const Visualization = () => {
   // logic for passing down props using location. Location needs a state object
   const location = useLocation();
   const alertObj = location.state;
-  const display3 = "display3";
+  let display3: string = "display3";
   console.log("Visualization page");
   console.log(alertObj);
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
+ 
 
     const fixOptions = () => {
       // Obtain the input percentage
@@ -78,6 +79,7 @@ const display2 = alertObj.newYaml;
 
 
 
+
 //| undefined            //[[number, string],[number, string]]     //can also create a numberOrString type and use that. 
     // this component will display graphs, issue descript and two buttons auto-fix or fix options
     // buttons may need to be updated with new content based on our shifting MVP
@@ -98,7 +100,7 @@ const display2 = alertObj.newYaml;
               </div>
               <div className='fixcontents'>
                 <h3> Fix Options </h3>
-                <h3> How much percent would you like to change? </h3>
+                <h3> Raise you limit by: </h3>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
                 <div><h2>%</h2></div>
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
