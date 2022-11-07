@@ -18,6 +18,15 @@ body {
     font-family: 'Inconsolata', monospace;
 }
 
+.new-buttons {
+    background-color: #f12742;
+    /* color: white; */
+}
+
+.resolved-buttons {
+    background-color: #86e52e;
+}
+
 div {
     width: 100%;
     height: 1fr
@@ -42,12 +51,17 @@ div {
 
 .yamlcontents {
     background-color: #f2f2f2;
-     width: 100%;
+     width: 80%;
     height: 100%;
     padding: 2px;
     overflow-y: scroll;
     border: solid;
-    
+    margin: 15px;
+}
+
+.graphcontents {
+    display: flex;
+    width: 50%
 }
 
 .yamlpagecontents {
@@ -124,4 +138,29 @@ button {
 
 u {
     color: white;
+}
+
+.visualization-grid {
+    display: grid;
+    grid-template-areas: "left right";
+}
+
+.left-grid {
+    grid-area: left;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.right-grid {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2px;
+}
+
+.graph-container{
+    background-color: white;
+    text-align: center;
 }
