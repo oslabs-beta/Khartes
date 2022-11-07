@@ -18,12 +18,12 @@ body {
     font-family: 'Inconsolata', monospace;
 }
 
-.new-buttons {
+.new {
     background-color: #f12742;
     /* color: white; */
 }
 
-.resolved-buttons {
+.Pending {
     background-color: #86e52e;
 }
 

@@ -118,9 +118,9 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]);
   const alertsObjs = [];
   for (let i = 0; i < alerts.length; i++) {
     if (alerts[i].status === 'Pending'){
-      alertsObjs.push(<ProblemObject className='Resolved' key={alerts[i].id} alertObj={alerts[i]} />);
-    } else {
       alertsObjs.push(<ProblemObject className='Pending' key={alerts[i].id} alertObj={alerts[i]} />);
+    } else {
+      alertsObjs.push(<ProblemObject className='new' key={alerts[i].id} alertObj={alerts[i]} />);
     }
   }
 

@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { AlertsInterface } from '../Types';
 import { useNavigate } from 'react-router-dom';
+import { constants } from 'fs/promises';
+import { useEffect } from 'react';
 
 type problemObjectProps = {
   alertObj: AlertsInterface
-  className: String
+  className: string
 };
 
 const ProblemObject = (props: problemObjectProps):JSX.Element => {
@@ -22,10 +24,12 @@ const ProblemObject = (props: problemObjectProps):JSX.Element => {
   oldYaml: string,
   newYaml: string
 } */
-  let status = 'new-buttons';
-  if (props.className === 'Resolved'){
-    status === 'resolved-buttons'
-  }
+useEffect(() => {
+
+console.log(props.className);
+
+}, []);
+
 
 // this component will receive data about particualr pods/pvs etc and be rendered repeatedly in the list on the home page
     return(
@@ -34,14 +38,15 @@ const ProblemObject = (props: problemObjectProps):JSX.Element => {
           <div id="left">
           Pod: {props.alertObj.pod} has {props.alertObj.issue}
           </div>
+          Classname: {props.className}
           <div id="right">
           {/* Aut-fix View Details */}
            {/* Here we will display and access some information about the pods
            display: pod and the issue
            color coordination based on status
             */}
-              <button className={status}> Status: Pending </button>
-              <button className={status}> Status: Resolved </button>
+              <button className={props.className}> Status: {props.className} </button>
+              {/* <button className={props.className}> Status: Resolved </button> */}
             <button className="home-buttons"> Auto-fix </button>
             <button className="home-buttons" onClick={() => {
               navigate('/visualization', { state: props.alertObj});

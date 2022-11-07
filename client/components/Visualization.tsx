@@ -21,6 +21,7 @@ const Visualization = () => {
   console.log(alertObj);
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
+  const noteInput = React.useRef<HTMLInputElement | null>(null);
 
     const fixOptions = () => {
       // Obtain the input percentage
@@ -58,7 +59,7 @@ const Visualization = () => {
     //Hopefullly the following code will updte fixWasApplied if the oldYaml is changed
     // this should drill down to YamlView and cause a re-render
     // const [oldYaml, setYaml] = React.useState<string>;
-    const [fixWasApplied, setFixWasApplied] = React.useState<Boolean>(false);
+    const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
     console.log(fixWasApplied);
     
     // useEffect(() => {
@@ -75,6 +76,13 @@ const Visualization = () => {
 
 const display = alertObj.oldYaml;
 const display2 = alertObj.newYaml;  
+const testNote = 'a fake note by an imaginary user'
+
+const addNotes = () => {
+  const newNote = noteInput.current?.value
+  testNote = testNote.concat(newNote);
+  
+}
 
 
 
@@ -98,9 +106,14 @@ const display2 = alertObj.newYaml;
               </div>
               <div className='fixcontents'>
                 <h3> Fix Options </h3>
-                <h3> How much percent would you like to change? </h3>
+                <h3> Raise you limit by: </h3>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
                 <div><h2>%</h2></div>
+                <h3> Your Notes on this Alert: </h3>
+                <h3> {testNote} </h3>
+                <h3> Add notes below: </h3>
+                <input id="input" ref={noteInput} defaultValue="Write notes here">  </input>
+                <button className="button" onClick={addNotes}> Add your notes </button>
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               </div>
            </div>
