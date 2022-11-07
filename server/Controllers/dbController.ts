@@ -74,6 +74,33 @@ export const dbController = {
         return next();
     },
 
+    //Need to update an alert object for anything.
+    //object should come in on request body.
+    //Will need to read it, change it...
+    //Then restringify and write it. 
+    updateByAlertObject: async (request: Request, response: Response, next: NextFunction) => {
+        
+        //get everything I need.
+        const id:number = parseInt(request.body.id);
+        const updatedAlertObject:any = request.body;
+        const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
+        let dbAsArray = JSON.parse(dbAsText);
+        
+        //find appropriate alert object  [{}, {}, {}]
+        //And change it's status. 
+        for(let index = 0; index < dbAsArray.length; index++){
+            if(dbAsArray[index].id === id){  //
+                dbAsArray[index] = updatedAlertObject;
+                response.locals.updated = updatedAlertObject;
+            }
+        }
+        
+        //write it all back to the DB.
+        await fs.writeFileSync(path.join(__dirname, '../../../server/db.json'), JSON.stringify(dbAsArray));
+        
+        return next();
+    },
+
     //Need to update an alert status.
     //ID and new status should come in as parameters.
     //Will need to read it, json parse it to an array of objects, change it...

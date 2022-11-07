@@ -43,7 +43,6 @@ export default function makeNewYaml(request: Request, response: Response, next: 
 
     //update the object.
     request.body.newYaml = newYaml;
-
     //Now off to dbController.updateYamlById. 
     return next();
 }

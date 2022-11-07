@@ -25,6 +25,7 @@ const port = process.env.PORT;
 
 //Get the controllers
 import {dbController} from './Controllers/dbController';
+import fixTheYaml from './Controllers/fixTheYaml';
 
 
 app.get('/alerts', 
@@ -33,8 +34,14 @@ app.get('/alerts',
   );
 
 
-app.patch('/alerts/:id/:status', 
-  dbController.updateStatusById,
+//deprecated
+// app.patch('/alerts/:id/:status', 
+//   dbController.updateStatusById,
+//   (request: Request, response: Response ) => {response.json(response.locals.updated);}
+//   );
+
+  app.patch('/alerts/', 
+  dbController.updateByAlertObject,
   (request: Request, response: Response ) => {response.json(response.locals.updated);}
   );
 
@@ -43,9 +50,18 @@ app.delete('/alerts/:id',
   (request: Request, response: Response ) => {response.json(response.locals.deleted);}
   );
 
-  app.patch('/fix/:percentage', 
+  //deprecated
+  // app.patch('/fix/:percentage',
+  // fixTheYaml,
+  // (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  // );
+
+  app.patch('/fix/:percentage',
+  fixTheYaml,
+  dbController.updateByAlertObject,
   (request: Request, response: Response ) => {response.json(response.locals.updated);}
   );
+
 
 app.get('/polo', (req: Request, res: Response) => {
   res.send('Polo!');
