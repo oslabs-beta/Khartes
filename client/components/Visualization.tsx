@@ -16,12 +16,12 @@ const Visualization = () => {
   // logic for passing down props using location. Location needs a state object
   const location = useLocation();
   const alertObj = location.state;
-  let display3: String = "display3";
+  let display3: string = "display3";
   console.log("Visualization page");
   console.log(alertObj);
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
-  const noteInput = React.useRef<HTMLInputElement | null>(null);
+ 
 
     const fixOptions = () => {
       // Obtain the input percentage
@@ -76,13 +76,7 @@ const Visualization = () => {
 
 const display = alertObj.oldYaml;
 const display2 = alertObj.newYaml;  
-const testNote = 'a fake note by an imaginary user'
 
-const addNotes = () => {
-  const newNote = noteInput.current?.value
-  testNote = testNote.concat(newNote);
-  
-}
 
 
 
@@ -109,11 +103,6 @@ const addNotes = () => {
                 <h3> Raise you limit by: </h3>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
                 <div><h2>%</h2></div>
-                <h3> Your Notes on this Alert: </h3>
-                <h3> {testNote} </h3>
-                <h3> Add notes below: </h3>
-                <input id="input" ref={noteInput} defaultValue="Write notes here">  </input>
-                <button className="button" onClick={addNotes}> Add your notes </button>
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               </div>
            </div>
