@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 type problemObjectProps = {
   alertObj: AlertsInterface
+  className: String
 };
 
 const ProblemObject = (props: problemObjectProps):JSX.Element => {
@@ -21,6 +22,10 @@ const ProblemObject = (props: problemObjectProps):JSX.Element => {
   oldYaml: string,
   newYaml: string
 } */
+  let status = 'new-buttons';
+  if (props.className === 'Resolved'){
+    status === 'resolved-buttons'
+  }
 
 // this component will receive data about particualr pods/pvs etc and be rendered repeatedly in the list on the home page
     return(
@@ -35,6 +40,8 @@ const ProblemObject = (props: problemObjectProps):JSX.Element => {
            display: pod and the issue
            color coordination based on status
             */}
+              <button className={status}> Status: Pending </button>
+              <button className={status}> Status: Resolved </button>
             <button className="home-buttons"> Auto-fix </button>
             <button className="home-buttons" onClick={() => {
               navigate('/visualization', { state: props.alertObj});
