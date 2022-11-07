@@ -17,7 +17,7 @@ list (this is a box, also maybe modular for re-use that will host individual pro
 const Alerts = () => {
  //default data will change to an empty array 
 
-const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{}]); 
+const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]); 
 
   //functionality to add Alerts
   // function addAlerts (newAlertObj: AlertsInterface) {
