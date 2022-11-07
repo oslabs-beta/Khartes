@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { json } from 'stream/consumers';
 import { AlertsInterface } from '../Types';
 import ProblemObject from './problemobject';
-import YamlView from './YamlView';
+// import YamlView from './YamlView';
 
 // const [deletedAlerts, setDeletedAlerts] = React.useState<AlertsInterface[]>([]);
 
@@ -17,29 +17,7 @@ list (this is a box, also maybe modular for re-use that will host individual pro
 const Alerts = () => {
  //default data will change to an empty array 
 
-  const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]);
-//   [{
-//   id: 1,
-//   issue: 'Low Disk Storage',
-//   status: 'Pending',
-//   node: 'name',
-//   pod: 'name',
-//   container: 'name',
-//   metrics: 55,
-//   oldYaml: {'blah blah': 'blah'},
-//   newYaml: {'blah blah blah': 'blah'}
-// },
-// {
-//   id: 2,
-//   issue: 'OOM Kill Warning',
-//   status: 'Pending',
-//   node: 'name',
-//   pod: 'name',
-//   container: 'name',
-//   metrics: 55,
-//   oldYaml: {'blah blah': 'blah'},
-//   newYaml: {'blah blah blah': 'blah'}
-//   }]
+const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{}]); 
 
   //functionality to add Alerts
   // function addAlerts (newAlertObj: AlertsInterface) {
