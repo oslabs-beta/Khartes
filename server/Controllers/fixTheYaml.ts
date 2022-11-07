@@ -15,6 +15,11 @@ const YAML = require('yaml');
 //make the new yaml
 export function makeNewYaml(request: Request, response: Response, next: NextFunction): void {
     
+    //As of right now, this works ONLY for OOMkill. 
+    //We need some logic here to differentiate different fixes. 
+
+
+    
     //get everything I need to make the new yaml
     //id            off body.id?
     //percentage    off params.id
