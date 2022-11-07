@@ -13,6 +13,7 @@ export interface AlertsInterface {
   historicalMetrics: any[][] //| undefined           //[[number, string],[number, string]]     //can also create a numberOrString type and use that. 
   oldyaml: string 
   newyaml: string 
+  // comments: string[]
 }
 
 
