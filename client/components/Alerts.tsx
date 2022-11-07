@@ -17,7 +17,7 @@ list (this is a box, also maybe modular for re-use that will host individual pro
 const Alerts = () => {
  //default data will change to an empty array 
 
-const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{}]); 
+const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]); 
 
   //functionality to add Alerts
   // function addAlerts (newAlertObj: AlertsInterface) {
@@ -117,7 +117,11 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{}]);
   for */
   const alertsObjs = [];
   for (let i = 0; i < alerts.length; i++) {
-    alertsObjs.push(<ProblemObject key={alerts[i].id} alertObj={alerts[i]} />);
+    if (alerts[i].status === 'Pending'){
+      alertsObjs.push(<ProblemObject className='Resolved' key={alerts[i].id} alertObj={alerts[i]} />);
+    } else {
+      alertsObjs.push(<ProblemObject className='Pending' key={alerts[i].id} alertObj={alerts[i]} />);
+    }
   }
 
     return(
