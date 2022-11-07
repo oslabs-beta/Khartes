@@ -17,7 +17,7 @@ list (this is a box, also maybe modular for re-use that will host individual pro
 const Alerts = () => {
  //default data will change to an empty array 
 
-const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{}]); 
+const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]); 
 
   //functionality to add Alerts
   // function addAlerts (newAlertObj: AlertsInterface) {
@@ -104,7 +104,7 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([{}]);
         .catch() // error handler
     };
     fetchAlerts();
-    const intervalId = setInterval(fetchAlerts, 5000);
+    const intervalId = setInterval(fetchAlerts, 15000);
     return () => clearInterval(intervalId); // the return statement will clear the interval when the component unmounts... does the component unmount when we navigate away?
   }, []); // the array has to do with things that will update during the component lifecycle. Use effect will only run on component mount since we pass empty array as second arg
   

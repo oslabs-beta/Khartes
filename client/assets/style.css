@@ -125,3 +125,9 @@ button {
 u {
     color: white;
 }
+
+
+.graph-container{
+    background-color: white;
+    text-align: center;
+}

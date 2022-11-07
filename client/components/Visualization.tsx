@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useLocation, Link } from "react-router-dom"
 // import YamlView from './YamlView';
-const { useEffect } = require("react");
+import { useEffect } from "react";
 import { useRef } from 'react';
 import { AlertsInterface } from '../Types';
 import Graph from './Graph'
@@ -10,7 +10,7 @@ import Graph from './Graph'
 //   interface ElementAttributesProperty {
 //     props:
 //   }
-// }
+// } 
 
 const Visualization = () => {
   // logic for passing down props using location. Location needs a state object
@@ -19,11 +19,11 @@ const Visualization = () => {
   console.log("Visualization page");
   console.log(alertObj);
   // Obtaining the text input value from the input field
-  let textInput = React.useRef<HTMLInputElement | null>(null);
+  const textInput = React.useRef<HTMLInputElement | null>(null);
 
     const fixOptions = () => {
       // Obtain the input percentage
-      let fixedPercent = textInput.current?.value;
+      const fixedPercent = textInput.current?.value;
     
       // send Patch to backend with id and % for fix
       fetch('http://localhost:8000/fix', { // this route is not discussed with the backend yet
@@ -34,7 +34,7 @@ const Visualization = () => {
       })
         .then(res => { // response will be the entire alertObj
           console.log("made it back from PATCH");
-          let response = res.json()
+          const response = res.json()
           // display3 = response.newYaml;
         })
         .catch((err) => {
