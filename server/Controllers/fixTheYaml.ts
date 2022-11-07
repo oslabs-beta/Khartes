@@ -9,8 +9,9 @@ Will then go to dbController.updateYamlById
 
 //setup stuff
 import { Request, Response, NextFunction } from 'express';
-import path from 'path';
-import YAML from ('yaml');
+const path = require('path');
+const YAML = require('yaml');
+
 
 //make the new yaml
 export const makeNewYaml: async (request: Request, response: Response, next: NextFunction) => {

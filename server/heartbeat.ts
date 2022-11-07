@@ -4,7 +4,6 @@ import {createAlert} from "./Controllers/createAlert";
 import checkForOomkill from "./Controllers/checkForOomkill";
 import { startPortForward } from "./Controllers/startPortForward";
 import { dbController } from "./Controllers/dbController";
-const { exec } = require('child_process');
 
 //Standardize our alerts
 //list of issues

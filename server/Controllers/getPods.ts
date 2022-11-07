@@ -5,8 +5,7 @@ interface PodNode {
   node: string
 }
 
-const { exec } = require('child_process')
-const { ModuleFilenameHelpers } = require('webpack');
+const exec = require('child_process');
 const YAML = require('yaml');
 /*
 
@@ -33,6 +32,9 @@ return an array of user deployed pods and the nodes they're in.
 [[podname, nodename], [podname, nodename]]
 [{pod: podname, node: nodename}, {pod:podname, node:nodename}]     do this one, it's more descriptive. 
 
+
+// items[0].metadata.name to get the pod name
+// items[0].spec.nodename to get node name
 */
 
 
@@ -63,11 +65,10 @@ const getPods = () => {
         return arrPodsNodes;
 
 
-//         items[0].metadata.name to get the pod name
-// items[0].spec.nodename to get node name
+
 });
 }
 
-console.log(getPods());
+//console.log(getPods());
 
 export default getPods;

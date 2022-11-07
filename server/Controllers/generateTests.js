@@ -5,8 +5,9 @@ This isn't called by anything. You have to run it separate.
 
 
 
-const fs = require('fs');
-const path = require('path');
+
+import {fs} from 'fs';
+import { path } from 'path';
 
 async function makeExamples(){
     console.log('Make some test cases in the DB');
