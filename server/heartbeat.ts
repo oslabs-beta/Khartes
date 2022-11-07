@@ -1,8 +1,8 @@
 import getPods from "./Controllers/getPods"; // calling this should return an array of yamls for each pod
 import getPrometheusData from "./Controllers/getPrometheusData";
-import createAlert from "./Controllers/createAlert";
+import {createAlert} from "./Controllers/createAlert";
 import checkForOomkill from "./Controllers/checkForOomkill";
-// import { startPortForward } from "./Controllers/startPortForward";
+import { startPortForward } from "./Controllers/startPortForward";
 import { dbController } from "./Controllers/dbController";
 const { exec } = require('child_process');
 
@@ -42,7 +42,7 @@ write to DB
 
 
 //Start port-forwarding
-// startPortForward();
+startPortForward();
 
 
 
@@ -69,13 +69,14 @@ const podsList = getPods();
 //send this data point to checkForOomkill. If it returns true. We need to build an alert with createAlert.
 for(let i = 0; i < podsList.length; i++){
     //OOMKILL
+    const memUsageQuery = 'container_memory_usage_bytes';
     const memUsage:any = getPrometheusData(podsList[i].pod, 'container_memory_usage_bytes');
     const memLimit:any = getPrometheusData(podsList[i].pod, 'container_spec_memory_limit_bytes');
     const oomkill = checkForOomkill(memUsage, memLimit);
 
     if(oomkill && !dbController.checkIfAlertAlreadyExists({pod: podsList[i].pod, issue: oomkillIssue})){
         //create an alert
-        createAlert(podsList[i].node, podsList[i].pod, oomkillIssue);
+        createAlert(podsList[i].node, podsList[i].pod, oomkillIssue, memUsage, memLimit, memUsageQuery);
     }
 
 

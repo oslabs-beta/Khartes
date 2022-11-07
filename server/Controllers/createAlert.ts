@@ -1,22 +1,7 @@
 /*
 This should create an Alert Object. 
-We are taking in: node, pod, and issue from heartbeat. 
+We are taking in: node, pod, issue, metric, and limit from heartbeat. 
 We will get the rest of the data and write it to the DB here. 
-
-{
-id: 12345678,
-Issue: text,
-status: resolv ed/new
-node: name,
-pod: name,
-container: name,
-metrics: {limits: X,
-data: Y,},
-historicalMetrics: ?
-oldyaml: yamlString
-newyaml: yamlString
-}
-
 
 
 
@@ -32,30 +17,50 @@ interface newAlertObject {
   container: string
   metric: number
   limit: number
-  historicalMetrics: any[][]                //[[number, string],[number, string]]     //can also create a numberOrString type and use that. 
+  historicalMetrics: any[][]                //[[number, string],[number, string]] 
   oldyaml: string
   newyaml: string
   
 }
 
 import getPodContainer from "./getPodContainer";
+import {getHistoricalPrometheusData} from "./getHistoricalPrometheusData";
+import { dbController } from "./dbController";
 
 
-const createAlert = (node:String, pod:String, issue:String) => {
+export const createAlert = (node:string, pod:string, issue:string, metric:number, limit:number, query:string) => {
   //create an ID prop
+  const id = Math.floor(Math.random() * 1000000000);
   //add issue prop: issue
   //add status prop: 'new'
   //add node prop: node
   //add pod prop: pod
-  //add metrics: call getPodContainer
+  //add container prop: ''  //we dont use this property but we might want it down the line
+  //add metric: metric
+  //add limit: limit
   //add historicalMetrics prop: call getHistoricalPrometheusData
+  const history = getHistoricalPrometheusData(pod, query);
   //add oldyaml prop: call getPodContainer
+  const oldyaml = getPodContainer(pod);
   //add newyaml prop: blank (something is added here when fix button is pushed on frontend)
 
+  
 
+  const newAlertObject:any = {
+      id: id,
+      issue: issue,
+      status: 'new',
+      node: node,
+      pod: pod,
+      container: '',
+      metric: metric,
+      limit: limit,
+      historicalMetrics: history,
+      oldyaml: oldyaml,
+      newyaml: ''
+  }
 
-
+//write the newAlertObject to the DB
+//dbController.writeNewAlertToDb(newAlertObject);
 
 }
-
-export default createAlert;
