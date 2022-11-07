@@ -3,7 +3,7 @@
 
 // additional refactoring: add types for error, stdout, and stderr, it's currently any
 
-const exec = require('child_process');
+const {exec} = require('child_process');
 const YAML = require('yaml');
 
 

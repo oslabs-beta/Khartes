@@ -5,7 +5,7 @@ interface PodNode {
   node: string
 }
 
-const exec = require('child_process');
+const {exec} = require('child_process');
 const YAML = require('yaml');
 /*
 

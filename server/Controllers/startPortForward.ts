@@ -1,4 +1,4 @@
-const exec = require('child_process');
+const {exec} = require('child_process');
 const YAML = require('yaml');
 
 /* Port Forwarding Notes on Prometheus. 
