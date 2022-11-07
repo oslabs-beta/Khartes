@@ -3,9 +3,9 @@
 
 // additional refactoring: add types for error, stdout, and stderr, it's currently any
 
-const { exec } = require('child_process')
-const { ModuleFilenameHelpers } = require('webpack');
+const {exec} = require('child_process');
 const YAML = require('yaml');
+
 
 const getPodContainer = (podname: string) => {
     
@@ -26,10 +26,10 @@ const getPodContainer = (podname: string) => {
       return YAML.stringify(containerYaml);
 });
 }
-
+//console.log(getPodContainer('deployment-memoryuser-564878964b-8kvtg'));
 export default getPodContainer;
 // test using one of the podnames
-// console.log(getPodYaml('deployment-memoryuser-564878964b-8kvtg'));
+
 
 
 //kubectl get pod (podname) -o yaml

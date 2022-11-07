@@ -1,6 +1,5 @@
-const { exec } = require('child_process')
+const {exec} = require('child_process');
 const YAML = require('yaml');
-
 
 /* Port Forwarding Notes on Prometheus. 
 kubectl get pods -A -o yaml will get the yaml for all the pods. One of those will have the Prometheus server in it. 
@@ -17,7 +16,7 @@ items[index].metadata.labels.app = prometheus
 
 export const startPortForward = ():void => {
   let allPodsYamlObject:any = {};
-  exec("kubectl get pods -A -o yaml", (error: Error, output: any, stderr:string) => {
+  exec("kubectl get pods -A -o yaml", (error: any, output: any, stderr:string) => {
       if (error) {
           console.log(`error: ${error.message}`);
           return;
@@ -33,8 +32,8 @@ export const startPortForward = ():void => {
   //that meets our conditions 
   //items[index].metadata.labels.app = prometheus
   //items[index].metadata.labels.component = server
-  let namespace:string = '';
-  let podName:string = '';
+  let namespace = '';
+  let podName = '';
   for(let i = 0; i < allPodsYamlObject.items.length; i++){
     if(allPodsYamlObject.items[i].metadata.labels.app === "prometheus" && allPodsYamlObject.items[i].metadata.labels.component === "server"){
       //if those conditions are met, we grab the following info from that array index
@@ -42,8 +41,8 @@ export const startPortForward = ():void => {
       //items[index].metadata.namespace
       namespace = allPodsYamlObject.items[i].metadata.namespace;
       podName = allPodsYamlObject.items[i].metadata.name;
-    };
-  };
+    }
+  }
 
 
 

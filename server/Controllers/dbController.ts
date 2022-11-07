@@ -24,8 +24,9 @@ write error handling
 
 //setup stuff
 import { Request, Response, NextFunction } from 'express';
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path')
+
 
 
 

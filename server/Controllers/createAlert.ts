@@ -8,7 +8,7 @@ We will get the rest of the data and write it to the DB here.
 Math.floor(Math.random() * 1000000000);
 */
 
-interface newAlertObject {
+interface AlertObject {
   id: number
   issue: string
   status: string
@@ -20,6 +20,7 @@ interface newAlertObject {
   historicalMetrics: any[][]                //[[number, string],[number, string]] 
   oldyaml: string
   newyaml: string
+  comments: string[]
   
 }
 
@@ -28,7 +29,7 @@ import {getHistoricalPrometheusData} from "./getHistoricalPrometheusData";
 import { dbController } from "./dbController";
 
 
-export const createAlert = (node:string, pod:string, issue:string, metric:number, limit:number, query:string) => {
+export const createAlert = async (node:string, pod:string, issue:string, metric:number, limit:number, query:string) => {
   //create an ID prop
   const id = Math.floor(Math.random() * 1000000000);
   //add issue prop: issue
@@ -39,14 +40,14 @@ export const createAlert = (node:string, pod:string, issue:string, metric:number
   //add metric: metric
   //add limit: limit
   //add historicalMetrics prop: call getHistoricalPrometheusData
-  const history = getHistoricalPrometheusData(pod, query);
+  const history = await getHistoricalPrometheusData(pod, query);
   //add oldyaml prop: call getPodContainer
-  const oldyaml = getPodContainer(pod);
+  const oldyaml = await getPodContainer(pod);
   //add newyaml prop: blank (something is added here when fix button is pushed on frontend)
 
   
 
-  const newAlertObject:any = {
+  const newAlertObject: AlertObject = {
       id: id,
       issue: issue,
       status: 'new',
@@ -57,10 +58,11 @@ export const createAlert = (node:string, pod:string, issue:string, metric:number
       limit: limit,
       historicalMetrics: history,
       oldyaml: oldyaml,
-      newyaml: ''
+      newyaml: '',
+      comments: []
   }
 
 //write the newAlertObject to the DB
-//dbController.writeNewAlertToDb(newAlertObject);
+dbController.writeNewAlertToDb(newAlertObject);
 
 }
