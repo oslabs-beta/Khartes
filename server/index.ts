@@ -26,6 +26,7 @@ const port = process.env.PORT;
 //Get the controllers
 import {dbController} from './Controllers/dbController';
 import fixTheYaml from './Controllers/fixTheYaml';
+import mapMapker from './Controllers/mapMaker';
 
 
 app.get('/alerts', 
@@ -40,7 +41,7 @@ app.get('/alerts',
 //   (request: Request, response: Response ) => {response.json(response.locals.updated);}
 //   );
 
-  app.patch('/alerts/', 
+  app.patch('/alerts', 
   dbController.updateByAlertObject,
   (request: Request, response: Response ) => {response.json(response.locals.updated);}
   );
@@ -61,6 +62,12 @@ app.delete('/alerts/:id',
   dbController.updateByAlertObject,
   (request: Request, response: Response ) => {response.json(response.locals.updated);}
   );
+
+  app.get('/map',
+  mapMaker,
+  (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  );
+
 
 
 app.get('/polo', (req: Request, res: Response) => {
