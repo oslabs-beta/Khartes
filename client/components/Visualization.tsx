@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom"
 // import YamlView from './YamlView';
 import { useEffect } from "react";
 import { useRef } from 'react';
-import { AlertsInterface } from '../Types';
+import { AlertsInterface } from '../../Types';
 import Graph from './Graph'
 
 // declare namespace JSX{

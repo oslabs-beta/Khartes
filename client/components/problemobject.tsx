@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AlertsInterface } from '../Types';
+import { AlertsInterface } from '../../Types';
 import { useNavigate } from 'react-router-dom';
 import { constants } from 'fs/promises';
 import { useEffect } from 'react';

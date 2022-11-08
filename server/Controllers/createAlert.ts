@@ -8,25 +8,10 @@ We will get the rest of the data and write it to the DB here.
 Math.floor(Math.random() * 1000000000);
 */
 
-interface AlertObject {
-  id: number
-  issue: string
-  status: string
-  node: string
-  pod: string
-  container: string
-  metric: number
-  limit: number
-  historicalMetrics: any[][]                //[[number, string],[number, string]] 
-  oldyaml: string
-  newyaml: string
-  comments: string[]
-  
-}
-
 import getPodContainer from "./getPodContainer";
 import {getHistoricalPrometheusData} from "./getHistoricalPrometheusData";
 import { dbController } from "./dbController";
+import { AlertsInterface } from '../../Types';
 
 
 export const createAlert = async (node:string, pod:string, issue:string, metric:number, limit:number, query:string) => {
@@ -47,7 +32,7 @@ export const createAlert = async (node:string, pod:string, issue:string, metric:
 
   
 
-  const newAlertObject: AlertObject = {
+  const newAlertObject: AlertsInterface = {
       id: id,
       issue: issue,
       status: 'new',
