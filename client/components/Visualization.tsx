@@ -15,36 +15,37 @@ import Graph from './Graph'
 const Visualization = () => {
   // logic for passing down props using location. Location needs a state object
   const location = useLocation();
-  const alertObj = location.state;
+  const {alertObj, updateAlerts} = location.state;
   let display3: String = "display3";
   console.log("Visualization page");
   console.log(alertObj);
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
+  const commentInput = React.useRef<HTMLInputElement | null>(null);
 
     const fixOptions = () => {
       // Obtain the input percentage
       const fixedPercent = textInput.current?.value;
     
       // send Patch to backend with id and % for fix
-      // fetch('http://localhost:8000/fix', { // this route is not discussed with the backend yet
-      //     method:'PATCH',
-      //     headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({id: alertObj.id, fixedPercent: fixedPercent})
-      // })
-      //   .then(res => { // response will be the entire alertObj
-      //     console.log("made it back from PATCH");
-      //     let response = res.json()
-      //     // console.log('response', response);
-      //     display3 = "display3";
-      //     // let display3 = response.newYaml;
-      //   })
-      //   .catch((err) => {
-      //     console.log('There was an error in updateAlerts fetch request.');
-      //     console.log(err);
-      //   })
+      fetch('/alerts', { // this route is not discussed with the backend yet
+          method:'PATCH',
+          headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: alertObj.id, fixedPercent: fixedPercent})
+      })
+        .then(res => { // response will be the entire alertObj
+          console.log("made it back from PATCH");
+          let response = res.json()
+          // console.log('response', response);
+          display3 = "display3";
+          // let display3 = response.newYaml;
+        })
+        .catch((err) => {
+          console.log('There was an error in updateAlerts fetch request.');
+          console.log(err);
+        })
 
       
       // toggle fixWasApplied to true
@@ -77,6 +78,25 @@ const display = alertObj.oldYaml;
 const display2 = alertObj.newYaml;  
 
 
+// const [commentsArray, setCommentsArray] = React.useState<any>(alertObj.comments); // actual code, hard code below
+const [commentsArray, setCommentsArray] = React.useState<any>(['a comment', 'a second comment', "third"]);
+let commentsArrayLis: any[] = [];
+
+
+const addComments = () => {
+  const newComment: any = commentInput.current?.value;
+  const newCommentsArray = [...commentsArray];
+  newCommentsArray.push(newComment);
+  alertObj.comments = newCommentsArray;
+
+  //pass new alert object to general update function
+  updateAlerts(alertObj);
+
+  // version assuming we are grabbing data from updated alert object
+  commentsArrayLis = alertObj.comments.map((el: any) => {el = <li>${el}</li>})
+}
+
+
 
 //| undefined            //[[number, string],[number, string]]     //can also create a numberOrString type and use that. 
     // this component will display graphs, issue descript and two buttons auto-fix or fix options
@@ -89,18 +109,27 @@ const display2 = alertObj.newYaml;
               </div>
               <div className='alertcontents'>
                 <h3> Alert Information </h3>
-                <h3> Container: {alertObj.container} </h3>
-                <h3> Node: {alertObj.node} </h3>
-                <h3> Pod: {alertObj.pod} </h3>
-                <h3> Issue: {alertObj.issue}</h3>
-                <h3> Status: {alertObj.status}</h3>
-                <p> Current Limit: {alertObj.limit}</p>
+                <p> Container: {alertObj.container} </p>
+                <p> Node: {alertObj.node} </p>
+                <p> Pod: {alertObj.pod} </p>
+                <p> Issue: {alertObj.issue}</p>
+                <div>
+                <p> Status: {alertObj.status}</p>
+                <button className="button" onClick={addComments}> Toggle Status </button>
+                </div>
+                {/* <p> Current Limit: {alertObj.limit}</p> */}
               </div>
               <div className='fixcontents'>
                 <h3> Fix Options </h3>
-                <h3> How much percent would you like to change? </h3>
+                <p> Input percentage to raise your limit by: </p>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
-                <div><h2>%</h2></div>
+                <h3> Your Comments on this Alert: </h3>
+                <ul>
+                  {commentsArrayLis}
+                </ul>
+                <h3> Add comments below: </h3>
+                <input id="input" ref={commentInput} defaultValue="Write notes here"></input>
+                <button className="button" onClick={addComments}> Add your notes </button>
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               </div>
            </div>

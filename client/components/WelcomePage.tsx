@@ -7,17 +7,6 @@ const WelcomePage = () => {
 // ONLY INSIDE ROUTER PAGES
   const navigate = useNavigate();
 
-  // WE DO NOT NEED BELOW FUNCTION ANYMORE, ADDED NAV BAR 
-  // function to move to Home page on button click
-  // const handleButton = (event: any, button: any) => {
-  //   if (button == "home"){
-  //     navigate('/home');
-  //   } else if (button == "alerts"){
-  //     navigate('/alerts');
-  //   } else {
-  //     navigate('/yaml');
-  //   }
-  // }
 
   return (
     <div>
@@ -25,6 +14,7 @@ const WelcomePage = () => {
     
       When you have addressed an issue, but the cluster has not been updated change status to Pending
       When the issues has been resolved and the cluster has been updates delete the alert.
+      <div> BETA: Map of the cluster</div>
     </div>
   )
 }

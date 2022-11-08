@@ -61,7 +61,11 @@ div {
 
 .graphcontents {
     display: flex;
-    width: 50%
+    width: 95%;
+    height: 200px;
+    border: solid;
+    position: relative;
+    margin: 10px;
 }
 
 .yamlpagecontents {
@@ -163,4 +167,9 @@ u {
 .graph-container{
     background-color: white;
     text-align: center;
+}
+
+.alert-contents {
+    display: flex;
+    flex-direction: column;
 }

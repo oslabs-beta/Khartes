@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 type problemObjectProps = {
   alertObj: AlertsInterface
   className: String
+  updateAlerts: (updatedAlertObj: AlertsInterface) => void
 };
 
 const ProblemObject = (props: problemObjectProps):JSX.Element => {
@@ -44,7 +45,7 @@ const ProblemObject = (props: problemObjectProps):JSX.Element => {
               <button className={status}> Status: Resolved </button>
             <button className="home-buttons"> Auto-fix </button>
             <button className="home-buttons" onClick={() => {
-              navigate('/visualization', { state: props.alertObj});
+              navigate('/visualization', { state: props });
             }}> See Details </button>
           </div>
         </div>
