@@ -40,7 +40,8 @@ return an array of user deployed pods and the nodes they're in.
 
 
 const getPods = async() => {
-    
+  console.log('doing getPods');
+
     const { stdout, stderr } = await exec('kubectl get pods -o yaml');
     const yamls = YAML.parse(stdout).items;
         

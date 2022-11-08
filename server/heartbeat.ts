@@ -23,9 +23,10 @@ check the data
 */
 
 const startHeartbeat = async() => {
+  console.log("we're in the heartbeat function: babump babump")
 //Start port-forwarding
   await startPortForward();
-  console.log("we're in the heartbeat function babump")
+  
 
 
 //call getPods to get the list of pods and their associated nodes in an object.
@@ -52,16 +53,17 @@ const podsList = await getPods();
 //send this data point to checkForOomkill. If it returns true. We need to build an alert with createAlert.
   for(let i = 0; i < podsList.length; i++){
       //OOMKILL
-      const memUsageQuery = 'container_memory_usage_bytes';
-      const memUsage:any = getPrometheusData(podsList[i].pod, 'container_memory_usage_bytes');
-      const memLimit:any = getPrometheusData(podsList[i].pod, 'container_spec_memory_limit_bytes');
+    const memUsageQuery = 'container_memory_usage_bytes';
+    const memUsage: any = await getPrometheusData(podsList[i].pod, 'container_memory_usage_bytes');
+    const memLimit:any = await getPrometheusData(podsList[i].pod, 'container_spec_memory_limit_bytes');
       //const oomkill = checkForOomkill(memUsage, memLimit);
       const oomkill = true;
 
-      if(oomkill && !dbController.checkIfAlertAlreadyExists({pod: podsList[i].pod, issue: oomkillIssue})){
-          //create an alert
-          createAlert(podsList[i].node, podsList[i].pod, oomkillIssue, memUsage, memLimit, memUsageQuery);
-      }
+      //if(oomkill && !dbController.checkIfAlertAlreadyExists({pod: podsList[i].pod, issue: oomkillIssue})){
+        //create an alert
+      console.log("about to go into create alert?")
+      await createAlert(podsList[i].node, podsList[i].pod, oomkillIssue, memUsage, memLimit, memUsageQuery);
+      //}
   }
 }
 startHeartbeat();
