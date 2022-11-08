@@ -15,7 +15,7 @@ items[index].metadata.labels.app = prometheus
 //turn it into a yaml
 
 export const startPortForward = ():void => {
-  let allPodsYamlObject:any = {};
+  let allPodsYamlObject;
   exec("kubectl get pods -A -o yaml", (error: any, output: any, stderr:string) => {
       if (error) {
           console.log(`error: ${error.message}`);
@@ -25,7 +25,9 @@ export const startPortForward = ():void => {
           console.log(`stderr: ${stderr}`);
           return;
       }
+      console.log(output)
       allPodsYamlObject = YAML.parse(output);
+      console.log(allPodsYamlObject)
   });
 
   //a for loop to iterate through the resulting array and search for the correct pod
