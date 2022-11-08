@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom"
 // import YamlView from './YamlView';
 import { useEffect } from "react";
 import { useRef } from 'react';
-import { AlertsInterface } from '../Types';
+import { AlertsInterface } from '../../Types';
 import Graph from './Graph'
 
 // declare namespace JSX{
@@ -59,7 +59,7 @@ const Visualization = () => {
     //Hopefullly the following code will updte fixWasApplied if the oldYaml is changed
     // this should drill down to YamlView and cause a re-render
     // const [oldYaml, setYaml] = React.useState<string>;
-    const [fixWasApplied, setFixWasApplied] = React.useState<Boolean>(false);
+    const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
     console.log(fixWasApplied);
     
     // useEffect(() => {
@@ -98,6 +98,7 @@ const addComments = () => {
 
 
 
+
 //| undefined            //[[number, string],[number, string]]     //can also create a numberOrString type and use that. 
     // this component will display graphs, issue descript and two buttons auto-fix or fix options
     // buttons may need to be updated with new content based on our shifting MVP
@@ -121,7 +122,7 @@ const addComments = () => {
               </div>
               <div className='fixcontents'>
                 <h3> Fix Options </h3>
-                <p> Input percentage to raise your limit by: </p>
+                <h3> Raise you limit by: </h3>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
                 <h3> Your Comments on this Alert: </h3>
                 <ul>

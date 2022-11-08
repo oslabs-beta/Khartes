@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { json } from 'stream/consumers';
-import { AlertsInterface } from '../Types';
+import { AlertsInterface } from '../../Types';
 import ProblemObject from './problemobject';
 // import YamlView from './YamlView';
 
@@ -69,6 +69,7 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]);
 
     //functionality to delete Alerts
   function deleteAlerts (id: number) {
+    alert('made it to deletealerts func');
   setAlerts(oldState => {
     // logic to remove the object with this ID from our old state
     let newState = [...oldState];
@@ -113,11 +114,11 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]);
   and we will prop drill details of the individual alert into each problemobject
   for */
   const alertsObjs = [];
-  for (let i = 0; i < alerts.length; i++) {
+  for (let i = alerts.length-1; i >= 0 ; i--) {
     if (alerts[i].status === 'Pending'){
-      alertsObjs.push(<ProblemObject className='Resolved' key={alerts[i].id} alertObj={alerts[i]} updateAlerts={updateAlerts} />);
+      alertsObjs.push(<ProblemObject className='Resolved' key={alerts[i].id} alertObj={alerts[i]} updateAlerts={updateAlerts} deleteAlerts={deleteAlerts}/>);
     } else {
-      alertsObjs.push(<ProblemObject className='Pending' key={alerts[i].id} alertObj={alerts[i]} updateAlerts={updateAlerts} />);
+      alertsObjs.push(<ProblemObject className='Pending' key={alerts[i].id} alertObj={alerts[i]} updateAlerts={updateAlerts} deleteAlerts={deleteAlerts}/>);
     }
   }
 
