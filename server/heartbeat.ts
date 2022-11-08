@@ -22,14 +22,14 @@ check the data
            
 */
 
-const startHeartbeat = () => {
+const startHeartbeat = async() => {
 //Start port-forwarding
-  startPortForward();
+  await startPortForward();
   console.log("we're in the heartbeat function babump")
 
 
 //call getPods to get the list of pods and their associated nodes in an object.
-  const podsList = getPods();
+const podsList = await getPods();
 
 
 // getPrometheusData(pod, node)
