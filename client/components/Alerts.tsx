@@ -18,21 +18,24 @@ const Alerts = () => {
  //default data will change to an empty array 
 
 const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]); 
+const [visual, setVisual] = React.useState<boolean[]>([]); 
 
-  //functionality to add Alerts
-  // function addAlerts (newAlertObj: AlertsInterface) {
-  //   // updates state with pushing new alert object
-  //   setAlerts(oldState => {
-  //     // if newAlertObj is an array of more alert objects, push them into the old state
-  //     if (Array.isArray(newAlertObj)) return [...oldState, ...newAlertObj];
-  //     // otherwise if it's just one alert, push it.
-  //     return [...oldState, newAlertObj]
-  //   })
-  // }
+  // functionality to add Alerts
+  function updateVisual (index: number, boolean: boolean) {
+    // updates state with pushing new alert object
+    setVisual(oldState => {
+      const newState = [...oldState];
+      newState[index] = boolean;
+      return newState;
+    })
+  }
 
   //functionality to update Alerts, we are receiving an updated alert from visualization page
-  function updateAlerts (updatedAlertObj: AlertsInterface) {
-    
+  async function updateAlerts (updatedAlertObj: AlertsInterface) {
+    alert('reached updateAlerts')
+    alert(updatedAlertObj)
+    console.log(updatedAlertObj);
+
     // grabbing the id of the alert and new Status, we can change the status
     setAlerts(oldState => {
       // creating a copy of old state
@@ -40,31 +43,17 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]);
       // mapping the new state and if the id matches, change the status
       newState = newState.map((alertObj: AlertsInterface) => {
         if (alertObj.id === updatedAlertObj.id){
-          alertObj.status = updatedAlertObj.status;
-          // add line below once we get updated state from Mark's edits
-          // alertObj.comments = updatedAlertObj.comments;
+          alertObj = updatedAlertObj
         }
         return alertObj;
       })
       // returning the new state
       return newState;
     })
+    console.log(updatedAlertObj)
 
-      fetch('http://localhost:8000/alerts', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedAlertObj)
-      })
-        .then(res => {
-          console.log("made it back from PATCH");
-          res.json();
-        })
-        .catch((err) => {
-          console.log('There was an error in updateAlerts fetch request.');
-          console.log(err);
-        })
+    // console.log(updatedAlertObj);
+      
   }
 
     //functionality to delete Alerts
@@ -90,6 +79,7 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]);
   
   
   useEffect(() => {
+    
     const fetchAlerts = ():void => { // fetchinterval pings the server every 30 seconds, until the component unmounts
       fetch('http://localhost:8000/alerts')
         .then(response => response.json()) // refine this, but basically update state with alert list the fetch returns
@@ -97,6 +87,9 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]);
           if (data !== alerts) {
             console.log('received updated alerts');
             setAlerts(data);
+            if(visual.length === 0) {
+              setVisual(Array(data.length).fill(false));
+            }
           }
         })
         .catch() // error handler
@@ -116,9 +109,25 @@ const [alerts, setAlerts] = React.useState<AlertsInterface[]>([]);
   const alertsObjs = [];
   for (let i = alerts.length-1; i >= 0 ; i--) {
     if (alerts[i].status === 'Pending'){
-      alertsObjs.push(<ProblemObject className='Resolved' key={alerts[i].id} alertObj={alerts[i]} updateAlerts={updateAlerts} deleteAlerts={deleteAlerts}/>);
+      alertsObjs.push(<ProblemObject 
+        className='Resolved' 
+        key={alerts[i].id} 
+        alertObj={alerts[i]} 
+        visual={visual[i]} 
+        updateVisual={updateVisual}  
+        updateAlerts={updateAlerts} 
+        deleteAlerts={deleteAlerts} 
+        index={i}/>);
     } else {
-      alertsObjs.push(<ProblemObject className='Pending' key={alerts[i].id} alertObj={alerts[i]} updateAlerts={updateAlerts} deleteAlerts={deleteAlerts}/>);
+      alertsObjs.push(<ProblemObject 
+          className='New' 
+          key={alerts[i].id} 
+          alertObj={alerts[i]} 
+          visual={visual[i]} 
+          updateVisual={updateVisual} 
+          updateAlerts={updateAlerts} 
+          deleteAlerts={deleteAlerts} 
+          index={i}/>);
     }
   }
 

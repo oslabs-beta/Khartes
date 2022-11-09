@@ -23,12 +23,29 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
+//express middleware stuff
+//automagically destring incoming JSON
+app.use(express.json());
+
 //Get the controllers
 import {dbController} from './Controllers/dbController';
 import fixTheYaml from './Controllers/fixTheYaml';
 
+// My little tester middleware for seeing what's what.
+const holler = (request: Request, response: Response, next: NextFunction) => {
+  console.log(' \n\nHoller!');
+  console.log('request body is...', request.body, typeof request.body);
+  console.log('request params are...', request.params);
+  console.log('request queries are...', request.query);
+  console.log('response locals are...', response.locals, typeof response.locals);
+  // console.log('response body is...', response.body, typeof response.body);
+  console.log('\n\n');
+  return next();
+};
+
 
 app.get('/alerts', 
+holler,
   dbController.getAllAlerts,
   (request: Request, response: Response ) => {response.json(response.locals.db);}
   );
@@ -40,9 +57,12 @@ app.get('/alerts',
 //   (request: Request, response: Response ) => {response.json(response.locals.updated);}
 //   );
 
-  app.patch('/alerts/', 
+  app.put('/alerts/:id', 
+  holler,
   dbController.updateByAlertObject,
-  (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  // holler,
+  // (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  (request: Request, response: Response ) => {response.json("we made it back");}
   );
 
 app.delete('/alerts/:id', 

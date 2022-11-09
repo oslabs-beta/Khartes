@@ -12,13 +12,27 @@ import Graph from './Graph'
 //   }
 // } 
 
-const Visualization = () => {
+interface VisualizationObjectProps {
+  alertObj: AlertsInterface
+  // className: string
+  updateAlerts: (updatedAlertObj: AlertsInterface) => void
+  // deleteAlerts: (params:number) => void
+}
+
+const Visualization = (props:VisualizationObjectProps) => {
+
+  const alertObj = props.alertObj;
+  const updateAlerts = props.updateAlerts;
+
   // logic for passing down props using location. Location needs a state object
-  const location = useLocation();
-  const {alertObj, updateAlerts} = location.state;
-  let display3: String = "display3";
+  // const location = useLocation();
+  // console.log(location.state);
+  // const alertObj = location.state.alertObj;
+  // const updateAlerts = location.state.updateAlerts;
+
+  let display3 = "display3";
   console.log("Visualization page");
-  console.log(alertObj);
+  // console.log(alertObj);
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
   const commentInput = React.useRef<HTMLInputElement | null>(null);
@@ -28,8 +42,8 @@ const Visualization = () => {
       const fixedPercent = textInput.current?.value;
     
       // send Patch to backend with id and % for fix
-      fetch('/alerts', { // this route is not discussed with the backend yet
-          method:'PATCH',
+      fetch('/alerts/1', { // this route is not discussed with the backend yet
+          method:'PUT',
           headers: {
           'Content-Type': 'application/json'
         },
@@ -74,26 +88,54 @@ const Visualization = () => {
 
 // const ready = setTimeout(() => {fixWasApplied = true}, 5000);
 
-const display = alertObj.oldYaml;
-const display2 = alertObj.newYaml;  
+const display = alertObj.oldyaml;
+const display2 = alertObj.newyaml;  
 
 
 // const [commentsArray, setCommentsArray] = React.useState<any>(alertObj.comments); // actual code, hard code below
-const [commentsArray, setCommentsArray] = React.useState<any>(['a comment', 'a second comment', "third"]);
-let commentsArrayLis: any[] = [];
+// const [commentsArray, setCommentsArray] = React.useState<any>(['a comment', 'a second comment', "third"]);
+// let commentsArrayLis: any[] = [];
 
 
-const addComments = () => {
-  const newComment: any = commentInput.current?.value;
-  const newCommentsArray = [...commentsArray];
-  newCommentsArray.push(newComment);
-  alertObj.comments = newCommentsArray;
+async function addComments() {
+  console.log("in add comments func")
+  console.log(alertObj);
+  console.log(updateAlerts);
+  const newAlertObj = Object.assign({}, alertObj);
+  const newComment = commentInput.current?.value;
+  const oldCommentsArr = newAlertObj.comments;
+  oldCommentsArr.push(newComment);
+
+  const updatedComments = [...oldCommentsArr];
+  // newCommentsArray.push(newComment);
+  newAlertObj.comments = updatedComments;
 
   //pass new alert object to general update function
-  updateAlerts(alertObj);
-
+  console.log(newAlertObj)
+  console.log(typeof newAlertObj);
+  // updateAlerts(newAlertObj);
+  // console.log(newAlertObj.id)
+  // const {id} = newAlertObj;
+  // fetch('http://localhost:8000/alerts')
+  // const response = await
+    fetch('http://localhost:8000/alerts/1', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newAlertObj)
+      })
+        .then(()=> {
+          console.log("made it back")
+          // updateAlerts(newAlertObj);
+        })
+        .catch((err) => {
+          console.log('There was an error in updateAlerts fetch request.');
+          console.log(err);
+        }
+        )
   // version assuming we are grabbing data from updated alert object
-  commentsArrayLis = alertObj.comments.map((el: any) => {el = <li>${el}</li>})
+  // commentsArrayLis = newAlertObj.comments.map((el: any) => {el = <li>${el}</li>})
 }
 
 
@@ -126,11 +168,11 @@ const addComments = () => {
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
                 <h3> Your Comments on this Alert: </h3>
                 <ul>
-                  {commentsArrayLis}
+                  {alertObj.comments}
                 </ul>
                 <h3> Add comments below: </h3>
-                <input id="input" ref={commentInput} defaultValue="Write notes here"></input>
-                <button className="button" onClick={addComments}> Add your notes </button>
+                <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>
+                <button className="button" onClick={() => addComments()}> Add your notes </button>
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               </div>
            </div>

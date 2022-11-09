@@ -37,7 +37,7 @@ const App = () => {
             }
             />
             <Route path="/visualization" element= {
-              <Visualization />
+            <Visualization />
             }
             />
             {/* <Route path="/yaml" element = {
