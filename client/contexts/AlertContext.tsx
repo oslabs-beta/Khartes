@@ -136,9 +136,12 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
     addAlert(newAlertArr);
   }
 
-  function addAlertObjComment (alertObj: AlertObjInterface, newComment: string){
+  
+
+   function addAlertObjComment (alertObj: AlertObjInterface, newComment: string){
     alert('in add Comment Alerts')
     const allComments = [...alertObj.comments, newComment];
+    alertObj.comments = allComments;
     // console.log(updatedAlerts[id].comments)
     alert(allComments);
     addAlert(oldState => {
@@ -151,6 +154,26 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
       })
       return newState;
       });
+
+      //update the database
+      console.log(alertObj);
+      alert(alertObj);
+      fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(alertObj)
+      })
+        .then(()=> {
+          console.log("made it back, updated database")
+          // updateAlerts(newAlertObj);
+        })
+        .catch((err) => {
+          console.log('There was an error in updateAlerts fetch request.');
+          console.log(err);
+        }
+        )
   }
 
   return (

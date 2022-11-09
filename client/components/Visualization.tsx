@@ -163,22 +163,7 @@ function addComments() {
   // const {id} = newAlertObj;
   // fetch('http://localhost:8000/alerts')
   // const response = await
-    fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(alertObj)
-      })
-        .then(()=> {
-          console.log("made it back")
-          // updateAlerts(newAlertObj);
-        })
-        .catch((err) => {
-          console.log('There was an error in updateAlerts fetch request.');
-          console.log(err);
-        }
-        )
+    
   // version assuming we are grabbing data from updated alert object
   // commentsArrayLis = newAlertObj.comments.map((el: any) => {el = <li>${el}</li>})
 }
@@ -216,7 +201,7 @@ function addComments() {
                 </ul>
                 <h3> Add comments below: </h3>
                 <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>
-                <button className="button" onClick={() => addComments()}> Add your notes </button>
+                <button className="button" onClick={addComments}> Add your notes </button>
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               </div>
            </div>
