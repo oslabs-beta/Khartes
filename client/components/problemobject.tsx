@@ -27,11 +27,11 @@ const ProblemObject = (props: problemObjectProps) => {
   const { deleteAlerts } = useDataContext();
 
   const alerts = props.alertObj;
-  console.log(alerts);
+  // console.log(alerts);
   // const dataContext = useDataContext();
 
   // const {visual, updateVisual, index} = props;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 const handleDelete = ():void => {
 

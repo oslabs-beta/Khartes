@@ -40,7 +40,7 @@ const Visualization = (props:VisualizationObjectProps) => {
   // const updateAlerts = location.state.updateAlerts;
 
   let display3 = "display3";
-  console.log("Visualization page");
+  // console.log("Visualization page");
   // console.log(alertObj);
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
@@ -87,17 +87,30 @@ const Visualization = (props:VisualizationObjectProps) => {
 
     const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
     console.log(fixWasApplied);
+
+    const [content, setContent] = React.useState<number[]>([])
     
     useEffect(() => {
       console.log(id);
-      console.log(alerts[id]);
-      console.log(alerts[id].oldYaml);
-      // const display = alerts[id].oldYaml;
-      // const display2 = alerts[id].newYaml;
-    })
+      // console.log(alerts[id]);
+      // console.log(alerts[id].oldYaml);
+      console.log("contents")
+      console.log(content);
+      if (id && !content){
+        const newArray = [];
+        newArray.push(id);
+        setContent(newArray); 
+        console.log(content)
+      }
 
-    const display = alerts[id].oldYaml;
-    const display2 = alerts[id].newYaml;  
+      // const display = alerts[content[0]].oldYaml;
+      // const display2 = alerts[content[0]].newYaml;
+    })
+    // const display = alerts[content[0]].oldYaml;
+    // const display2 = alerts[content[0]].newYaml;
+
+    // const display = alerts[content].oldYaml;
+    // const display2 = alerts[content].newYaml;  
 
 
 
@@ -205,7 +218,7 @@ async function addComments() {
            {fixWasApplied === false &&
         <div className="yamlcontents">
               <div> Current configuration details from your pod: </div>
-            <pre> {display} </pre>
+            {/* <pre> {display} </pre> */}
             </div>}
             {fixWasApplied === false &&
         <div className="yamlcontents">
@@ -214,13 +227,13 @@ async function addComments() {
               <div> To find the yaml file for your pod, run 'kubectl somecommand blah blah'</div>
               <div> Open that file, paste in our provided details, then run 'kubectl blah blah blah to deploy your new configuration to the cluster</div>
               <div> Or follow the workflow most appropriate to your organization, happy configuring!</div>
-            <pre> {display3} </pre>
+            {/* <pre> {display3} </pre> */}
             </div>}
             { fixWasApplied === false &&
               <div className="yamlcontents">
             <div> Suggested configuration to avoid errors. Accept the current suggestion, or enter a new % in the box to the left. </div>
             <div> Once you've made your selection, hit the FIX button to receive your new configuration.</div>
-            <pre> {display2} </pre>
+            {/* <pre> {display2} </pre> */}
             </div>}
 
            </div>

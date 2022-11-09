@@ -24,8 +24,8 @@ list (this is a box, also maybe modular for re-use that will host individual pro
 // {alerts, fetchAlerts}
 const Alerts = () => {
   const { alerts, fetchAlerts } = useDataContext();
-  console.log(alerts)
-  console.log(fetchAlerts);
+  // console.log(alerts)
+  // console.log(fetchAlerts);
   
   // const dataContext = useDataContext();
 
