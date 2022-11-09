@@ -19,7 +19,7 @@ body {
 }
 
 .New, 
-.Resolved {
+.Pending {
     width: 150px;
 }
 .New {
@@ -27,7 +27,7 @@ body {
     /* color: white; */
 }
 
-.Resolved {
+.Pending {
     background-color: #bbe991;
 }
 
