@@ -41,7 +41,7 @@ export const createAlert = async (node:string, pod:string, issue:string, metric:
       metric: metric,
       limit: limit,
       historicalMetrics: history,
-      oldYaml: 'oldyaml',
+      oldYaml: oldyaml,
       newYaml: '',
       comments: []
   }

@@ -1,6 +1,6 @@
 /*
 GET to /alerts
-PATCH to /alerts
+PUT to /alerts
 DELETE to alerts/id
 
 PATCH to /fix/percentage
@@ -53,13 +53,13 @@ holler,
   );
 
 
-
-  app.put('/alerts/:id', 
+//take in alert objects to update the DB. 
+app.put('/alerts', 
   holler,
   dbController.updateByAlertObject,
-  // holler,
-  // (request: Request, response: Response ) => {response.json(response.locals.updated);}
-  (request: Request, response: Response ) => {response.json("we made it back");}
+  holler,
+  (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  // (request: Request, response: Response ) => {response.json("we made it back");}
   );
 
 //send an id and it will be deleted from the DB. Send as parameter. IE: /alerts/123456789 deletes 123456789 from DB.
@@ -68,7 +68,7 @@ app.delete('/alerts/:id',
   (request: Request, response: Response ) => {response.json(response.locals.deleted);}
   );
 
-//send an alert object and a percentage to increase the limits by. 
+//send an alert object and a percentage to increase the limits by.
 app.patch('/fix/:percentage',
   fixTheYaml,
   dbController.updateByAlertObject,

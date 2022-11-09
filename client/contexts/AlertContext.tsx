@@ -121,8 +121,9 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
       return newState;
       });
 
+      // /${alertObj.id}
       //update the database
-      fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
+      fetch(`http://localhost:8000/alerts`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -156,7 +157,7 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
       });
 
       //update the database
-      fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
+      fetch(`http://localhost:8000/alerts`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

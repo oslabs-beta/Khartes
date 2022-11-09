@@ -41,8 +41,14 @@ export default function makeNewYaml(request: Request, response: Response, next: 
     //stitch back together
     newYaml[0].resources.limits.memory = numberPartOfString.toString() + stringPartOfString;
 
+    console.log('percentage to fix by: ', percentageToFixBy)
+    console.log('number part of our string is: ', numberPartOfString, typeof numberPartOfString)
+    console.log('string part of our string is: ', stringPartOfString, typeof stringPartOfString)
+    console.log('This is our new limit in the new yaml: ', newYaml[0].resources.limits.memory, typeof newYaml[0].resources.limits.memory)
+
+
     //update the object.
-    request.body.newYaml = newYaml;
+    request.body.newYaml = YAML.stringify(newYaml);
     //Now off to dbController.updateYamlById. 
     return next();
 }

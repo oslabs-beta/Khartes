@@ -40,10 +40,6 @@ const App = () => {
             <Visualization />
             }
             />
-            {/* <Route path="/yaml" element = {
-              <YamlPage />
-            }
-            /> */}
           </Routes>
         {/* Link to Home */}
         </main>

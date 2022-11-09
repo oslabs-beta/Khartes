@@ -82,7 +82,6 @@ export const dbController = {
     updateByAlertObject: async (request: Request, response: Response, next: NextFunction) => {
 
         //get everything I need.
-        console.log(request.body)
         const id:number = parseInt(request.body.id);
         const updatedAlertObject:any = request.body;
         const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
