@@ -129,7 +129,7 @@ const Alerts = () => {
   for (let i = alerts.length-1; i >= 0 ; i--) {
     if (alerts[i].status === 'Pending'){
       alertsObjs.push(<ProblemObject 
-        className='Resolved' 
+        className='Pending' 
         key={alerts[i].id} 
         alertObj={alerts[i]} 
         // index={i} 

@@ -24,7 +24,7 @@ import { AlertObjInterface } from '../contexts/AlertContext';
 // props:VisualizationObjectProps
 const Visualization = () => {
   
-  const {clickedAlerts, addAlertObjComment } = useDataContext();
+  const {clickedAlerts, addAlertObjComment, updateStatus } = useDataContext();
   // const id = (props.id -1);
   // console.log(alerts);
   // console.log(updateAlerts);
@@ -50,19 +50,27 @@ const Visualization = () => {
       // Obtain the input percentage
       const fixedPercent = textInput.current?.value;
     
+
+      // display is text from the current alertObj.oldYaml
+
+      //display2 newly declared variables in frontend of mods of old yaml
+      
+      //newYaml is our suggested alertObj that comes back newYaml
+
       // send Patch to backend with id and % for fix
-      fetch('/alerts/1', { // this route is not discussed with the backend yet
-          method:'PUT',
+      fetch(`/alerts/${fixedPercent}`, { // this route is not discussed with the backend yet
+          method:'PATCH',
           headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id: alertObj, fixedPercent: fixedPercent})
+        body: JSON.stringify(alertObj)
       })
         .then(res => { // response will be the entire alertObj
           console.log("made it back from PATCH");
           res.json()
+          // let display3 = res.
           // console.log('response', response);
-          display3 = "display3";
+          // display3 = "display3";
           // let display3 = response.newYaml;
         })
         .catch((err) => {
@@ -126,27 +134,15 @@ const Visualization = () => {
     // }, [fixWasApplied])
 
   
-// useEffect(() => {
-//     // do i need further conditionals here to prevent problems of multiple re-renders?
-//     fixWasApplied = true;
-// }, [location.state])
-
-// const ready = setTimeout(() => {fixWasApplied = true}, 5000);
-
-
-
-
-// const [commentsArray, setCommentsArray] = React.useState<any>(alertObj.comments); // actual code, hard code below
-// const [commentsArray, setCommentsArray] = React.useState<any>(['a comment', 'a second comment', "third"]);
-// let commentsArrayLis: any[] = [];
-
+function changeStatus () {
+  alert('in changeStatus function');
+  alert(alertObj);
+  updateStatus(alertObj);
+}
 
 function addComments() {
-  // console.log(alerts[id]);
-  // console.log(updateAlerts);
-  // const newAlertObj = Object.assign({}, alertObj);
   const newComment = commentInput.current?.value;
-  // const oldCommentsArr = newAlertObj.comments;
+
   console.log(newComment);
   if (newComment){
     addAlertObjComment(alertObj, newComment)
@@ -188,7 +184,7 @@ function addComments() {
                 <p> Issue: {alertObj.issue}</p>
                 <div>
                 <p> Status: {alertObj.status}</p>
-                <button className="button" onClick={addComments}> Toggle Status </button>
+                <button className="button" onClick={changeStatus}> Toggle Status </button>
                 </div>
               </div>
               <div className='fixcontents'>

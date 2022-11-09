@@ -21,10 +21,10 @@ export type AlertsContextType = {
   clickedAlerts: AlertObjInterface[]
   alerts: AlertObjInterface[];
   fetchAlerts: () => void;
-  updateAlerts: (updatedAlertObj: AlertObjInterface) => void;
   deleteAlerts: (id: number) => void;
   addAlertObj: (alertObj: AlertObjInterface) => void;
   addAlertObjComment: (alertObj: AlertObjInterface, newComment: string) => void;
+  updateStatus: (alertObj: AlertObjInterface) => void;
 }
 
 export const DataContext = React.createContext<AlertsContextType>({} as AlertsContextType);
@@ -89,28 +89,28 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
   };
 
   //functionality to update Alerts, we are receiving an updated alert from visualization page
-  async function updateAlerts (updatedAlertObj: AlertObjInterface) {
-    alert('reached updateAlerts')
-    alert(updatedAlertObj)
-    console.log(updatedAlertObj);
+  // async function updateAlerts (updatedAlertObj: AlertObjInterface) {
+  //   alert('reached updateAlerts')
+  //   alert(updatedAlertObj)
+  //   console.log(updatedAlertObj);
 
-    // grabbing the id of the alert and new Status, we can change the status
-    setAlerts(oldState => {
-      // creating a copy of old state
-      let newState = [...oldState];
-      // mapping the new state and if the id matches, change the status
-      newState = newState.map((alertObj: AlertObjInterface) => {
-        if (alertObj.id === updatedAlertObj.id){
-          alertObj = updatedAlertObj
-        }
-        return alertObj;
-      })
-      // returning the new state
-      return newState;
-    })
-    console.log(updatedAlertObj)
-    // console.log(updatedAlertObj); 
-  }
+  //   // grabbing the id of the alert and new Status, we can change the status
+  //   setAlerts(oldState => {
+  //     // creating a copy of old state
+  //     let newState = [...oldState];
+  //     // mapping the new state and if the id matches, change the status
+  //     newState = newState.map((alertObj: AlertObjInterface) => {
+  //       if (alertObj.id === updatedAlertObj.id){
+  //         alertObj = updatedAlertObj
+  //       }
+  //       return alertObj;
+  //     })
+  //     // returning the new state
+  //     return newState;
+  //   })
+  //   console.log(updatedAlertObj)
+  //   // console.log(updatedAlertObj); 
+  // }
 
   function deleteAlerts (id: number) {
     alert('made it to deletealerts func');
@@ -136,7 +136,45 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
     addAlert(newAlertArr);
   }
 
-  
+  function updateStatus (alertObj: AlertObjInterface){
+    alert('in update status Alerts')
+
+    if (alertObj.status === 'Pending'){
+      alertObj.status = 'New';
+    } else {
+      alertObj.status = 'Pending';
+    }
+    alert(alertObj.status);
+    
+    addAlert(oldState => {
+      let newState = [...oldState];
+      newState = newState.map(alert => {
+        if (alert.id === alertObj.id){
+          alert.status = alertObj.status;
+        }
+        return alert;
+      })
+      return newState;
+      });
+      console.log(alertObj);
+      //update the database
+      fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(alertObj)
+      })
+        .then(()=> {
+          console.log("made it back, updated database")
+          // updateAlerts(newAlertObj);
+        })
+        .catch((err) => {
+          console.log('There was an error in updateAlerts fetch request.');
+          console.log(err);
+        }
+        )
+  }
 
    function addAlertObjComment (alertObj: AlertObjInterface, newComment: string){
     alert('in add Comment Alerts')
@@ -177,7 +215,7 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
   }
 
   return (
-    <DataContext.Provider value= {{clickedAlerts, alerts, fetchAlerts, updateAlerts, deleteAlerts, addAlertObj, addAlertObjComment}}>
+    <DataContext.Provider value= {{clickedAlerts, alerts, fetchAlerts, deleteAlerts, addAlertObj, updateStatus, addAlertObjComment}}>
         {children}
     </DataContext.Provider>
   )
