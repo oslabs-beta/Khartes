@@ -1,4 +1,6 @@
 /*
+This file was created to populate dummy data to the db originally.
+
 This is for setting up test cases in the db.json file. We need JSON images, but don't want to write them by hand.
 This isn't called by anything. You have to run it separate. 
 */
