@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useRef } from 'react';
 import { AlertsInterface } from '../../Types';
 import Graph from './Graph'
+import { useDataContext } from '../contexts/AlertContext'
+import { AlertObjInterface } from '../contexts/AlertContext';
 
 // declare namespace JSX{
 //   interface ElementAttributesProperty {
@@ -12,40 +14,61 @@ import Graph from './Graph'
 //   }
 // } 
 
+// interface VisualizationObjectProps {
+  // alertObj: AlertsInterface
+  // id: number
+  // className: string
+  // updateAlerts: (updatedAlertObj: AlertsInterface) => void
+  // deleteAlerts: (params:number) => void
+// }
+// props:VisualizationObjectProps
 const Visualization = () => {
+  
+  const {clickedAlerts, updateAlerts } = useDataContext();
+  // const id = (props.id -1);
+  // console.log(alerts);
+  // console.log(updateAlerts);
+  // console.log(id);
+  // console.log(props.id);
+  // console.log(props);
   // logic for passing down props using location. Location needs a state object
-  const location = useLocation();
-  const alertObj = location.state;
-  let display3: string = "display3";
-  console.log("Visualization page");
-  console.log(alertObj);
+  // const location = useLocation();
+  // console.log(location.state);
+  // const alertObj = location.state.alertObj;
+  // const index = alertObj.id;
+  // const updatedAlertObj = alerts[index];
+  // const updateAlerts = location.state.updateAlerts;
+
+  let display3 = "display3";
+  // console.log("Visualization page");
+  // console.log(alertObj);
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
- 
+  const commentInput = React.useRef<HTMLInputElement | null>(null);
 
     const fixOptions = () => {
       // Obtain the input percentage
       const fixedPercent = textInput.current?.value;
     
       // send Patch to backend with id and % for fix
-      // fetch('http://localhost:8000/fix', { // this route is not discussed with the backend yet
-      //     method:'PATCH',
-      //     headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({id: alertObj.id, fixedPercent: fixedPercent})
-      // })
-      //   .then(res => { // response will be the entire alertObj
-      //     console.log("made it back from PATCH");
-      //     let response = res.json()
-      //     // console.log('response', response);
-      //     display3 = "display3";
-      //     // let display3 = response.newYaml;
-      //   })
-      //   .catch((err) => {
-      //     console.log('There was an error in updateAlerts fetch request.');
-      //     console.log(err);
-      //   })
+      fetch('/alerts/1', { // this route is not discussed with the backend yet
+          method:'PUT',
+          headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: alertObj, fixedPercent: fixedPercent})
+      })
+        .then(res => { // response will be the entire alertObj
+          console.log("made it back from PATCH");
+          res.json()
+          // console.log('response', response);
+          display3 = "display3";
+          // let display3 = response.newYaml;
+        })
+        .catch((err) => {
+          console.log('There was an error in updateAlerts fetch request.');
+          console.log(err);
+        })
 
       
       // toggle fixWasApplied to true
@@ -59,9 +82,45 @@ const Visualization = () => {
     //Hopefullly the following code will updte fixWasApplied if the oldYaml is changed
     // this should drill down to YamlView and cause a re-render
     // const [oldYaml, setYaml] = React.useState<string>;
+
+// actual code used below
+
     const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
     console.log(fixWasApplied);
+
+    // const [content, setContent] = React.useState<number[]>([])
     
+    useEffect(() => {
+      // console.log(id);
+      // console.log(alerts[id]);
+      // console.log(alerts[id].oldYaml);
+      
+      // console.log(clickedAlerts)
+      // const alertObj = clickedAlerts[clickedAlerts.length-1]
+      // console.log(alertObj);
+      // console.log(content);
+      // if (id && !content){
+        // const newArray = [];
+        // newArray.push(id);
+        // setContent(newArray); 
+        // console.log(content)
+      // }
+      // const {clickedAlerts, updateAlerts } = useDataContext();
+
+      // const display = alerts[content[0]].oldYaml;
+      // const display2 = alerts[content[0]].newYaml;
+    })
+    const alertObj = clickedAlerts[clickedAlerts.length-1]
+    console.log(alertObj);
+    // const display = alerts[content[0]].oldYaml;
+    // const display2 = alerts[content[0]].newYaml;
+
+    // const display = alerts[content].oldYaml;
+    // const display2 = alerts[content].newYaml;  
+
+
+
+
     // useEffect(() => {
     //   console.log(fixWasApplied);
     // }, [fixWasApplied])
@@ -74,8 +133,55 @@ const Visualization = () => {
 
 // const ready = setTimeout(() => {fixWasApplied = true}, 5000);
 
-const display = alertObj.oldYaml;
-const display2 = alertObj.newYaml;  
+
+
+
+// const [commentsArray, setCommentsArray] = React.useState<any>(alertObj.comments); // actual code, hard code below
+// const [commentsArray, setCommentsArray] = React.useState<any>(['a comment', 'a second comment', "third"]);
+// let commentsArrayLis: any[] = [];
+
+
+function addComments() {
+  console.log("in add comments func")
+  // console.log(alerts[id]);
+  // console.log(updateAlerts);
+  const newAlertObj = Object.assign({}, alertObj);
+  const newComment = commentInput.current?.value;
+  const oldCommentsArr = newAlertObj.comments;
+  if (newComment){
+    oldCommentsArr.push(newComment);
+  }
+  const updatedComments = [...oldCommentsArr];
+  // newCommentsArray.push(newComment);
+  newAlertObj.comments = updatedComments;
+
+  //pass new alert object to general update function
+  console.log(newAlertObj)
+  console.log(typeof newAlertObj);
+  // updateAlerts(newAlertObj);
+  // console.log(newAlertObj.id)
+  // const {id} = newAlertObj;
+  // fetch('http://localhost:8000/alerts')
+  // const response = await
+    fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newAlertObj)
+      })
+        .then(()=> {
+          console.log("made it back")
+          // updateAlerts(newAlertObj);
+        })
+        .catch((err) => {
+          console.log('There was an error in updateAlerts fetch request.');
+          console.log(err);
+        }
+        )
+  // version assuming we are grabbing data from updated alert object
+  // commentsArrayLis = newAlertObj.comments.map((el: any) => {el = <li>${el}</li>})
+}
 
 
 
@@ -91,18 +197,26 @@ const display2 = alertObj.newYaml;
               </div>
               <div className='alertcontents'>
                 <h3> Alert Information </h3>
-                <h3> Container: {alertObj.container} </h3>
-                <h3> Node: {alertObj.node} </h3>
-                <h3> Pod: {alertObj.pod} </h3>
-                <h3> Issue: {alertObj.issue}</h3>
-                <h3> Status: {alertObj.status}</h3>
-                <p> Current Limit: {alertObj.limit}</p>
+                <p> Container: {alertObj.container} </p>
+                <p> Node: {alertObj.node} </p>
+                <p> Pod: {alertObj.pod} </p>
+                <p> Issue: {alertObj.issue}</p>
+                <div>
+                <p> Status: {alertObj.status}</p>
+                <button className="button" onClick={addComments}> Toggle Status </button>
+                </div>
               </div>
               <div className='fixcontents'>
                 <h3> Fix Options </h3>
                 <h3> Raise you limit by: </h3>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
-                <div><h2>%</h2></div>
+                <h3> Your Comments on this Alert: </h3>
+                <ul>
+                  {alertObj.comments}
+                </ul>
+                <h3> Add comments below: </h3>
+                <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>
+                <button className="button" onClick={() => addComments()}> Add your notes </button>
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               </div>
            </div>
@@ -111,7 +225,7 @@ const display2 = alertObj.newYaml;
            {fixWasApplied === false &&
         <div className="yamlcontents">
               <div> Current configuration details from your pod: </div>
-            <pre> {display} </pre>
+            {/* <pre> {display} </pre> */}
             </div>}
             {fixWasApplied === false &&
         <div className="yamlcontents">
@@ -120,13 +234,13 @@ const display2 = alertObj.newYaml;
               <div> To find the yaml file for your pod, run 'kubectl somecommand blah blah'</div>
               <div> Open that file, paste in our provided details, then run 'kubectl blah blah blah to deploy your new configuration to the cluster</div>
               <div> Or follow the workflow most appropriate to your organization, happy configuring!</div>
-            <pre> {display3} </pre>
+            {/* <pre> {display3} </pre> */}
             </div>}
             { fixWasApplied === false &&
               <div className="yamlcontents">
             <div> Suggested configuration to avoid errors. Accept the current suggestion, or enter a new % in the box to the left. </div>
             <div> Once you've made your selection, hit the FIX button to receive your new configuration.</div>
-            <pre> {display2} </pre>
+            {/* <pre> {display2} </pre> */}
             </div>}
 
            </div>

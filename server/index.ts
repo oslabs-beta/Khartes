@@ -19,9 +19,25 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
+//express middleware stuff
+//automagically destring incoming JSON
+app.use(express.json());
+
 //Get the controllers
 import {dbController} from './Controllers/dbController';
 import fixTheYaml from './Controllers/fixTheYaml';
+
+// My little tester middleware for seeing what's what.
+const holler = (request: Request, response: Response, next: NextFunction) => {
+  console.log(' \n\nHoller!');
+  console.log('request body is...', request.body, typeof request.body);
+  console.log('request params are...', request.params);
+  console.log('request queries are...', request.query);
+  console.log('response locals are...', response.locals, typeof response.locals);
+  // console.log('response body is...', response.body, typeof response.body);
+  console.log('\n\n');
+  return next();
+};
 
 //automagically destring incoming JSON
 app.use(express.json());
@@ -31,16 +47,19 @@ app.use(express.json());
 
 //serve up alert objects
 app.get('/alerts', 
+holler,
   dbController.getAllAlerts,
   (request: Request, response: Response ) => {response.json(response.locals.db);}
   );
 
 
 
-//send BE an altered alert object and the DB will update it. 
-app.patch('/alerts', 
+  app.put('/alerts/:id', 
+  holler,
   dbController.updateByAlertObject,
-  (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  // holler,
+  // (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  (request: Request, response: Response ) => {response.json("we made it back");}
   );
 
 //send an id and it will be deleted from the DB. Send as parameter. IE: /alerts/123456789 deletes 123456789 from DB.

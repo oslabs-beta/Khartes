@@ -11,7 +11,7 @@ export interface AlertsInterface {
   metric: number
   limit: number
   historicalMetrics: number[][]
-  oldyaml: string
-  newyaml: string
+  oldYaml: string
+  newYaml: string
   comments: string[]
 }
