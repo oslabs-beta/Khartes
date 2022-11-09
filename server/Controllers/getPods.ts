@@ -53,7 +53,6 @@ const getPods = async() => {
         const obj = {pod: name, node: node};
         arrPodsNodes.push(obj)
     })
-    console.log(arrPodsNodes)
     return arrPodsNodes;
 }
 

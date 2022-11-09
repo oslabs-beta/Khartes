@@ -13,7 +13,6 @@ const getPodContainer = async (podname: string) => {
     const { stdout, stderr } = await exec(`kubectl get pod ${podname} -o yaml`)
     const yamls = YAML.parse(stdout);
     const containerYaml = yamls.spec.containers;
-    console.log(yamls.spec.containers);
 
     return YAML.stringify(containerYaml);
 };

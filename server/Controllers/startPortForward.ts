@@ -16,7 +16,7 @@ items[index].metadata.labels.app = prometheus
 //turn it into a yaml
 
 export const startPortForward = async():Promise<void> => {
-  //console.log('Are we going into starPortForward function? Yes?');
+  console.log('Are we going into starPortForward function? Yes?');
   const { stdout, stderr } = await exec('kubectl get pods -A -o yaml');
   // console.log('this is our output', typeof stdout)
   const allPodsYamlObject = YAML.parse(stdout);
@@ -39,11 +39,9 @@ export const startPortForward = async():Promise<void> => {
   }
 
 
-
-  console.log(namespace, podName)
   //portforward on app opening
   // this command works, but we need to figure out how to run it concurrently
-  // await exec(`kubectl --namespace ${namespace} port-forward ${podName}  1337:9090 &`)
+  //await exec(`kubectl --namespace ${namespace} port-forward ${podName}  1337:9090`)
   //exec('kubectl --namespace monitoring port-forward prometheus-server-5b87dc7765-cfp9t 1337:9090');
   // exec(`kubectl --namespace ${namespace} port-forward ${podName} 1337:9090`, (error:any, stdout:any, stderr:any) => {
   //   console.log('inside the port forward')
