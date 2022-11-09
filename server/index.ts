@@ -47,7 +47,7 @@ app.use(express.json());
 
 //serve up alert objects
 app.get('/alerts', 
-holler,
+// holler,
   dbController.getAllAlerts,
   (request: Request, response: Response ) => {response.json(response.locals.db);}
   );
@@ -55,9 +55,9 @@ holler,
 
 //take in alert objects to update the DB. 
 app.put('/alerts', 
-  holler,
+  // holler,
   dbController.updateByAlertObject,
-  holler,
+  // holler,
   (request: Request, response: Response ) => {response.json(response.locals.updated);}
   // (request: Request, response: Response ) => {response.json("we made it back");}
   );

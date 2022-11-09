@@ -124,16 +124,22 @@ function addComments() {
               <div> 
             <div className="yamlcontents">
               <div> Current configuration details from your pod: </div>
+            </div>
+            <div className="yamlcontents">
               <pre> {alertObj.oldYaml} </pre>
             </div>
             {fixWasApplied === true &&
-        <div className="yamlcontents">
-              <div> Update configurations based on your choice. </div>
-              <div> Please copy the text below into the 'container' section of the yaml file for your pod:</div>
-              <div> To find the yaml file for your pod, run 'kubectl somecommand blah blah'</div>
-              <div> Open that file, paste in our provided details, then run 'kubectl blah blah blah to deploy your new configuration to the cluster</div>
-              <div> Or follow the workflow most appropriate to your organization, happy configuring!</div>
-            <pre> {alertObj.newYaml} </pre>
+            <div>
+              <div className="yamlcontents">
+                <div> Update configurations based on your choice. </div>
+                <div> Please copy the text below into the 'container' section of the yaml file for your pod:</div>
+                <div> To find the yaml file for your pod, run 'kubectl somecommand blah blah'</div>
+                <div> Open that file, paste in our provided details, then run 'kubectl blah blah blah to deploy your new configuration to the cluster</div>
+                <div> Or follow the workflow most appropriate to your organization, happy configuring!</div>
+              </div>
+              <div className="yamlcontents">
+                <pre> {alertObj.newYaml} </pre>
+              </div>
             </div>}
             {/* { fixWasApplied === false &&
               <div className="yamlcontents">
