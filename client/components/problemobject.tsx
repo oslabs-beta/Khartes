@@ -24,14 +24,14 @@ interface problemObjectProps {
 
 const ProblemObject = (props: problemObjectProps) => {
 
-  const { deleteAlerts } = useDataContext();
+  const { deleteAlerts, addAlertObj } = useDataContext();
 
   const alerts = props.alertObj;
   // console.log(alerts);
   // const dataContext = useDataContext();
 
   // const {visual, updateVisual, index} = props;
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
 const handleDelete = ():void => {
 
@@ -92,12 +92,22 @@ fetch("http://localhost:8000/alerts/1", {
         )
       }
 
+    const handleRoute = () =>{
+      alert('reached handleroute')
+        // save the alert object into state empty array state
+        const newAlert = props.alertObj;
+        console.log(props.alertObj);
+        addAlertObj(newAlert)
+        // navigate to new page
+        navigate('/visualization', { state: props.alertObj });
+    }
+      
+
 // this component will receive data about particualr pods/pvs etc and be rendered repeatedly in the list on the home page
 // switch (visual) {
 //   case true: 
   return(
       <div className='problemdiv'>
-        Made it to problem object.
         <div className="problemobject">
           <div id="left">
           <button className={props.className}> Status: {props.className} </button>
@@ -118,13 +128,11 @@ fetch("http://localhost:8000/alerts/1", {
             <button className="home-buttons" onClick={addComments}> run add comments </button>
             <button className="home-buttons" onClick={handleDelete}> Delete Alert </button>
               {/* <button className={props.className}> Status: Resolved </button> */}
-              {/* <div className="alerts"><Link to='/visualization'><u>See Details</u></Link></div> */}
-            {/* <button className="home-buttons" onClick={() => {
-              navigate('/visualization', { state: props.alertObj });
-            }}> See Details </button> */}
+              <div className="alerts"><Link to='/visualization'><u>See Details</u></Link></div>
+            <button className="home-buttons" onClick={handleRoute}> See Details </button>
             {/* <button className="home-buttons" onClick={() => {updateVisual(index, false)}}></button> */}
           </div>
-          <Visualization id={props.alertObj.id}/>
+          {/* <Visualization id={props.alertObj.id}/> */}
         </div>
       </div>    
     ) 

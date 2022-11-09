@@ -17,10 +17,12 @@ export interface AlertObjInterface {
 }
 
 export type AlertsContextType = {
+  clickedAlerts: AlertObjInterface[]
   alerts: AlertObjInterface[];
   fetchAlerts: () => void;
   updateAlerts: (updatedAlertObj: AlertObjInterface) => void;
   deleteAlerts: (id: number) => void;
+  addAlertObj: (alertObj: AlertObjInterface) => void;
 }
 
 export const DataContext = React.createContext<AlertsContextType>({} as AlertsContextType);
@@ -65,6 +67,7 @@ type Props = {
 
 export const AlertProvider: React.FC<Props> = ({children}) => {
   const [alerts, setAlerts] = React.useState<AlertObjInterface[]>([]); //default data will change to an empty array 
+  const [clickedAlerts, addAlert] = React.useState<AlertObjInterface[]>([]);
 
   //functionality to add Alerts
   const fetchAlerts = ():void => {
@@ -124,11 +127,24 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
     })
     return newState;
     })
-  
   }
 
+  function addAlertObj (alertObj: AlertObjInterface){
+    const newAlertArr = [...clickedAlerts, alertObj];
+    addAlert(newAlertArr);
+  }
+
+  // function fixCommentsAlertObj (id: number, newComment: string){
+  //   const stringArr = clickedAlerts[id].comments;
+  //   stringArr.push(newComment);
+  //   const ne
+  //   clickedAlerts[id].comments = stringArr;
+  //   const newAlertArr = [...clickedAlerts];
+  //   addAlert(newAlertArr);
+  // }
+
   return (
-    <DataContext.Provider value= {{alerts, fetchAlerts, updateAlerts, deleteAlerts}}>
+    <DataContext.Provider value= {{clickedAlerts, alerts, fetchAlerts, updateAlerts, deleteAlerts, addAlertObj}}>
         {children}
     </DataContext.Provider>
   )

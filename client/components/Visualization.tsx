@@ -14,18 +14,18 @@ import { AlertObjInterface } from '../contexts/AlertContext';
 //   }
 // } 
 
-interface VisualizationObjectProps {
+// interface VisualizationObjectProps {
   // alertObj: AlertsInterface
-  id: number
+  // id: number
   // className: string
   // updateAlerts: (updatedAlertObj: AlertsInterface) => void
   // deleteAlerts: (params:number) => void
-}
-
-const Visualization = (props:VisualizationObjectProps) => {
+// }
+// props:VisualizationObjectProps
+const Visualization = () => {
   
-  const {alerts, updateAlerts } = useDataContext();
-  const id = (props.id -1);
+  const {clickedAlerts, updateAlerts } = useDataContext();
+  // const id = (props.id -1);
   // console.log(alerts);
   // console.log(updateAlerts);
   // console.log(id);
@@ -56,7 +56,7 @@ const Visualization = (props:VisualizationObjectProps) => {
           headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id: alerts[id], fixedPercent: fixedPercent})
+        body: JSON.stringify({id: alertObj, fixedPercent: fixedPercent})
       })
         .then(res => { // response will be the entire alertObj
           console.log("made it back from PATCH");
@@ -88,24 +88,30 @@ const Visualization = (props:VisualizationObjectProps) => {
     const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
     console.log(fixWasApplied);
 
-    const [content, setContent] = React.useState<number[]>([])
+    // const [content, setContent] = React.useState<number[]>([])
     
     useEffect(() => {
-      console.log(id);
+      // console.log(id);
       // console.log(alerts[id]);
       // console.log(alerts[id].oldYaml);
-      console.log("contents")
-      console.log(content);
-      if (id && !content){
-        const newArray = [];
-        newArray.push(id);
-        setContent(newArray); 
-        console.log(content)
-      }
+      
+      // console.log(clickedAlerts)
+      // const alertObj = clickedAlerts[clickedAlerts.length-1]
+      // console.log(alertObj);
+      // console.log(content);
+      // if (id && !content){
+        // const newArray = [];
+        // newArray.push(id);
+        // setContent(newArray); 
+        // console.log(content)
+      // }
+      // const {clickedAlerts, updateAlerts } = useDataContext();
 
       // const display = alerts[content[0]].oldYaml;
       // const display2 = alerts[content[0]].newYaml;
     })
+    const alertObj = clickedAlerts[clickedAlerts.length-1]
+    console.log(alertObj);
     // const display = alerts[content[0]].oldYaml;
     // const display2 = alerts[content[0]].newYaml;
 
@@ -135,15 +141,16 @@ const Visualization = (props:VisualizationObjectProps) => {
 // let commentsArrayLis: any[] = [];
 
 
-async function addComments() {
+function addComments() {
   console.log("in add comments func")
-  console.log(alerts[id]);
-  console.log(updateAlerts);
-  const newAlertObj = Object.assign({}, alerts[id]);
+  // console.log(alerts[id]);
+  // console.log(updateAlerts);
+  const newAlertObj = Object.assign({}, alertObj);
   const newComment = commentInput.current?.value;
   const oldCommentsArr = newAlertObj.comments;
-  oldCommentsArr.push(newComment);
-
+  if (newComment){
+    oldCommentsArr.push(newComment);
+  }
   const updatedComments = [...oldCommentsArr];
   // newCommentsArray.push(newComment);
   newAlertObj.comments = updatedComments;
@@ -156,7 +163,7 @@ async function addComments() {
   // const {id} = newAlertObj;
   // fetch('http://localhost:8000/alerts')
   // const response = await
-    fetch(`http://localhost:8000/alerts/${id}`, {
+    fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -186,16 +193,16 @@ async function addComments() {
           <div className='visualization-grid'>
            <div className="left-grid">
               <div className='graphcontents'> 
-                <Graph alert={alerts[id]}/>
+                <Graph alert={alertObj}/>
               </div>
               <div className='alertcontents'>
                 <h3> Alert Information </h3>
-                <p> Container: {alerts[id].container} </p>
-                <p> Node: {alerts[id].node} </p>
-                <p> Pod: {alerts[id].pod} </p>
-                <p> Issue: {alerts[id].issue}</p>
+                <p> Container: {alertObj.container} </p>
+                <p> Node: {alertObj.node} </p>
+                <p> Pod: {alertObj.pod} </p>
+                <p> Issue: {alertObj.issue}</p>
                 <div>
-                <p> Status: {alerts[id].status}</p>
+                <p> Status: {alertObj.status}</p>
                 <button className="button" onClick={addComments}> Toggle Status </button>
                 </div>
               </div>
@@ -205,7 +212,7 @@ async function addComments() {
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
                 <h3> Your Comments on this Alert: </h3>
                 <ul>
-                  {alerts[id].comments}
+                  {alertObj.comments}
                 </ul>
                 <h3> Add comments below: </h3>
                 <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>
