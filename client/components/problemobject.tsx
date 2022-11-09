@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Visualization from './Visualization';
 import { useDataContext } from '../contexts/AlertContext'
-import { AlertObjInterface } from '../contexts/AlertContext'
+
 // replaced type to interface, it is better ideal to receive for funcs/objs
 interface problemObjectProps {
   alertObj: AlertsInterface
@@ -17,26 +17,16 @@ interface problemObjectProps {
   // updateAlerts: (updatedAlertObj: AlertsInterface) => void
   // deleteAlerts: (params:number) => void
 }
-// type Props = {x
-//   alerts: AlertObjInterface[]
-//   deleteAlerts: (id: number) => void
-// }
 
 const ProblemObject = (props: problemObjectProps) => {
-
+  const navigate = useNavigate();
   const { deleteAlerts, addAlertObj } = useDataContext();
 
   const alerts = props.alertObj;
-  // console.log(alerts);
-  // const dataContext = useDataContext();
 
-  // const {visual, updateVisual, index} = props;
-  const navigate = useNavigate();
-
-const handleDelete = ():void => {
-
-  deleteAlerts(alerts.id)
-}
+  const handleDelete = ():void => {
+    deleteAlerts(alerts.id)
+  }
 
 // console.log(props);
 
@@ -77,11 +67,9 @@ const handleDelete = ():void => {
 //         )
 //       }
 
-    const handleRoute = () =>{
-      alert('reached handleroute')
+    const handleRoute = () => {
         // save the alert object into state empty array state
         const newAlert = props.alertObj;
-        console.log(props.alertObj);
         addAlertObj(newAlert)
         // navigate to new page
         navigate('/visualization', { state: props.alertObj });
@@ -121,42 +109,6 @@ const handleDelete = ():void => {
         </div>
       </div>    
     ) 
-    // break;
-    // case false:
-    //   return(
-    //     <div className='problemdiv'>
-    //       <div className="problemobject">
-    //         <div id="left">
-    //         <button className={props.className}> Status: {props.className} </button>
-    //           <div>
-    //           Pod: {props.alertObj.pod}
-    //           </div>
-    //           <div>
-    //           Issue: {props.alertObj.issue}
-    //           </div>
-    //         </div>
-    //         <div id="right">
-    //         {/* Aut-fix View Details */}
-    //          {/* Here we will display and access some information about the pods
-    //          display: pod and the issue
-    //          color coordination based on status
-    //           */}
-    //           <div></div>
-    //           <button className="home-buttons" onClick={addComments}> run add comments </button>
-    //           <button className="home-buttons" onClick={deleteAlerts}> Delete Alert </button>
-    //             {/* <button className={props.className}> Status: Resolved </button> */}
-    //             <div className="alerts"><Link to='/visualization'><u>See Details</u></Link></div>
-    //           {/* <button className="home-buttons" onClick={() => {
-    //             navigate('/visualization', { state: props });
-    //           }}> See Details </button> */}
-    //           <button className="home-buttons" onClick={() => {updateVisual(index, true)}}></button>
-    //         </div>
-              
-    //         {/* <Visualization alertObj={props.alertObj} updateAlerts={props.updateAlerts}/> */}
-    //       </div>
-          
-    //     </div>    
-      // ) 
 }
   
   export default ProblemObject;

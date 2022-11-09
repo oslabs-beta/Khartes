@@ -8,40 +8,12 @@ import Graph from './Graph'
 import { useDataContext } from '../contexts/AlertContext'
 import { AlertObjInterface } from '../contexts/AlertContext';
 
-// declare namespace JSX{
-//   interface ElementAttributesProperty {
-//     props:
-//   }
-// } 
-
-// interface VisualizationObjectProps {
-  // alertObj: AlertsInterface
-  // id: number
-  // className: string
-  // updateAlerts: (updatedAlertObj: AlertsInterface) => void
-  // deleteAlerts: (params:number) => void
-// }
-// props:VisualizationObjectProps
 const Visualization = () => {
   
   const {clickedAlerts, addAlertObjComment, updateStatus } = useDataContext();
-  // const id = (props.id -1);
-  // console.log(alerts);
-  // console.log(updateAlerts);
-  // console.log(id);
-  // console.log(props.id);
-  // console.log(props);
-  // logic for passing down props using location. Location needs a state object
-  // const location = useLocation();
-  // console.log(location.state);
-  // const alertObj = location.state.alertObj;
-  // const index = alertObj.id;
-  // const updatedAlertObj = alerts[index];
-  // const updateAlerts = location.state.updateAlerts;
 
   let display3 = "display3";
-  // console.log("Visualization page");
-  // console.log(alertObj);
+
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
   const commentInput = React.useRef<HTMLInputElement | null>(null);
@@ -49,7 +21,6 @@ const Visualization = () => {
     const fixOptions = () => {
       // Obtain the input percentage
       const fixedPercent = textInput.current?.value;
-    
 
       // display is text from the current alertObj.oldYaml
 
@@ -68,7 +39,8 @@ const Visualization = () => {
         .then(res => { // response will be the entire alertObj
           console.log("made it back from PATCH");
           res.json()
-          // let display3 = res.
+          console.log(res);
+          // const display3 = res.newYaml;
           // console.log('response', response);
           // display3 = "display3";
           // let display3 = response.newYaml;
@@ -94,32 +66,8 @@ const Visualization = () => {
 // actual code used below
 
     const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
-    console.log(fixWasApplied);
 
-    // const [content, setContent] = React.useState<number[]>([])
-    
-    useEffect(() => {
-      // console.log(id);
-      // console.log(alerts[id]);
-      // console.log(alerts[id].oldYaml);
-      
-      // console.log(clickedAlerts)
-      // const alertObj = clickedAlerts[clickedAlerts.length-1]
-      // console.log(alertObj);
-      // console.log(content);
-      // if (id && !content){
-        // const newArray = [];
-        // newArray.push(id);
-        // setContent(newArray); 
-        // console.log(content)
-      // }
-      // const {clickedAlerts, updateAlerts } = useDataContext();
-
-      // const display = alerts[content[0]].oldYaml;
-      // const display2 = alerts[content[0]].newYaml;
-    })
     const alertObj = clickedAlerts[clickedAlerts.length-1]
-    console.log(alertObj);
     // const display = alerts[content[0]].oldYaml;
     // const display2 = alerts[content[0]].newYaml;
 
@@ -135,37 +83,16 @@ const Visualization = () => {
 
   
 function changeStatus () {
-  alert('in changeStatus function');
-  alert(alertObj);
   updateStatus(alertObj);
 }
 
 function addComments() {
   const newComment = commentInput.current?.value;
 
-  console.log(newComment);
   if (newComment){
     addAlertObjComment(alertObj, newComment)
   }
-  // const updatedComments = [...oldCommentsArr];
-  // newCommentsArray.push(newComment);
-  // newAlertObj.comments = updatedComments;
-
-  //pass new alert object to general update function
-  // console.log(newAlertObj)
-  // console.log(typeof newAlertObj);
-  // updateAlerts(newAlertObj);
-  // console.log(newAlertObj.id)
-  // const {id} = newAlertObj;
-  // fetch('http://localhost:8000/alerts')
-  // const response = await
-    
-  // version assuming we are grabbing data from updated alert object
-  // commentsArrayLis = newAlertObj.comments.map((el: any) => {el = <li>${el}</li>})
 }
-
-
-
 
 //| undefined            //[[number, string],[number, string]]     //can also create a numberOrString type and use that. 
     // this component will display graphs, issue descript and two buttons auto-fix or fix options
@@ -185,19 +112,18 @@ function addComments() {
                 <div>
                 <p> Status: {alertObj.status}</p>
                 <button className="button" onClick={changeStatus}> Toggle Status </button>
+                <h4> Comments: </h4>
+                <ul>
+                  {alertObj.comments}
+                </ul>
+                <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>
+                <button className="button" onClick={addComments}> Add your notes </button>
                 </div>
               </div>
               <div className='fixcontents'>
                 <h3> Fix Options </h3>
                 <h3> Raise you limit by: </h3>
-                <input id="input" type="text" ref={textInput} defaultValue='20'></input>
-                <h3> Your Comments on this Alert: </h3>
-                <ul>
-                  {alertObj.comments}
-                </ul>
-                <h3> Add comments below: </h3>
-                <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>
-                <button className="button" onClick={addComments}> Add your notes </button>
+                <input id="input" type="text" ref={textInput} defaultValue='20'></input> 
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               </div>
            </div>

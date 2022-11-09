@@ -34,35 +34,6 @@ export function useDataContext () {
   return useContext(DataContext);
 }
 
-// export function useDataUpdateContext () {
-//   return useContext(AlertsUpdateContext);
-// }
-
-// const defaultAlerts = [
-// {
-//   id: 1,
-//   issue: 'Low Disk Storage',
-//   status: 'Pending',
-//   node: 'name',
-//   pod: 'name',
-//   container: 'name',
-//   metrics: {limits: 'X variable', data: 'Y variable'},
-//   oldYaml: 'blah blah',
-//   newYaml: 'blah blah blah'
-// },
-// {
-//   id: 2,
-//   issue: 'OOM Kill Warning',
-//   status: 'Pending',
-//   node: 'name',
-//   pod: 'name',
-//   container: 'name',
-//   metrics: {limits: 'X variable', data: 'Y variable'},
-//   oldYaml: 'blah blah',
-//   newYaml: 'blah blah blah'
-// }
-// ]
-
 type Props = {
   children?: React.ReactNode;
 };
@@ -73,7 +44,7 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
 
   //functionality to add Alerts
   const fetchAlerts = ():void => {
-    alert("in the fetchAlerts") // fetchinterval pings the server every 30 seconds, until the component unmounts
+     // fetchinterval pings the server every 30 seconds, until the component unmounts
     fetch('http://localhost:8000/alerts')
       .then(response => response.json()) // refine this, but basically update state with alert list the fetch returns
       .then(data => {
@@ -113,16 +84,11 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
   // }
 
   function deleteAlerts (id: number) {
-    alert('made it to deletealerts func');
   setAlerts(oldState => {
     // logic to remove the object with this ID from our old state
     let newState = [...oldState];
     newState = newState.filter(alertObj => {
       if (alertObj.id === id) {
-        // before the alert is deleted in the frontend, add to deletedAlerts Array
-          // setDeletedAlerts(oldState => {
-          //   return [...oldState, alertObj]
-          // });
         return false;
     }
       return true;
@@ -137,14 +103,12 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
   }
 
   function updateStatus (alertObj: AlertObjInterface){
-    alert('in update status Alerts')
 
     if (alertObj.status === 'Pending'){
       alertObj.status = 'New';
     } else {
       alertObj.status = 'Pending';
     }
-    alert(alertObj.status);
     
     addAlert(oldState => {
       let newState = [...oldState];
@@ -156,7 +120,7 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
       })
       return newState;
       });
-      console.log(alertObj);
+
       //update the database
       fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
         method: 'PUT',
@@ -177,11 +141,9 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
   }
 
    function addAlertObjComment (alertObj: AlertObjInterface, newComment: string){
-    alert('in add Comment Alerts')
     const allComments = [...alertObj.comments, newComment];
     alertObj.comments = allComments;
     // console.log(updatedAlerts[id].comments)
-    alert(allComments);
     addAlert(oldState => {
       let newState = [...oldState];
       newState = newState.map(alert => {
@@ -194,8 +156,6 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
       });
 
       //update the database
-      console.log(alertObj);
-      alert(alertObj);
       fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
         method: 'PUT',
         headers: {
