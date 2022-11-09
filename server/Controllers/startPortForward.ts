@@ -1,4 +1,5 @@
-const {exec} = require('child_process');
+const util = require('node:util');
+const exec = util.promisify(require('child_process').exec);
 const YAML = require('yaml');
 
 /* Port Forwarding Notes on Prometheus. 
@@ -14,20 +15,13 @@ items[index].metadata.labels.app = prometheus
 //run the kubectl command for all pods
 //turn it into a yaml
 
-export const startPortForward = ():void => {
-  let allPodsYamlObject:any = {};
-  exec("kubectl get pods -A -o yaml", (error: any, output: any, stderr:string) => {
-      if (error) {
-          console.log(`error: ${error.message}`);
-          return;
-      }
-      if (stderr) {
-          console.log(`stderr: ${stderr}`);
-          return;
-      }
-      allPodsYamlObject = YAML.parse(output);
-  });
-
+export const startPortForward = async():Promise<void> => {
+  console.log('Are we going into starPortForward function? Yes?');
+  const { stdout, stderr } = await exec('kubectl get pods -A -o yaml');
+  // console.log('this is our output', typeof stdout)
+  const allPodsYamlObject = YAML.parse(stdout);
+  
+  //console.log('This is what we got from startPortForward: ', allPodsYamlObject)
   //a for loop to iterate through the resulting array and search for the correct pod
   //that meets our conditions 
   //items[index].metadata.labels.app = prometheus
@@ -45,17 +39,11 @@ export const startPortForward = ():void => {
   }
 
 
-
-
   //portforward on app opening
-  exec(`kubectl --namespace ${namespace} ${podName} 1337:9090`, (error:any, stdout:any, stderr:any) => {
-    if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-    }
-  });
+  // this command works, but we need to figure out how to run it concurrently
+  //await exec(`kubectl --namespace ${namespace} port-forward ${podName}  1337:9090`)
+  //exec('kubectl --namespace monitoring port-forward prometheus-server-5b87dc7765-cfp9t 1337:9090');
+  // exec(`kubectl --namespace ${namespace} port-forward ${podName} 1337:9090`, (error:any, stdout:any, stderr:any) => {
+  //   console.log('inside the port forward')
+  // });
 };

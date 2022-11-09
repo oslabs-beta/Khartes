@@ -4,8 +4,8 @@ interface PodNode {
   pod: string
   node: string
 }
-
-const {exec} = require('child_process');
+const util = require('node:util');
+const exec = util.promisify(require('node:child_process').exec);
 const YAML = require('yaml');
 /*
 
@@ -39,35 +39,50 @@ return an array of user deployed pods and the nodes they're in.
 
 
 
-const getPods = () => {
-    
-    return exec("kubectl get pods -o yaml", (error:any, stdout:any, stderr:any) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            // return;
-        }
-        // console.log(`stdout: ${stdout}`);
-        const yamls = YAML.parse(stdout).items;
+const getPods = async() => {
+  console.log('doing getPods');
+
+    const { stdout, stderr } = await exec('kubectl get pods -o yaml');
+    const yamls = YAML.parse(stdout).items;
         
-        const arrPodsNodes:PodNode[] = [];          //[{}, {}]
+    const arrPodsNodes:PodNode[] = [];          //[{}, {}]
         
-        yamls.forEach((el:any) => {
-            const name = el.metadata.name;
-            const node = el.spec.nodeName;
-            const obj = {pod: name, node: node};
-            arrPodsNodes.push(obj)
-        })
-        console.log(arrPodsNodes)
-        return arrPodsNodes;
-
-
-
-});
+    yamls.forEach((el:any) => {
+        const name = el.metadata.name;
+        const node = el.spec.nodeName;
+        const obj = {pod: name, node: node};
+        arrPodsNodes.push(obj)
+    })
+    return arrPodsNodes;
 }
+
+
+//     return exec("kubectl get pods -o yaml", (error:any, stdout:any, stderr:any) => {
+//         if (error) {
+//             console.log(`error: ${error.message}`);
+//             return;
+//         }
+//         if (stderr) {
+//             console.log(`stderr: ${stderr}`);
+//             // return;
+//         }
+//         // console.log(`stdout: ${stdout}`);
+//         const yamls = YAML.parse(stdout).items;
+        
+//         const arrPodsNodes:PodNode[] = [];          //[{}, {}]
+        
+//         yamls.forEach((el:any) => {
+//             const name = el.metadata.name;
+//             const node = el.spec.nodeName;
+//             const obj = {pod: name, node: node};
+//             arrPodsNodes.push(obj)
+//         })
+//         console.log(arrPodsNodes)
+//         return arrPodsNodes;
+
+
+
+// });
 
 //console.log(getPods());
 
