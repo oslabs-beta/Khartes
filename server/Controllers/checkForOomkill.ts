@@ -9,6 +9,7 @@ return boolean
 // generate a differnt boolean
 
 const checkForOomkill = (memUsage: number, memLimit: number):boolean => {
+    console.log("inside checkForOomkill")
     const ratio = memUsage/memLimit;
     // 80% is hardcoded for now, possible to let user configure later
     if (ratio >= 0.8) {

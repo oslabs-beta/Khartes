@@ -3,8 +3,6 @@ This should create an Alert Object.
 We are taking in: node, pod, issue, metric, and limit from heartbeat. 
 We will get the rest of the data and write it to the DB here. 
 
-
-
 Math.floor(Math.random() * 1000000000);
 */
 
@@ -15,6 +13,7 @@ import { AlertsInterface } from '../../Types';
 
 
 export const createAlert = async (node:string, pod:string, issue:string, metric:number, limit:number, query:string) => {
+  console.log("we're inside createAlert")
   //create an ID prop
   const id = Math.floor(Math.random() * 1000000000);
   //add issue prop: issue

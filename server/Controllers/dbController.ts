@@ -58,7 +58,7 @@ export const dbController = {
         const id:number = parseInt(request.params.id);
         const newStatus:string = request.params.status;                                                                  //Might need to change this in future?
         const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
-        let dbAsArray = JSON.parse(dbAsText);
+        const dbAsArray = JSON.parse(dbAsText);
         
         //find appropriate alert object  [{}, {}, {}]
         //And change it's status. 
@@ -85,7 +85,7 @@ export const dbController = {
         const id:number = parseInt(request.body.id);
         const updatedAlertObject:any = request.body;
         const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
-        let dbAsArray = JSON.parse(dbAsText);
+        const dbAsArray = JSON.parse(dbAsText);
         
         //find appropriate alert object  [{}, {}, {}]
         //And change it's status. 
@@ -112,7 +112,7 @@ export const dbController = {
         const id:number = parseInt(request.params.id);
         const newYaml:string = request.params.newYaml;                                                                  //Might need to change this in future?
         const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
-        let dbAsArray = JSON.parse(dbAsText);
+        const dbAsArray = JSON.parse(dbAsText);
         
         //find appropriate alert object  [{}, {}, {}]
         //And add new YAML. 
@@ -140,8 +140,8 @@ export const dbController = {
         //And delete it. Use splice. 
         //while loop, checking dbAsArray[counter].id
         //remember to grab deleted alert to return it. 
-        let newDbAsArray = [];
-        let counter:number = 0;
+        const newDbAsArray = [];
+        let counter = 0;
 
         while(newDbAsArray[0] === undefined){
             if(dbAsArray[counter].id === id){ 
@@ -153,7 +153,7 @@ export const dbController = {
                 newDbAsArray.push(...dbAsArray.slice(counter + 1))
             }
             counter++;
-        };
+        }
         
         //write it all back to the DB.
         await fs.writeFileSync(path.join(__dirname, '../../../server/db.json'), JSON.stringify(newDbAsArray));
@@ -171,31 +171,34 @@ export const dbController = {
     writeNewAlertToDb: async (newAlert:object) => {
         
         //get new alert, db as text, and db as array of alert objects.                                                                    //Might need to change this in future?
-        const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
+        const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../server/db.json'), 'utf8')
         const dbAsArray = JSON.parse(dbAsText);
         
         //push new alert onto array of alert objects.
         dbAsArray.push(newAlert);
         
         //write it all back to the DB.
-        await fs.writeFileSync(path.join(__dirname, '../../../server/db.json'), JSON.stringify(dbAsArray));
+        await fs.writeFileSync(path.join(__dirname, '../../server/db.json'), JSON.stringify(dbAsArray));
         
         return 'Done';
     },
 
     //
     checkIfAlertAlreadyExists: async (babyAlert:any) => {
-        
+        //{{pod: name, issue: oomkillIssue}}
+        console.log("we're inside checkIfAlertAlreadyExists");
         //get new alert, db as text, and db as array of alert objects.                                                              //Might need to change this in future?
-        const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
+        const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../server/db.json'), 'utf8')
         const dbAsArray = JSON.parse(dbAsText);
         
         //check if it's there.
         for(let index = 0; index < dbAsArray.length; index++){
             if(dbAsArray[index].pod === babyAlert.pod && dbAsArray[index].issue === babyAlert.issue){
+                console.log('checkIfAlertAlreadyExists returning true')
                 return true;
             }
         }
+        console.log('checkIfAlertAlreadyExists returning false')
         return false;
     },
 
