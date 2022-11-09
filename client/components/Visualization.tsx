@@ -24,7 +24,7 @@ import { AlertObjInterface } from '../contexts/AlertContext';
 // props:VisualizationObjectProps
 const Visualization = () => {
   
-  const {clickedAlerts, updateAlerts } = useDataContext();
+  const {clickedAlerts, addAlertObjComment } = useDataContext();
   // const id = (props.id -1);
   // console.log(alerts);
   // console.log(updateAlerts);
@@ -142,22 +142,22 @@ const Visualization = () => {
 
 
 function addComments() {
-  console.log("in add comments func")
   // console.log(alerts[id]);
   // console.log(updateAlerts);
-  const newAlertObj = Object.assign({}, alertObj);
+  // const newAlertObj = Object.assign({}, alertObj);
   const newComment = commentInput.current?.value;
-  const oldCommentsArr = newAlertObj.comments;
+  // const oldCommentsArr = newAlertObj.comments;
+  console.log(newComment);
   if (newComment){
-    oldCommentsArr.push(newComment);
+    addAlertObjComment(alertObj, newComment)
   }
-  const updatedComments = [...oldCommentsArr];
+  // const updatedComments = [...oldCommentsArr];
   // newCommentsArray.push(newComment);
-  newAlertObj.comments = updatedComments;
+  // newAlertObj.comments = updatedComments;
 
   //pass new alert object to general update function
-  console.log(newAlertObj)
-  console.log(typeof newAlertObj);
+  // console.log(newAlertObj)
+  // console.log(typeof newAlertObj);
   // updateAlerts(newAlertObj);
   // console.log(newAlertObj.id)
   // const {id} = newAlertObj;
@@ -168,7 +168,7 @@ function addComments() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newAlertObj)
+        body: JSON.stringify(alertObj)
       })
         .then(()=> {
           console.log("made it back")

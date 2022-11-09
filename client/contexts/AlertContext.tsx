@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState} from 'react';
+import { length } from '../../webpack.config';
 
 // types
 export interface AlertObjInterface {
@@ -23,6 +24,7 @@ export type AlertsContextType = {
   updateAlerts: (updatedAlertObj: AlertObjInterface) => void;
   deleteAlerts: (id: number) => void;
   addAlertObj: (alertObj: AlertObjInterface) => void;
+  addAlertObjComment: (alertObj: AlertObjInterface, newComment: string) => void;
 }
 
 export const DataContext = React.createContext<AlertsContextType>({} as AlertsContextType);
@@ -134,17 +136,25 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
     addAlert(newAlertArr);
   }
 
-  // function fixCommentsAlertObj (id: number, newComment: string){
-  //   const stringArr = clickedAlerts[id].comments;
-  //   stringArr.push(newComment);
-  //   const ne
-  //   clickedAlerts[id].comments = stringArr;
-  //   const newAlertArr = [...clickedAlerts];
-  //   addAlert(newAlertArr);
-  // }
+  function addAlertObjComment (alertObj: AlertObjInterface, newComment: string){
+    alert('in add Comment Alerts')
+    const allComments = [...alertObj.comments, newComment];
+    // console.log(updatedAlerts[id].comments)
+    alert(allComments);
+    addAlert(oldState => {
+      let newState = [...oldState];
+      newState = newState.map(alert => {
+        if (alert.id === alertObj.id){
+          alert.comments = allComments;
+        }
+        return alert;
+      })
+      return newState;
+      });
+  }
 
   return (
-    <DataContext.Provider value= {{clickedAlerts, alerts, fetchAlerts, updateAlerts, deleteAlerts, addAlertObj}}>
+    <DataContext.Provider value= {{clickedAlerts, alerts, fetchAlerts, updateAlerts, deleteAlerts, addAlertObj, addAlertObjComment}}>
         {children}
     </DataContext.Provider>
   )
