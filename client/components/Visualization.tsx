@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useRef } from 'react';
 import { AlertsInterface } from '../../Types';
 import Graph from './Graph'
+import { useDataContext } from '../contexts/AlertContext'
+import { AlertObjInterface } from '../contexts/AlertContext';
 
 // declare namespace JSX{
 //   interface ElementAttributesProperty {
@@ -13,21 +15,28 @@ import Graph from './Graph'
 // } 
 
 interface VisualizationObjectProps {
-  alertObj: AlertsInterface
+  // alertObj: AlertsInterface
+  id: number
   // className: string
-  updateAlerts: (updatedAlertObj: AlertsInterface) => void
+  // updateAlerts: (updatedAlertObj: AlertsInterface) => void
   // deleteAlerts: (params:number) => void
 }
 
 const Visualization = (props:VisualizationObjectProps) => {
-
-  const alertObj = props.alertObj;
-  const updateAlerts = props.updateAlerts;
-
+  
+  const {alerts, updateAlerts } = useDataContext();
+  const id = (props.id -1);
+  // console.log(alerts);
+  // console.log(updateAlerts);
+  // console.log(id);
+  // console.log(props.id);
+  // console.log(props);
   // logic for passing down props using location. Location needs a state object
   // const location = useLocation();
   // console.log(location.state);
   // const alertObj = location.state.alertObj;
+  // const index = alertObj.id;
+  // const updatedAlertObj = alerts[index];
   // const updateAlerts = location.state.updateAlerts;
 
   let display3 = "display3";
@@ -47,11 +56,11 @@ const Visualization = (props:VisualizationObjectProps) => {
           headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({id: alertObj.id, fixedPercent: fixedPercent})
+        body: JSON.stringify({id: alerts[id], fixedPercent: fixedPercent})
       })
         .then(res => { // response will be the entire alertObj
           console.log("made it back from PATCH");
-          let response = res.json()
+          res.json()
           // console.log('response', response);
           display3 = "display3";
           // let display3 = response.newYaml;
@@ -73,9 +82,26 @@ const Visualization = (props:VisualizationObjectProps) => {
     //Hopefullly the following code will updte fixWasApplied if the oldYaml is changed
     // this should drill down to YamlView and cause a re-render
     // const [oldYaml, setYaml] = React.useState<string>;
+
+// actual code used below
+
     const [fixWasApplied, setFixWasApplied] = React.useState<boolean>(false);
     console.log(fixWasApplied);
     
+    useEffect(() => {
+      console.log(id);
+      console.log(alerts[id]);
+      console.log(alerts[id].oldYaml);
+      // const display = alerts[id].oldYaml;
+      // const display2 = alerts[id].newYaml;
+    })
+
+    const display = alerts[id].oldYaml;
+    const display2 = alerts[id].newYaml;  
+
+
+
+
     // useEffect(() => {
     //   console.log(fixWasApplied);
     // }, [fixWasApplied])
@@ -88,8 +114,7 @@ const Visualization = (props:VisualizationObjectProps) => {
 
 // const ready = setTimeout(() => {fixWasApplied = true}, 5000);
 
-const display = alertObj.oldyaml;
-const display2 = alertObj.newyaml;  
+
 
 
 // const [commentsArray, setCommentsArray] = React.useState<any>(alertObj.comments); // actual code, hard code below
@@ -99,9 +124,9 @@ const display2 = alertObj.newyaml;
 
 async function addComments() {
   console.log("in add comments func")
-  console.log(alertObj);
+  console.log(alerts[id]);
   console.log(updateAlerts);
-  const newAlertObj = Object.assign({}, alertObj);
+  const newAlertObj = Object.assign({}, alerts[id]);
   const newComment = commentInput.current?.value;
   const oldCommentsArr = newAlertObj.comments;
   oldCommentsArr.push(newComment);
@@ -118,7 +143,7 @@ async function addComments() {
   // const {id} = newAlertObj;
   // fetch('http://localhost:8000/alerts')
   // const response = await
-    fetch('http://localhost:8000/alerts/1', {
+    fetch(`http://localhost:8000/alerts/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -148,19 +173,18 @@ async function addComments() {
           <div className='visualization-grid'>
            <div className="left-grid">
               <div className='graphcontents'> 
-                <Graph alert={alertObj}/>
+                <Graph alert={alerts[id]}/>
               </div>
               <div className='alertcontents'>
                 <h3> Alert Information </h3>
-                <p> Container: {alertObj.container} </p>
-                <p> Node: {alertObj.node} </p>
-                <p> Pod: {alertObj.pod} </p>
-                <p> Issue: {alertObj.issue}</p>
+                <p> Container: {alerts[id].container} </p>
+                <p> Node: {alerts[id].node} </p>
+                <p> Pod: {alerts[id].pod} </p>
+                <p> Issue: {alerts[id].issue}</p>
                 <div>
-                <p> Status: {alertObj.status}</p>
+                <p> Status: {alerts[id].status}</p>
                 <button className="button" onClick={addComments}> Toggle Status </button>
                 </div>
-                {/* <p> Current Limit: {alertObj.limit}</p> */}
               </div>
               <div className='fixcontents'>
                 <h3> Fix Options </h3>
@@ -168,7 +192,7 @@ async function addComments() {
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input>
                 <h3> Your Comments on this Alert: </h3>
                 <ul>
-                  {alertObj.comments}
+                  {alerts[id].comments}
                 </ul>
                 <h3> Add comments below: </h3>
                 <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>

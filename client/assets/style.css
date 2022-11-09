@@ -55,8 +55,8 @@ div {
 
 .yamlcontents {
     background-color: #f2f2f2;
-     width: 80%;
-    height: 100%;
+     width: 95%;
+    height: 200px;
     padding: 2px;
     overflow-y: scroll;
     border: solid;
@@ -97,8 +97,13 @@ div {
     /* display: table-row; */
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    /* grid-template-areas: 
+    "left right"
+    "bottom bottom"; */
+
     width: 100%;
-    height: 100px;
+    height: auto;
     margin: 5px;
     border-style: solid;
     border-width: 2px;
@@ -112,6 +117,7 @@ div {
 
 /* .problemobject >  */
 #left {
+    /* grid-area: left; */
     display:flex;
     flex-direction: column;
     justify-content: left;
@@ -120,6 +126,7 @@ div {
 }
 /* .problemobject >  */
 #right {
+    /* grid-area: right; */
     align-items: right;
     float: right;
     justify-self: center;
@@ -159,8 +166,12 @@ u {
 }
 
 .visualization-grid {
+    /* grid-area: bottom; */
+    width: 100%;
     display: grid;
     grid-template-areas: "left right";
+    border: solid;
+    background-color: white;
 }
 
 .left-grid {
@@ -174,8 +185,8 @@ u {
     grid-area: right;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 2px;
+    /* align-items: center; */
+    /* padding: 2px; */
 }
 
 .graph-container{
@@ -186,4 +197,8 @@ u {
 .alert-contents {
     display: flex;
     flex-direction: column;
+}
+
+.fixcontents {
+
 }

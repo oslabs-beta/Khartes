@@ -1,36 +1,38 @@
-// import React, { createContext, useContext, useState} from 'react';
+import React, { createContext, useContext, useState} from 'react';
 
-// // types
-// interface AlertsContextInterface {
-//   id: number,
-//   issue: string,
-//   status: string,
-//   node: string,
-//   pod: string,
-//   container: string,
-//   //check if metrics is an object
-//   metrics: string,
-//   oldYaml: string,
-//   newYaml: string
+// types
+export interface AlertObjInterface {
+  id: number
+  issue: string
+  status: string
+  node: string
+  pod: string
+  container: string
+  metric: number
+  limit: number
+  historicalMetrics: number[][]
+  oldYaml: string
+  newYaml: string
+  comments: string[]
+}
+
+export type AlertsContextType = {
+  alerts: AlertObjInterface[];
+  fetchAlerts: () => void;
+  updateAlerts: (updatedAlertObj: AlertObjInterface) => void;
+  deleteAlerts: (id: number) => void;
+}
+
+export const DataContext = React.createContext<AlertsContextType>({} as AlertsContextType);
+// const AlertsUpdateContext = React.createContext<AlertsContextInterface | null> (null)
+
+export function useDataContext () {
+  return useContext(DataContext);
+}
+
+// export function useDataUpdateContext () {
+//   return useContext(AlertsUpdateContext);
 // }
-
-// type AlertsContextType = {
-//   alerts: AlertsContextInterface[];
-//   addAlerts: (newAlertObj: AlertsContextInterface) => void;
-//   updateAlerts: (id: number, status: string) => void;
-//   deleteAlerts: (id: number) => void;
-// }
-
-// export const AlertsContext = React.createContext<AlertsContextType | null> (null);
-// // const AlertsUpdateContext = React.createContext<AlertsContextInterface | null> (null)
-
-// export function useDataContext () {
-//   return useContext(AlertsContext);
-// }
-
-// // export function useDataUpdateContext () {
-// //   return useContext(AlertsUpdateContext);
-// // }
 
 // const defaultAlerts = [
 // {
@@ -57,57 +59,79 @@
 // }
 // ]
 
-// const AlertProvider: React.FC<React.ReactNode> = ({children}) => {
-//   const [alerts, setAlerts] = React.useState<AlertsContextInterface[]>(defaultAlerts); //default data will change to an empty array 
+type Props = {
+  children?: React.ReactNode;
+};
 
-//   //functionality to add Alerts
-//   function addAlerts (newAlertObj: AlertsContextInterface) {
-//     // updates state with pushing new alert object
-//     setAlerts(oldState => {
-//       // if newAlertObj is an array of more alert objects, push them into the old state
-//       if (Array.isArray(newAlertObj)) return [...oldState, ...newAlertObj];
-//       // otherwise if it's just one alert, push it.
-//       return [...oldState, newAlertObj]
-//     })
-//   }
+export const AlertProvider: React.FC<Props> = ({children}) => {
+  const [alerts, setAlerts] = React.useState<AlertObjInterface[]>([]); //default data will change to an empty array 
 
-//   //functionality to update Alerts
-//   function updateAlerts (id: number, status: string) {
-//     // grabbing the id of the alert and new Status, we can change the status
-//     setAlerts(oldState => {
-//       // creating a copy of old state
-//       let newState = [...oldState];
-//       // mapping the new state and if the id matches, change the status
-//       newState = newState.map((alertObj: AlertsContextInterface) => {
-//         if (alertObj.id === id){
-//           alertObj.status = status;
-//         }
-//         return alertObj;
-//       })
-//       // returning the new state
-//       return newState;
-//     })
-//   }
+  //functionality to add Alerts
+  const fetchAlerts = ():void => {
+    alert("in the fetchAlerts") // fetchinterval pings the server every 30 seconds, until the component unmounts
+    fetch('http://localhost:8000/alerts')
+      .then(response => response.json()) // refine this, but basically update state with alert list the fetch returns
+      .then(data => {
+        if (data !== alerts) {
+          console.log('received updated alerts');
+          setAlerts(data);
+          // if(visual.length === 0) {
+          //   setVisual(Array(data.length).fill(false));
+          // }
+        }
+      })
+      .catch() // error handler
+  };
 
-//     //functionality to delete Alerts
-//   function deleteAlerts (id: number) {
+  //functionality to update Alerts, we are receiving an updated alert from visualization page
+  async function updateAlerts (updatedAlertObj: AlertObjInterface) {
+    alert('reached updateAlerts')
+    alert(updatedAlertObj)
+    console.log(updatedAlertObj);
 
-//     setAlerts(oldState => {
-//       // logic to remove the object with this ID from our old state
-//       let newState = [...oldState];
-//       newState = newState.filter(alertObj => {
-//         if (alertObj.id === id) return false;
-//         return true;
-//       })
-//       return newState;
-//     })
-//   }
+    // grabbing the id of the alert and new Status, we can change the status
+    setAlerts(oldState => {
+      // creating a copy of old state
+      let newState = [...oldState];
+      // mapping the new state and if the id matches, change the status
+      newState = newState.map((alertObj: AlertObjInterface) => {
+        if (alertObj.id === updatedAlertObj.id){
+          alertObj = updatedAlertObj
+        }
+        return alertObj;
+      })
+      // returning the new state
+      return newState;
+    })
+    console.log(updatedAlertObj)
+    // console.log(updatedAlertObj); 
+  }
 
-//   return (
-//     <AlertsContext.Provider value= {{alerts, addAlerts, updateAlerts, deleteAlerts}}>
-//         {children}
-//     </AlertsContext.Provider>
-//   )
-// }
+  function deleteAlerts (id: number) {
+    alert('made it to deletealerts func');
+  setAlerts(oldState => {
+    // logic to remove the object with this ID from our old state
+    let newState = [...oldState];
+    newState = newState.filter(alertObj => {
+      if (alertObj.id === id) {
+        // before the alert is deleted in the frontend, add to deletedAlerts Array
+          // setDeletedAlerts(oldState => {
+          //   return [...oldState, alertObj]
+          // });
+        return false;
+    }
+      return true;
+    })
+    return newState;
+    })
+  
+  }
 
-// export default AlertProvider;
+  return (
+    <DataContext.Provider value= {{alerts, fetchAlerts, updateAlerts, deleteAlerts}}>
+        {children}
+    </DataContext.Provider>
+  )
+}
+
+export default AlertProvider;

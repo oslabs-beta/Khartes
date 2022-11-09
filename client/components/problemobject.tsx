@@ -5,43 +5,55 @@ import { constants } from 'fs/promises';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Visualization from './Visualization';
-
+import { useDataContext } from '../contexts/AlertContext'
+import { AlertObjInterface } from '../contexts/AlertContext'
 // replaced type to interface, it is better ideal to receive for funcs/objs
 interface problemObjectProps {
   alertObj: AlertsInterface
-  visual: boolean
-  updateVisual: (index: number, boolean: boolean) => void
+  // visual: boolean
+  // updateVisual: (index: number, boolean: boolean) => void
   index: number
   className: string
-  updateAlerts: (updatedAlertObj: AlertsInterface) => void
-  deleteAlerts: (params:number) => void
+  // updateAlerts: (updatedAlertObj: AlertsInterface) => void
+  // deleteAlerts: (params:number) => void
 }
+// type Props = {
+//   alerts: AlertObjInterface[]
+//   deleteAlerts: (id: number) => void
+// }
 
-const ProblemObject = (props: problemObjectProps):JSX.Element => {
+const ProblemObject = (props: problemObjectProps) => {
 
-  const {visual, updateVisual, index} = props;
+  const { deleteAlerts } = useDataContext();
+
+  const alerts = props.alertObj;
+  console.log(alerts);
+  // const dataContext = useDataContext();
+
+  // const {visual, updateVisual, index} = props;
   const navigate = useNavigate();
 
+const handleDelete = ():void => {
 
-const deleteAlert = ():void => {
-  // test
-  alert('in delete alert function')
-  // create fetch request with route delete
-  // sending id in the request body
-  fetch(`http://localhost:8000/alerts/${props.alertObj.id}`, {
-    method: 'DELETE',
-  })
-    .then(res => res.json())
-    // after fetching and deleting from backend, update state
-    .then(() => {
-      props.deleteAlerts(props.alertObj.id)
-    })
+  deleteAlerts(alerts.id)
+  // // test
+  // alert('in delete alert function')
+  // // create fetch request with route delete
+  // // sending id in the request body
+  // fetch(`http://localhost:8000/alerts/${props.alertObj.id}`, {
+  //   method: 'DELETE',
+  // })
+  //   .then(res => res.json())
+  //   // after fetching and deleting from backend, update state
+  //   .then(() => {
+  //     props.deleteAlerts(props.alertObj.id)
+  //   })
 
-    // for testing, once fetch is finished, delete line below
-    props.deleteAlerts(props.alertObj.id)
+  //   // for testing, once fetch is finished, delete line below
+  //   props.deleteAlerts(props.alertObj.id)
 }
 
-console.log(props);
+// console.log(props);
 
 const addComments = () => {
   console.log("in add comments func")
@@ -81,10 +93,11 @@ fetch("http://localhost:8000/alerts/1", {
       }
 
 // this component will receive data about particualr pods/pvs etc and be rendered repeatedly in the list on the home page
-switch (visual) {
-  case true: 
+// switch (visual) {
+//   case true: 
   return(
       <div className='problemdiv'>
+        Made it to problem object.
         <div className="problemobject">
           <div id="left">
           <button className={props.className}> Status: {props.className} </button>
@@ -103,57 +116,54 @@ switch (visual) {
             */}
             <div></div>
             <button className="home-buttons" onClick={addComments}> run add comments </button>
-            <button className="home-buttons" onClick={deleteAlert}> Delete Alert </button>
+            <button className="home-buttons" onClick={handleDelete}> Delete Alert </button>
               {/* <button className={props.className}> Status: Resolved </button> */}
-              <div className="alerts"><Link to='/visualization'><u>See Details</u></Link></div>
+              {/* <div className="alerts"><Link to='/visualization'><u>See Details</u></Link></div> */}
             {/* <button className="home-buttons" onClick={() => {
-              navigate('/visualization', { state: props });
+              navigate('/visualization', { state: props.alertObj });
             }}> See Details </button> */}
-            <button className="home-buttons" onClick={() => {updateVisual(index, false)}}></button>
+            {/* <button className="home-buttons" onClick={() => {updateVisual(index, false)}}></button> */}
           </div>
-            
-          <Visualization alertObj={props.alertObj} updateAlerts={props.updateAlerts}/>
+          <Visualization id={props.alertObj.id}/>
         </div>
-        
       </div>    
     ) 
-    break;
-    case false:
-      return(
-        <div className='problemdiv'>
-          <div className="problemobject">
-            <div id="left">
-            <button className={props.className}> Status: {props.className} </button>
-              <div>
-              Pod: {props.alertObj.pod}
-              </div>
-              <div>
-              Issue: {props.alertObj.issue}
-              </div>
-            </div>
-            <div id="right">
-            {/* Aut-fix View Details */}
-             {/* Here we will display and access some information about the pods
-             display: pod and the issue
-             color coordination based on status
-              */}
-              <div></div>
-              <button className="home-buttons" onClick={addComments}> run add comments </button>
-              <button className="home-buttons" onClick={deleteAlert}> Delete Alert </button>
-                {/* <button className={props.className}> Status: Resolved </button> */}
-                <div className="alerts"><Link to='/visualization'><u>See Details</u></Link></div>
-              {/* <button className="home-buttons" onClick={() => {
-                navigate('/visualization', { state: props });
-              }}> See Details </button> */}
-              <button className="home-buttons" onClick={() => {updateVisual(index, true)}}></button>
-            </div>
+    // break;
+    // case false:
+    //   return(
+    //     <div className='problemdiv'>
+    //       <div className="problemobject">
+    //         <div id="left">
+    //         <button className={props.className}> Status: {props.className} </button>
+    //           <div>
+    //           Pod: {props.alertObj.pod}
+    //           </div>
+    //           <div>
+    //           Issue: {props.alertObj.issue}
+    //           </div>
+    //         </div>
+    //         <div id="right">
+    //         {/* Aut-fix View Details */}
+    //          {/* Here we will display and access some information about the pods
+    //          display: pod and the issue
+    //          color coordination based on status
+    //           */}
+    //           <div></div>
+    //           <button className="home-buttons" onClick={addComments}> run add comments </button>
+    //           <button className="home-buttons" onClick={deleteAlerts}> Delete Alert </button>
+    //             {/* <button className={props.className}> Status: Resolved </button> */}
+    //             <div className="alerts"><Link to='/visualization'><u>See Details</u></Link></div>
+    //           {/* <button className="home-buttons" onClick={() => {
+    //             navigate('/visualization', { state: props });
+    //           }}> See Details </button> */}
+    //           <button className="home-buttons" onClick={() => {updateVisual(index, true)}}></button>
+    //         </div>
               
-            {/* <Visualization alertObj={props.alertObj} updateAlerts={props.updateAlerts}/> */}
-          </div>
+    //         {/* <Visualization alertObj={props.alertObj} updateAlerts={props.updateAlerts}/> */}
+    //       </div>
           
-        </div>    
-      ) 
+    //     </div>    
+      // ) 
 }
-  }
   
   export default ProblemObject;
