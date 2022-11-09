@@ -1,15 +1,11 @@
 /*
-We need to serve up:
-  /alerts         do a DB pull and serve an array of alert objects.
-  POST /fix           change yaml file per user input. This will send the whole alert object from front end which includes the old yaml.
-                      We will strip the container section, change it and send it back in the response.
+GET to /alerts
+PATCH to /alerts
+DELETE to alerts/id
+
+PATCH to /fix/percentage
 
 
-  *potential additions*
-  /yamls        serve up fixed yaml files
-  /push         push yaml file to github
-  /write        write yaml file to disk
-  /deploy       apply yaml fixes to the cluster/namespace?
 
 */
 
@@ -27,47 +23,42 @@ const port = process.env.PORT;
 import {dbController} from './Controllers/dbController';
 import fixTheYaml from './Controllers/fixTheYaml';
 
+//automagically destring incoming JSON
+app.use(express.json());
 
+
+
+
+//serve up alert objects
 app.get('/alerts', 
   dbController.getAllAlerts,
   (request: Request, response: Response ) => {response.json(response.locals.db);}
   );
 
 
-//deprecated
-// app.patch('/alerts/:id/:status', 
-//   dbController.updateStatusById,
-//   (request: Request, response: Response ) => {response.json(response.locals.updated);}
-//   );
 
-  app.patch('/alerts/', 
+//send BE an altered alert object and the DB will update it. 
+app.patch('/alerts', 
   dbController.updateByAlertObject,
   (request: Request, response: Response ) => {response.json(response.locals.updated);}
   );
 
+//send an id and it will be deleted from the DB. Send as parameter. IE: /alerts/123456789 deletes 123456789 from DB.
 app.delete('/alerts/:id', 
   dbController.deleteById,
   (request: Request, response: Response ) => {response.json(response.locals.deleted);}
   );
 
-  //deprecated
-  // app.patch('/fix/:percentage',
-  // fixTheYaml,
-  // (request: Request, response: Response ) => {response.json(response.locals.updated);}
-  // );
-
-  app.patch('/fix/:percentage',
+//send an alert object and a percentage to increase the limits by. 
+app.patch('/fix/:percentage',
   fixTheYaml,
   dbController.updateByAlertObject,
   (request: Request, response: Response ) => {response.json(response.locals.updated);}
   );
 
 
-app.get('/polo', (req: Request, res: Response) => {
-  res.send('Polo!');
-});
 
-
+//testing purposes, no longer required. 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
 });
@@ -75,19 +66,6 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
 });
-
-
-// import express, { Express, Request, Response } from 'express';
-// const ffmpegPath  = require('ffmpeg-static');
-// const Stream      = require('node-rtsp-stream');
-
-// const app: Express = express();
-
-// let server = app.listen(3000);
-
-// app.get('/', (req: Request, res: Response) => {
-//   res.send('Express + TypeScript Server');
-// });
 
 
 
