@@ -11,18 +11,18 @@
 - Khartes scans your pods for relevant metrics and creates alerts with pertinant information and suggests increased limits in your YAML deployment files.
 - Khartes is greek for "map", and it seems Kubernetes tool names need to start with a K. 
 
-# Current errors scanned for
+###### Current errors scanned for
 
 - Khartes will scan your pods for memory usage and memory limits for potential OOMKills.
 
-# Errors in progress
+###### Errors in progress
 
 - Khartes will scan your pods for disk space and disk limits for potential Persistant Volume reaching capacity errors. 
 - Khartes will scan your YAML files to check for configured limits that allow pods to exceed node limits.
 - Kartes will scan your pods for memory and CPU limits that far exceed standard usage, allowing you to dial back limits and potentially save money. 
 
 
-# Running the Electron App
+## Running the Electron App
 Prerequisites:
 - [ ] kubectl installed on your machine
 - [ ] Prometheus installed and working on your cluster
@@ -41,10 +41,12 @@ To run the app, type:
 npm start
 ```
 
-# Using Khartes
+## Using Khartes
 1. On a successful startup, you will be welcomed with a landing page.  
 2. Khartes reads your kubectl context configuration to auto detect your cluster context to watch. 
 3. Click "alerts" to see your alerts. Hopefully you don't have any!
+<!--We need to add screenshots and talk about adding comments and fixes-->
+
 
 
 
@@ -65,3 +67,19 @@ npm start
 - [Node](https://nodejs.org/)
 - [Prometheus](https://prometheus.io/)
 - [Chart.js](https://www.chartjs.org/)
+
+
+## More about prerequisites
+- Khartes utilizes the kubernetes command line tool (kubectl) to gather data on your nodes and clusters. Kubectl can be downloaded and installed [here](https://kubernetes.io/docs/tasks/tools/).
+
+Further documentation:
+- https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl
+- https://cloud.google.com/sdk/docs/install
+
+- To access Prometheus, we need a port forward on your local machine.
+```kubectl --namespace [probably monitoring] port-forward [prometheus-server-name-for-your-cluster] 9090```
+
+- Installing and configuring Prometheus is beyond the scope of this Readme. Sorry! 
+
+- Khartes has not yet been tested with Amazon Elastic Kubernetes Service (EKS) or Microsoft Azure Kubernetes Service (AKS), but should be compatible provided that kubectl can access all cluster and node information. Khartes HAS been tested with minikube and Google Kubernetes Engine (GKE).
+
