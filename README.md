@@ -1,8 +1,11 @@
 
-
+<!--
 <p align="center">
   <img src="./client/assets/logo.png" alt="Logo" width="400"/>
 </p>
+-->
+
+![Khartes Logo](./client/assets/logo.png)
 
 
 # Khartes
@@ -45,7 +48,18 @@ npm start
 1. On a successful startup, you will be welcomed with a landing page.  
 2. Khartes reads your kubectl context configuration to auto detect your cluster context to watch. 
 3. Click "alerts" to see your alerts. Hopefully you don't have any!
-<!--We need to add screenshots and talk about adding comments and fixes-->
+  - Khartes checks for known issues every 15 seconds.
+
+![Khartes alerts](./client/assets/alerts.png)
+
+4. Click on "See Details" to see metrics from the last hour, YAML details for memory and CPU limits, etc. 
+
+![Khartes alert details](./client/assets/details.png)
+
+5. If you want to raise the limits, youc an enter a percentage you want them fixed by, then click "Create fixed Yaml" and Khartes will give you a changed YAML section to paste into your deployment YAML. 
+ - Most production environments will want deployment YAML files to go through a versioning tool and review process. If you are learning, it's OK to just apply your deployment YAML file. We hope to add functionality to deploy fixes in the future.
+6. If you have your YAML file under your DevOps process but not yet deployed, you do not want to see this error pop up again. Click "Toggle Status" and your alert will be "Pending". You can later delete the alert at the Alerts page. 
+
 
 
 
