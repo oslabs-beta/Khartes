@@ -10,7 +10,7 @@ import { AlertObjInterface } from '../contexts/AlertContext';
 
 const Visualization = () => {
   
-  const {clickedAlerts, addAlertObjComment, updateStatus } = useDataContext();
+  const {clickedAlerts, addAlertObjComment, updateStatus, createYaml } = useDataContext();
 
   let display3 = "display3";
 
@@ -22,33 +22,9 @@ const Visualization = () => {
       // Obtain the input percentage
       const fixedPercent = textInput.current?.value;
 
-      // display is text from the current alertObj.oldYaml
-      console.log(alertObj.oldYaml)
-      //display2 newly declared variables in frontend of mods of old yaml
-      
-      //newYaml is our suggested alertObj that comes back newYaml
-
-      // send Patch to backend with id and % for fix
-      fetch(`http://localhost:8000/fix/${fixedPercent}`, { // this route is not discussed with the backend yet
-          method:'PATCH',
-          headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(alertObj)
-      })
-        .then(res => res.json())
-        .then(res => { // response will be the entire alertObj
-          console.log("made it back from PATCH");
-          alertObj.newYaml = res.newYaml;
-          // const display2 = res.newYaml;
-          // console.log('response', response);
-          // display3 = "display3";
-          // let display3 = response.newYaml;
-        })
-        .catch((err) => {
-          console.log('There was an error in updateAlerts fetch request.');
-          console.log(err);
-        })
+      if (fixedPercent){
+        createYaml(alertObj, fixedPercent);
+      }
       // toggle fixWasApplied to true
       setFixWasApplied(true);
     }
