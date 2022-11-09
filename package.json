@@ -5,7 +5,7 @@
   "main": "/electron/electron.ts",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
-    "start": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\" \"webpack --config ./webpack.config.js\" \"electron ./dist/electron.js\"\"node ./server/heartbeat.ts\"",
+    "start": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\" \"webpack --config ./webpack.config.js\" \"electron ./dist/electron.js\" \"npm run test\"",
     "dev": "concurrently \"webpack --watch --config ./webpack.config.js\" \"wait-on ./dist/electron.js && electronmon ./dist/electron.js\"",
     "express-dev": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\"",
     "test": "npx tsc ./server/heartbeat.ts && node ./server/heartbeat.js "
