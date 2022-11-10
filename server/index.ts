@@ -8,9 +8,11 @@ PATCH to /fix/percentage
 
 import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
 dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
+
 
 //express middleware stuff
 //automagically destring incoming JSON
@@ -36,7 +38,8 @@ const holler = (request: Request, response: Response, next: NextFunction) => {
 app.use(express.json());
 
 
-
+//serve static assets
+app.use(express.static(path.join(__dirname, '../client/assets/')));
 
 //serve up alert objects
 app.get('/alerts', 
