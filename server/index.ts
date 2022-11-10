@@ -4,15 +4,8 @@ PUT to /alerts
 DELETE to alerts/id
 
 PATCH to /fix/percentage
-
-
-
 */
 
-
-
-
-//Set up stuff
 import express, { Express, Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
