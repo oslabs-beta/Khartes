@@ -2,7 +2,8 @@ body {
     display: flex;
     background-color: #afe0ef;
     color: black;
-    padding-top: 50px;
+    padding-top: 80px;
+    padding-bottom: 50px;
     font-family: 'Inconsolata', monospace;
 }
 
@@ -23,12 +24,12 @@ body {
     width: 150px;
 }
 .New {
-    background-color: #ff667a;
+    background-color: #ff8d8d;
     /* color: white; */
 }
 
 .Pending {
-    background-color: #bbe991;
+    background-color: #a9df76;
 }
 
 div {
@@ -44,6 +45,9 @@ div {
     background-color: #afe0ef;
 }
 
+h3, p {
+    margin:0px;
+}
 /* .contents {
     background-color: #f2f2f2;
      width: 80vw;
@@ -55,7 +59,7 @@ div {
 
 .yamlcontents {
     background-color: #f2f2f2;
-     width: 95%;
+     width: 80%;
     height: 200px;
     padding: 2px;
     overflow-y: scroll;
@@ -64,22 +68,66 @@ div {
 }
 
 .graphcontents {
+    display:flex;
+    align-items: center;
+    justify-content: center;
     display: flex;
-    width: 95%;
+    width: 300px;
     height: 200px;
-    border: solid;
-    position: relative;
+    /* border: solid; */
+    /* position: relative; */
     margin: 10px;
+    padding-bottom:20px;
 }
 
 .yamlpagecontents {
     display: flex;
     background-color: #f2f2f2;
      width: 85vw;
-    height: 60vw;
+    height: 70vw;
     /* padding: 20vw; */
 }
 
+.yamlcurrent {
+    background-color: #f2f2f2;
+    width: 80%;
+    height: 20px;
+    padding: 2px;
+    overflow-y: scroll;
+    border: solid;
+    margin: 15px;
+}
+
+.yamlsuggested {
+    background-color: #f2f2f2;
+    width: 90%;
+    height: 100px;
+    padding: 2px;
+    overflow-y: scroll;
+    border: solid;
+    margin: 15px;
+}
+
+.yamlpageheader {
+    background-color: #f2f2f2;
+     width: 300px;
+    height: 200px;
+    padding: 2px;
+    overflow-y: scroll;
+    border: solid;
+    margin: 15px;
+}
+
+.alertcontents {
+    border: solid black 2px;
+    padding-left:2%;
+    background-color: #f3dBa8;
+    border-radius: 3px;
+    box-shadow:5px 5px 15px -5px #c9a66a;
+    margin-right:10px;
+    margin-left:10px;
+    margin-top: 20px;
+}
 #list {
     display: flex;
     flex-direction: column;
@@ -108,7 +156,7 @@ div {
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    background-color: #d4ac80;
+    background-color: #f3dBa8;
     justify-content: center;
     box-shadow:5px 5px 15px -5px #c9a66a;
     border-radius: 2px;
@@ -123,6 +171,7 @@ div {
     justify-content: left;
     align-items: left;
     float: left;
+    margin-right: 20px;
 }
 /* .problemobject >  */
 #right {
@@ -139,7 +188,8 @@ button {
 /* Styling for navbar */
 .nav {
     padding-left: 5px;
-    height: 30px;
+    margin-left: -8px;
+    height: 40px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -150,6 +200,7 @@ button {
     background-color: rgb(25, 135, 246);
     color: rgb(250, 249, 249);
     box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+    z-index: 100;
 }
 
 .welcome {
@@ -194,11 +245,14 @@ u {
     text-align: center;
 }
 
-.alert-contents {
+.alertcontents {
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 20px;
 }
 
 .fixcontents {
-
+    border: solid black 2px;
+    padding-bottom:20px;
 }

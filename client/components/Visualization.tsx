@@ -63,6 +63,12 @@ function addComments() {
   }
 }
 
+// comments for notes
+const totalComments = [];
+for (let i = 0; i < alertObj.comments.length; i++){
+  totalComments.push(`<ul>${alertObj.comments[i]}</ul>`);
+}
+
 //| undefined            //[[number, string],[number, string]]     //can also create a numberOrString type and use that. 
     // this component will display graphs, issue descript and two buttons auto-fix or fix options
     // buttons may need to be updated with new content based on our shifting MVP
@@ -73,32 +79,30 @@ function addComments() {
                 <Graph alert={alertObj}/>
               </div>
               <div className='alertcontents'>
-                <h3> Alert Information </h3>
+                <div className="title">
+                  <h3> Alert Information </h3>
+                  <button className="button" onClick={changeStatus}> Change Status </button>
+                </div>
                 <p> Container: {alertObj.container} </p>
                 <p> Node: {alertObj.node} </p>
                 <p> Pod: {alertObj.pod} </p>
                 <p> Issue: {alertObj.issue}</p>
-                <div>
                 <p> Status: {alertObj.status}</p>
-                <button className="button" onClick={changeStatus}> Toggle Status </button>
-                <h4> Comments: </h4>
-                <ul>
-                  {alertObj.comments}
-                </ul>
+                <p> Comments: </p>
+                  {totalComments}
                 <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>
                 <button className="button" onClick={addComments}> Add your notes </button>
-                </div>
-              </div>
-              <div className='fixcontents'>
+              {/* <div className='fixcontents'> */}
                 <h3> Fix Options </h3>
                 <h3> Raise you limit by: </h3>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input> 
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
+              {/* </div> */}
               </div>
            </div>
            <div className="right-grid">
               <div> 
-            <div className="yamlcontents">
+            <div className="yamlcurrent">
               <div> Current configuration details from your pod: </div>
             </div>
             <div className="yamlcontents">
@@ -106,7 +110,7 @@ function addComments() {
             </div>
             {fixWasApplied === true &&
             <div>
-              <div className="yamlcontents">
+              <div className="yamlsuggested">
                 <div> Update configurations based on your choice. </div>
                 <div> Please copy the text below into the 'container' section of the yaml file for your pod:</div>
                 <div> To find the yaml file for your pod, run 'kubectl somecommand blah blah'</div>
@@ -126,7 +130,7 @@ function addComments() {
            </div>
            </div>
           
-           <Link to="/alerts">Back to Alerts</Link>
+           <Link className="link" to="/alerts">Back to Alerts</Link>
           </div>
         )
       }
