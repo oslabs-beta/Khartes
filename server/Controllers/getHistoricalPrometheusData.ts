@@ -20,7 +20,7 @@ const axios = require('axios');
 export const getHistoricalPrometheusData = async (pod: string, query: string) => {
   try {
     console.log("we're inside getHistoricalPrometheusData")
-    const queryResult = await axios.get(`http://localhost:1337/api/v1/query?query=${query}{pod="${pod}"}[60m]`)
+    const queryResult = await axios.get(`http://localhost:9090/api/v1/query?query=${query}{pod="${pod}"}[60m]`)
     for (let i = 0; i < queryResult.data.data.result[0].values.length; i++) {
       queryResult.data.data.result[0].values[i][1] = Number(queryResult.data.data.result[0].values[i][1]);
     }
