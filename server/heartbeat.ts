@@ -50,7 +50,7 @@ const startHeartbeat = async() => {
     const memUsageQuery = 'container_memory_usage_bytes'; //need this to give to createAlert
 
     //fetching relevant data from the pods
-    const memUsage: any = await getPrometheusData(podsList[i].pod, 'container_memory_usage_bytes');
+    const memUsage:any = await getPrometheusData(podsList[i].pod, 'container_memory_usage_bytes');
     const memLimit:any = await getPrometheusData(podsList[i].pod, 'container_spec_memory_limit_bytes');
 
     //evaluating if there is a possible oomkill

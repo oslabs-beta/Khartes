@@ -12,7 +12,7 @@ const Visualization = () => {
   
   const {clickedAlerts, addAlertObjComment, updateStatus, createYaml } = useDataContext();
 
-  let display3 = "display3";
+  const display3 = "display3";
 
   // Obtaining the text input value from the input field
   const textInput = React.useRef<HTMLInputElement | null>(null);
@@ -75,9 +75,9 @@ for (let i = 0; i < alertObj.comments.length; i++){
         return(
           <div className='visualization-grid'>
            <div className="left-grid">
-              <div className='graphcontents'> 
+              {/* <div className='graphcontents'>  */}
                 <Graph alert={alertObj}/>
-              </div>
+              {/* </div> */}
               <div className='alertcontents'>
                 <div className="title">
                   <h3> Alert Information </h3>
@@ -108,11 +108,11 @@ for (let i = 0; i < alertObj.comments.length; i++){
               <div className="yamlcurrent">
                 <div> Current configuration details from your pod: </div>
               </div>
-              <div className="yamlcontents">
+              <div className="yaml1">
                 <pre> {alertObj.oldYaml} </pre>
               </div>
               {fixWasApplied === true &&
-              <div>
+              <div className='yamlsuggested-container'>
                 <div className="yamlsuggested">
                   <div> Update configurations based on your choice. </div>
                   <div> Step 1: Please copy the text below into the 'container' section of the yaml file for your pod.</div>
@@ -133,7 +133,6 @@ for (let i = 0; i < alertObj.comments.length; i++){
               {/* </div> */}
             </div>
           
-           <Link className="link" to="/alerts">Back to Alerts</Link>
           </div>
         )
       }
