@@ -93,7 +93,7 @@ Further documentation:
 - To access Prometheus, we need a port forward on your local machine.
 ```kubectl --namespace [probably monitoring] port-forward [prometheus-server-name-for-your-cluster] 9090```
 
-- Installing and configuring Prometheus is beyond the scope of this Readme. Sorry! 
+- Installing and configuring Prometheus is beyond the scope of this Readme. Sorry!
 
 - Khartes has not yet been tested with Amazon Elastic Kubernetes Service (EKS) or Microsoft Azure Kubernetes Service (AKS), but should be compatible provided that kubectl can access all cluster and node information. Khartes HAS been tested with minikube and Google Kubernetes Engine (GKE).
 
