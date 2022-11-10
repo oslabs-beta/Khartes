@@ -208,7 +208,7 @@ button {
     position: fixed;
     top: 0;
     padding: 0.5rem 0rem;
-    background-color: rgb(25, 135, 246);
+    background-color: #4E78AC;
     color: rgb(250, 249, 249);
     box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
     z-index: 100;
@@ -216,6 +216,14 @@ button {
 
 .welcome {
     padding-left: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.alerts {
+    padding-right: 90px;
+    text-decoration: none;
+    color: white;
 }
 
 
@@ -225,6 +233,7 @@ button {
 
 u {
     color: white;
+    text-decoration: none;
 }
 
 .visualization-grid {
@@ -284,6 +293,31 @@ u {
 }
 
 .logo {
-    width: 90%;
-    height: auto;
+    width: 40%;
+    margin: 2px;
+    /* height: auto; */
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.welcomeflex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.welcometext {
+    width: 55%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+a {
+    color: #4E78AC;
+    text-decoration: none;
 }
