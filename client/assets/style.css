@@ -6,6 +6,11 @@ body {
     font-family: 'Inconsolata', monospace;
 }
 
+#page {
+    padding: 10px;
+    align-items: center;
+}
+
 .button {
     background-color: #3c78d8;
     color: white;
@@ -66,10 +71,16 @@ div {
 .graphcontents {
     display: flex;
     width: 95%;
-    height: 200px;
+    height: auto;
     border: solid;
     position: relative;
-    margin: 10px;
+    padding: 3px;
+    /* margin: 10px; */
+}
+
+.graph-container{
+    background-color: white;
+    text-align: center;
 }
 
 .yamlpagecontents {
@@ -167,11 +178,12 @@ u {
 
 .visualization-grid {
     /* grid-area: bottom; */
-    width: 100%;
+    width: 95%;
     display: grid;
     grid-template-areas: "left right";
     border: solid;
     background-color: white;
+    padding: 10px;
 }
 
 .left-grid {
@@ -189,14 +201,10 @@ u {
     /* padding: 2px; */
 }
 
-.graph-container{
-    background-color: white;
-    text-align: center;
-}
-
 .alert-contents {
     display: flex;
     flex-direction: column;
+    padding: 2px;
 }
 
 .fixcontents {

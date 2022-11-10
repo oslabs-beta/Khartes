@@ -121,8 +121,8 @@ function addComments() {
                 </div>
               </div>
               <div className='fixcontents'>
-                <h3> Fix Options </h3>
-                <h3> Raise you limit by: </h3>
+                {/* <h3> Fix Options </h3> */}
+                <h3> Raise your resource limit by %: </h3>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input> 
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               </div>
