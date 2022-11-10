@@ -120,6 +120,7 @@ h3, p {
 
 .alertcontents {
     border: solid black 2px;
+    width:500px;
     padding-left:2%;
     background-color: #f3dBa8;
     border-radius: 3px;
@@ -161,6 +162,7 @@ h3, p {
     box-shadow:5px 5px 15px -5px #c9a66a;
     border-radius: 2px;
     padding: 4px;
+    padding-right:10px;
 }
 
 /* .problemobject >  */
@@ -172,10 +174,12 @@ h3, p {
     align-items: left;
     float: left;
     margin-right: 20px;
+    padding-right: 20px;
 }
 /* .problemobject >  */
 #right {
     /* grid-area: right; */
+    padding-left: 20px;
     align-items: right;
     float: right;
     justify-self: center;
@@ -184,6 +188,13 @@ h3, p {
 button {
     margin: 2px;
     float: right;
+    background-color: #ff8d8d;
+}
+
+.status-button {
+    margin: 2px;
+    float: right;
+    background-color: #a9df76;
 }
 /* Styling for navbar */
 .nav {
@@ -221,11 +232,13 @@ u {
     width: 100%;
     display: grid;
     grid-template-areas: "left right";
+    grid-template-columns: 1fr 1fr;
     border: solid;
     background-color: white;
 }
 
 .left-grid {
+    width: 100%; 
     grid-area: left;
     display: flex;
     flex-direction: column;
@@ -233,6 +246,7 @@ u {
 }
 
 .right-grid {
+    width: 100%; 
     grid-area: right;
     display: flex;
     flex-direction: column;
@@ -252,7 +266,24 @@ u {
     padding-bottom: 20px;
 }
 
+.title {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
 .fixcontents {
     border: solid black 2px;
     padding-bottom:20px;
+}
+
+.link {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.logo {
+    width: 90%;
+    height: auto;
 }

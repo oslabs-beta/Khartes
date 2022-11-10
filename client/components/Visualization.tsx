@@ -66,7 +66,7 @@ function addComments() {
 // comments for notes
 const totalComments = [];
 for (let i = 0; i < alertObj.comments.length; i++){
-  totalComments.push(`<ul>${alertObj.comments[i]}</ul>`);
+  totalComments.push(<li>{alertObj.comments[i]}</li>);
 }
 
 //| undefined            //[[number, string],[number, string]]     //can also create a numberOrString type and use that. 
@@ -81,7 +81,7 @@ for (let i = 0; i < alertObj.comments.length; i++){
               <div className='alertcontents'>
                 <div className="title">
                   <h3> Alert Information </h3>
-                  <button className="button" onClick={changeStatus}> Change Status </button>
+                  <button className="status-button" onClick={changeStatus}> Change Status </button>
                 </div>
                 <p> Container: {alertObj.container} </p>
                 <p> Node: {alertObj.node} </p>
@@ -89,46 +89,49 @@ for (let i = 0; i < alertObj.comments.length; i++){
                 <p> Issue: {alertObj.issue}</p>
                 <p> Status: {alertObj.status}</p>
                 <p> Comments: </p>
-                  {totalComments}
+                <ul> Comments: 
+                {totalComments}
+                </ul>
+                  
                 <input id="input" type="text" ref={commentInput} defaultValue="Write notes here"></input>
                 <button className="button" onClick={addComments}> Add your notes </button>
               {/* <div className='fixcontents'> */}
                 <h3> Fix Options </h3>
-                <h3> Raise you limit by: </h3>
+                <p> Raise your limit by %: </p>
                 <input id="input" type="text" ref={textInput} defaultValue='20'></input> 
                 <button className="button" onClick={fixOptions}> Create Fixed Yaml </button>
               {/* </div> */}
               </div>
-           </div>
-           <div className="right-grid">
-              <div> 
-            <div className="yamlcurrent">
-              <div> Current configuration details from your pod: </div>
             </div>
-            <div className="yamlcontents">
-              <pre> {alertObj.oldYaml} </pre>
-            </div>
-            {fixWasApplied === true &&
-            <div>
-              <div className="yamlsuggested">
-                <div> Update configurations based on your choice. </div>
-                <div> Please copy the text below into the 'container' section of the yaml file for your pod:</div>
-                <div> To find the yaml file for your pod, run 'kubectl somecommand blah blah'</div>
-                <div> Open that file, paste in our provided details, then run 'kubectl blah blah blah to deploy your new configuration to the cluster</div>
-                <div> Or follow the workflow most appropriate to your organization, happy configuring!</div>
+            <div className="right-grid">
+              {/* <div>  */}
+              <div className="yamlcurrent">
+                <div> Current configuration details from your pod: </div>
               </div>
               <div className="yamlcontents">
-                <pre> {alertObj.newYaml} </pre>
+                <pre> {alertObj.oldYaml} </pre>
               </div>
-            </div>}
+              {fixWasApplied === true &&
+              <div>
+                <div className="yamlsuggested">
+                  <div> Update configurations based on your choice. </div>
+                  <div> Step 1: Please copy the text below into the 'container' section of the yaml file for your pod.</div>
+                  <div> Step 2: Find the yaml file for your pod.</div>
+                  <div> Step 3: Open that file, paste in our provided details, then run 'kubectl apply -f (insert your yamlname).yml' to deploy your new configuration to the cluster.</div>
+                  <div> Or follow the workflow most appropriate to your organization, happy configuring!</div>
+                </div>
+                <div className="yamlcontents">
+                  <pre> {alertObj.newYaml} </pre>
+                </div>
+              </div>}
             {/* { fixWasApplied === false &&
               <div className="yamlcontents">
             <div> Suggested configuration to avoid errors. Accept the current suggestion, or enter a new % in the box to the left. </div>
             <div> Once you've made your selection, hit the FIX button to receive your new configuration.</div> */}
             {/* <pre> {display2} </pre> */}
 
-           </div>
-           </div>
+              {/* </div> */}
+            </div>
           
            <Link className="link" to="/alerts">Back to Alerts</Link>
           </div>
