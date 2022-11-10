@@ -1,7 +1,7 @@
 import getPodContainer from "./getPodContainer";
 import {getHistoricalPrometheusData} from "./getHistoricalPrometheusData";
 import { dbController } from "./dbController";
-import { AlertsInterface } from '../../Types';
+import { AlertsInterface } from '../../Types/Types';
 
 /*
 

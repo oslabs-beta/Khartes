@@ -16,20 +16,6 @@ module.exports = [
      path: __dirname + '/dist',
      filename: 'electron.js'
    },
-  //  devServer: {
-  //   contentBase: path.join(__dirname, 'dist'),
-  //   port: 9002,
-  // },
-  // plugins: [
-  //   new HtmlWebpackPlugin({
-  //     template: './client/index.html'
-  //   }),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {from: './dist'}
-    //   ]
-    // })
-  // ],
   resolve: {
     extensions: ['.ts', ".js", ".tsx"],
   }
@@ -60,19 +46,10 @@ module.exports = [
     path: __dirname + '/dist',
     filename: 'index.js'
   },
-  // devServer: {
-  //   contentBase: path.join(__dirname, 'dist'),
-  //   port: 9002,
-  // },
   plugins: [
     new HtmlWebpackPlugin({
       template: './client/index.html'
     }),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {from: './dist'}
-    //   ]
-    // })
   ],
   resolve: {
     extensions: ['.ts', ".js", ".tsx"],

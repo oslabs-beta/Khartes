@@ -8,7 +8,7 @@ body {
 }
 
 .button {
-    background-color: #3c78d8;
+    background-color: #4E78AC;
     color: white;
     font-family: 'Inconsolata', monospace;
 }
@@ -278,12 +278,21 @@ u {
     display: flex;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .fixcontents {
     border: solid black 2px;
     padding-bottom:20px;
+}
+
+.fixOptions {
+    margin-top: 10px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .link {
