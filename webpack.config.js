@@ -50,12 +50,6 @@ module.exports = [
     test: /css$/,
     exclude: /node_modules/,
     use: ['style-loader', 'css-loader', 'sass-loader'],
-},
-{
-  test: /\.(svg|png|jpg|gif|jpeg)$/,
-  include: "./client/assets",
-  use: [{loader: 'url-loader'}],
-  type: "asset/inline"
 }
 ] },
   output: {

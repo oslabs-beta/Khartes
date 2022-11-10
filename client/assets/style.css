@@ -57,15 +57,6 @@ h3, p {
     box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
 } */
 
-.yamlcontents {
-    background-color: #f2f2f2;
-     width: 80%;
-    height: 200px;
-    padding: 2px;
-    overflow-y: scroll;
-    border: solid;
-    margin: 15px;
-}
 
 .graphcontents {
     display:flex;
@@ -83,25 +74,33 @@ h3, p {
 .yamlpagecontents {
     display: flex;
     background-color: #f2f2f2;
-     width: 85vw;
+    width: 90%;
     height: 70vw;
     /* padding: 20vw; */
 }
 
-.yamlcurrent {
-    background-color: #f2f2f2;
-    width: 80%;
-    height: 20px;
-    padding: 2px;
-    overflow-y: scroll;
-    border: solid;
-    margin: 15px;
-}
-
-.yamlsuggested {
+.yamlcurrent, .yaml1, .yamlsuggested-container{
     background-color: #f2f2f2;
     width: 90%;
-    height: 100px;
+    padding: 2px;
+    margin: 15px;
+    border: solid;
+    
+}
+.yamlcurrent {
+    height: 20px;
+}
+
+.yamlcontents{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.yamlsuggested, .yamlcontents {
+    background-color: #f2f2f2;
+    width: 90%;
+    height: 200px;
     padding: 2px;
     overflow-y: scroll;
     border: solid;
@@ -110,13 +109,14 @@ h3, p {
 
 .yamlpageheader {
     background-color: #f2f2f2;
-     width: 300px;
+    width: 300px;
     height: 200px;
     padding: 2px;
     overflow-y: scroll;
     border: solid;
     margin: 15px;
 }
+
 
 .alertcontents {
     border: solid black 2px;
@@ -229,34 +229,32 @@ u {
 
 .visualization-grid {
     /* grid-area: bottom; */
+    box-sizing: border-box;
     width: 100%;
-    display: grid;
-    grid-template-areas: "left right";
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     border: solid;
     background-color: white;
+    padding: 20px;
 }
 
 .left-grid {
-    width: 100%; 
-    grid-area: left;
     display: flex;
     flex-direction: column;
-    
+    /* background-color: green; */
+    align-items: center;
 }
 
 .right-grid {
-    width: 100%; 
-    grid-area: right;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    /* padding: 2px; */
+    /* background-color: pink; */
+    align-items: center;
 }
 
 .graph-container{
     background-color: white;
     text-align: center;
+    width: 90%;
 }
 
 .alertcontents {
@@ -264,6 +262,7 @@ u {
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
+    width: 80%;
 }
 
 .title {
