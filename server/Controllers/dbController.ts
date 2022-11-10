@@ -65,27 +65,26 @@ export const dbController = {
   //Then restringify and write it. 
   updateByAlertObject: async (request: Request, response: Response, next: NextFunction) => {
 
-      //get everything I need.
-      console.log(request.body)
-      const id:number = parseInt(request.body.id);
-      const updatedAlertObject:any = request.body;
-      const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
-      const dbAsArray = JSON.parse(dbAsText);
-      
-      console.log(dbAsArray);
-      //find appropriate alert object  [{}, {}, {}]
-      //And change it's status. 
-      for(let index = 0; index < dbAsArray.length; index++){
-          if(dbAsArray[index].id === id){  //
-              dbAsArray[index] = updatedAlertObject;
-              response.locals.updated = updatedAlertObject;
-          }
-      }
-      console.log(response.locals.updated);
-      //write it all back to the DB.
-      await fs.writeFileSync(path.join(__dirname, '../../../server/db.json'), JSON.stringify(dbAsArray));
-      return next();
-  },
+        //get everything I need.
+        const id:number = parseInt(request.body.id);
+        const updatedAlertObject:any = request.body;
+        const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../../server/db.json'), 'utf8')
+        const dbAsArray = JSON.parse(dbAsText);
+        
+        console.log(dbAsArray);
+        //find appropriate alert object  [{}, {}, {}]
+        //And change it's status. 
+        for(let index = 0; index < dbAsArray.length; index++){
+            if(dbAsArray[index].id === id){  //
+                dbAsArray[index] = updatedAlertObject;
+                response.locals.updated = updatedAlertObject;
+            }
+        }
+        console.log(response.locals.updated);
+        //write it all back to the DB.
+        await fs.writeFileSync(path.join(__dirname, '../../../server/db.json'), JSON.stringify(dbAsArray));
+        return next();
+    },
 
   //Need to update an alert status.
   //ID and new status should come in as parameters.

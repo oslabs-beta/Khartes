@@ -28,18 +28,20 @@ export default function makeNewYaml(request: Request, response: Response, next: 
   let newLimit:any = newYaml[0].resources.limits.memory;
 
 
-  // I want to change yaml[0].resources.limits.memory. 
-  // but it's text. "200M". How to parse? Separate numbers and letters, change numbers, restringify, add back together.
-  let numberPartOfString:number = Number(newLimit.replace(/\D/g, ''));  //regex, all NON digit characters erased.
-  let stringPartOfString:string = newLimit.replace(/\D/g, '');  //regex, all DIGIT characters erased.
-  //incrase limit by percentage.
-  numberPartOfString *= (1 + (percentageToFixBy / 100));
-  //stitch back together
-  newYaml[0].resources.limits.memory = numberPartOfString.toString() + stringPartOfString;
+    // I want to change yaml[0].resources.limits.memory. 
+    // but it's text. "200M". How to parse? Separate numbers and letters, change numbers, restringify, add back together.
+    let numberPartOfString:number = Number(newLimit.replace(/\D/g, ''));  //regex, all NON digit characters erased.
+    let stringPartOfString:string = newLimit.replace(/\d/g, '');  //regex, all DIGIT characters erased.
+    //incrase limit by percentage.
+    numberPartOfString *= (1 + (percentageToFixBy / 100));
+    //stitch back together
+    newYaml[0].resources.limits.memory = numberPartOfString.toString() + stringPartOfString;
 
-  //update the object.
-  request.body.newYaml = newYaml;
-  //Now off to dbController.updateYamlById. 
-  return next();
+    
+
+    //update the object.
+    request.body.newYaml = YAML.stringify(newYaml);
+    //Now off to dbController.updateYamlById. 
+    return next();
 }
 

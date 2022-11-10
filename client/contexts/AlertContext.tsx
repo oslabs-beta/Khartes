@@ -25,6 +25,7 @@ export type AlertsContextType = {
   addAlertObj: (alertObj: AlertObjInterface) => void;
   addAlertObjComment: (alertObj: AlertObjInterface, newComment: string) => void;
   updateStatus: (alertObj: AlertObjInterface) => void;
+  createYaml: (alertObj: AlertObjInterface, fixedPercent: string) => void;
 }
 
 export const DataContext = React.createContext<AlertsContextType>({} as AlertsContextType);
@@ -121,8 +122,9 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
       return newState;
       });
 
+      // /${alertObj.id}
       //update the database
-      fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
+      fetch(`http://localhost:8000/alerts`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -156,7 +158,7 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
       });
 
       //update the database
-      fetch(`http://localhost:8000/alerts/${alertObj.id}`, {
+      fetch(`http://localhost:8000/alerts`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -174,8 +176,43 @@ export const AlertProvider: React.FC<Props> = ({children}) => {
         )
   }
 
+  function createYaml (alertObj: AlertObjInterface, fixedPercent: string){
+      // send Patch to backend with id and % for fix
+      fetch(`http://localhost:8000/fix/${fixedPercent}`, { // this route is not discussed with the backend yet
+      method:'PATCH',
+      headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(alertObj)
+  })
+    .then(res => res.json())
+    .then(res => { // response will be the entire alertObj
+      console.log("made it back from PATCH");
+      alertObj.newYaml = res.newYaml;
+      // const display2 = res.newYaml;
+      // console.log('response', response);
+      // display3 = "display3";
+      // let display3 = response.newYaml;
+      addAlert(oldState => {
+        let newState = [...oldState];
+        newState = newState.map(alert => {
+          if (alert.id === alertObj.id){
+            alert.newYaml = alertObj.newYaml;
+          }
+          return alert;
+        })
+        return newState;
+        });
+
+    })
+    .catch((err) => {
+      console.log('There was an error in updateAlerts fetch request.');
+      console.log(err);
+    })
+  }
+
   return (
-    <DataContext.Provider value= {{clickedAlerts, alerts, fetchAlerts, deleteAlerts, addAlertObj, updateStatus, addAlertObjComment}}>
+    <DataContext.Provider value= {{clickedAlerts, alerts, fetchAlerts, deleteAlerts, addAlertObj, updateStatus, addAlertObjComment, createYaml}}>
         {children}
     </DataContext.Provider>
   )

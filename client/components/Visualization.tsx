@@ -10,7 +10,7 @@ import { AlertObjInterface } from '../contexts/AlertContext';
 
 const Visualization = () => {
   
-  const {clickedAlerts, addAlertObjComment, updateStatus } = useDataContext();
+  const {clickedAlerts, addAlertObjComment, updateStatus, createYaml } = useDataContext();
 
   let display3 = "display3";
 
@@ -22,37 +22,10 @@ const Visualization = () => {
       // Obtain the input percentage
       const fixedPercent = textInput.current?.value;
 
-      // display is text from the current alertObj.oldYaml
-
-      //display2 newly declared variables in frontend of mods of old yaml
-      
-      //newYaml is our suggested alertObj that comes back newYaml
-
-      // send Patch to backend with id and % for fix
-      fetch(`/alerts/${fixedPercent}`, { // this route is not discussed with the backend yet
-          method:'PATCH',
-          headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(alertObj)
-      })
-        .then(res => { // response will be the entire alertObj
-          console.log("made it back from PATCH");
-          res.json()
-          console.log(res);
-          // const display3 = res.newYaml;
-          // console.log('response', response);
-          // display3 = "display3";
-          // let display3 = response.newYaml;
-        })
-        .catch((err) => {
-          console.log('There was an error in updateAlerts fetch request.');
-          console.log(err);
-        })
-
-      
+      if (fixedPercent){
+        createYaml(alertObj, fixedPercent);
+      }
       // toggle fixWasApplied to true
-      // fixWasApplied = true;
       setFixWasApplied(true);
     }
     
@@ -74,13 +47,9 @@ const Visualization = () => {
     // const display = alerts[content].oldYaml;
     // const display2 = alerts[content].newYaml;  
 
-
-
-
     // useEffect(() => {
     //   console.log(fixWasApplied);
     // }, [fixWasApplied])
-
   
 function changeStatus () {
   updateStatus(alertObj);
@@ -129,32 +98,33 @@ function addComments() {
            </div>
            <div className="right-grid">
               <div> 
-           {fixWasApplied === false &&
-        <div className="yamlcontents">
+            <div className="yamlcontents">
               <div> Current configuration details from your pod: </div>
-            {/* <pre> {display} </pre> */}
+            </div>
+            <div className="yamlcontents">
+              <pre> {alertObj.oldYaml} </pre>
+            </div>
+            {fixWasApplied === true &&
+            <div>
+              <div className="yamlcontents">
+                <div> Update configurations based on your choice. </div>
+                <div> Please copy the text below into the 'container' section of the yaml file for your pod:</div>
+                <div> To find the yaml file for your pod, run 'kubectl somecommand blah blah'</div>
+                <div> Open that file, paste in our provided details, then run 'kubectl blah blah blah to deploy your new configuration to the cluster</div>
+                <div> Or follow the workflow most appropriate to your organization, happy configuring!</div>
+              </div>
+              <div className="yamlcontents">
+                <pre> {alertObj.newYaml} </pre>
+              </div>
             </div>}
-            {fixWasApplied === false &&
-        <div className="yamlcontents">
-              <div> Update configurations based on your choice. </div>
-              <div> Please copy the text below into the 'container' section of the yaml file for your pod:</div>
-              <div> To find the yaml file for your pod, run 'kubectl somecommand blah blah'</div>
-              <div> Open that file, paste in our provided details, then run 'kubectl blah blah blah to deploy your new configuration to the cluster</div>
-              <div> Or follow the workflow most appropriate to your organization, happy configuring!</div>
-            {/* <pre> {display3} </pre> */}
-            </div>}
-            { fixWasApplied === false &&
+            {/* { fixWasApplied === false &&
               <div className="yamlcontents">
             <div> Suggested configuration to avoid errors. Accept the current suggestion, or enter a new % in the box to the left. </div>
-            <div> Once you've made your selection, hit the FIX button to receive your new configuration.</div>
+            <div> Once you've made your selection, hit the FIX button to receive your new configuration.</div> */}
             {/* <pre> {display2} </pre> */}
-            </div>}
 
            </div>
-
            </div>
-         
-           
           
            <Link to="/alerts">Back to Alerts</Link>
           </div>
