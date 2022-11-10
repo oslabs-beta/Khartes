@@ -1,27 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { json } from 'stream/consumers';
-import { AlertsInterface } from '../../Types';
+import React, { useEffect } from 'react';
 import ProblemObject from './problemobject';
+import { useDataContext} from '../contexts/AlertContext'
 
-import { useDataContext, AlertObjInterface, AlertsContextType } from '../contexts/AlertContext'
-
+// This component renders our alerts in the alerts page.
 const Alerts = () => {
+  // Fetching alerts and fetchAlerts from our Context.
   const { alerts, fetchAlerts } = useDataContext();
   
-
-// const [visual, setVisual] = React.useState<boolean[]>([]); 
-
-//   // functionality to add Alerts
-//   function updateVisual (index: number, boolean: boolean) {
-//     // updates state with pushing new alert object
-//     setVisual(oldState => {
-//       const newState = [...oldState];
-//       newState[index] = boolean;
-//       return newState;
-//     })
-//   }
-  
-  
+  // Upon load, we want to invoke fetch alerts and create an interval to re-fetch every 15 seconds.
   useEffect(() => {
     
     fetchAlerts();
@@ -29,14 +15,10 @@ const Alerts = () => {
       fetchAlerts();
     }
 
-    const intervalId = setInterval(handleInterval, 15000);
-    return () => clearInterval(intervalId); // the return statement will clear the interval when the component unmounts... does the component unmount when we navigate away?
-  }, []); // the array has to do with things that will update during the component lifecycle. Use effect will only run on component mount since we pass empty array as second arg
-  
-  
-  /* i think here we will have conditional logic that renders one <ProblemObject /> for each element in alertsList
-  and we will prop drill details of the individual alert into each problemobject
-  for */
+    const intervalId = setInterval(handleInterval, 60000);
+    return () => clearInterval(intervalId); 
+  }, []); 
+
   const alertsObjs = [];
   for (let i = alerts.length-1; i >= 0 ; i--) {
     if (alerts[i].status === 'Pending'){
@@ -44,11 +26,6 @@ const Alerts = () => {
         className='Pending' 
         key={alerts[i].id} 
         alertObj={alerts[i]} 
-        // index={i} 
-        // visual={visual[i]} 
-        // updateVisual={updateVisual}  
-        // updateAlerts={updateAlerts} 
-        // deleteAlerts={deleteAlerts} 
         index={i}
         />);
     } else {
@@ -56,15 +33,10 @@ const Alerts = () => {
           className='New' 
           key={alerts[i].id} 
           alertObj={alerts[i]} 
-          // visual={visual[i]} 
-          // updateVisual={updateVisual} 
-          // updateAlerts={updateAlerts} 
-          // deleteAlerts={deleteAlerts} 
           index={i}
           />);
     }
   }
-
     return(
       <div className="contents">
         {alertsObjs}

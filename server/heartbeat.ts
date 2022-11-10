@@ -25,7 +25,7 @@ const startHeartbeat = async() => {
   //no longer doing auto portforwarding at this time. Will try to include in future updates.
   //await startPortForward();
   
-
+  console.log("heartbeat");
 
   //call getPods to get the list of pods and their associated nodes in an object.
   const podsList = await getPods();
