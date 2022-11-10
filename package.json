@@ -5,14 +5,16 @@
   "main": "/electron/electron.ts",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
-    "start": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\" \"webpack --config ./webpack.config.js\" \"electron ./dist/electron.js\"",
+    "start": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\" \"webpack --config ./webpack.config.js\" \"electron ./dist/electron.js\" \"npm run test\"",
     "dev": "concurrently \"webpack --watch --config ./webpack.config.js\" \"wait-on ./dist/electron.js && electronmon ./dist/electron.js\"",
-    "express-dev": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\""
+    "express-dev": "concurrently \"npx tsc \" \"nodemon -q ./dist/server/index.js\"",
+    "test": "npx tsc ./server/heartbeat.ts && node ./server/heartbeat.js "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.1.3",
     "chart.js": "^3.9.1",
     "css-loader": "^6.7.1",
     "dotenv": "^16.0.3",
@@ -20,11 +22,13 @@
     "electronmon": "^2.0.2",
     "express": "^4.18.2",
     "js-yaml": "^4.1.0",
+    "node-fetch": "^3.2.10",
     "react-chartjs-2": "^4.3.1",
     "react-router-dom": "^6.4.2",
     "sass": "^1.55.0",
     "sass-loader": "^13.1.0",
     "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1",
     "wait-on": "^6.0.1",
     "yaml": "^2.1.3"
   },

@@ -51,6 +51,10 @@ module.exports = [
     exclude: /node_modules/,
     use: ['style-loader', 'css-loader', 'sass-loader'],
 },
+{
+  test: /\.(svg|png|jpg|gif|jpeg)$/,
+  type: "asset/resource"
+}
 ] },
   output: {
     path: __dirname + '/dist',

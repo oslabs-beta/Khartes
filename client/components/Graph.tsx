@@ -2,11 +2,11 @@ import React from "react";
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import type { ChartData, ChartOptions } from 'chart.js';
-import { AlertsInterface } from "../../Types";
+import { AlertObjInterface } from "../contexts/AlertContext"
 
 // creating type for props passed down to Graph component
 export interface GraphProps {
-  alert: AlertsInterface
+  alert: AlertObjInterface
 }
 
 // chart js tree-shakeable, so it is necessary to import and register the controllers, elements, scales and plugins you are going to use.
