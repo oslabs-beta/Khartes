@@ -61,6 +61,7 @@ npm start
 6. If you have your YAML file under your DevOps process but not yet deployed, you do not want to see this error pop up again. Click "Toggle Status" and your alert will be "Pending". You can later delete the alert at the Alerts page. 
 
 
+###### Process Demo
 ![Khartes Demo](http://g.recordit.co/9WF9uOzJEo.gif)
 
 
