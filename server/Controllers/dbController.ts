@@ -169,7 +169,6 @@ export const dbController = {
 
   checkIfAlertAlreadyExists: async (babyAlert:any) => {
       //{{pod: name, issue: oomkillIssue}}
-      console.log("we're inside checkIfAlertAlreadyExists");
       //get new alert, db as text, and db as array of alert objects.                                                              //Might need to change this in future?
       const dbAsText:string = await fs.readFileSync(path.join(__dirname, '../../server/db.json'), 'utf8')
       const dbAsArray = JSON.parse(dbAsText);
@@ -177,11 +176,9 @@ export const dbController = {
       //check if it's there.
       for(let index = 0; index < dbAsArray.length; index++){
           if(dbAsArray[index].pod === babyAlert.pod && dbAsArray[index].issue === babyAlert.issue){
-              console.log('checkIfAlertAlreadyExists returning true')
               return true;
           }
       }
-      console.log('checkIfAlertAlreadyExists returning false')
       return false;
   },
 

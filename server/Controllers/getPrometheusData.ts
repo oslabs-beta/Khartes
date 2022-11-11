@@ -31,7 +31,7 @@ const getPrometheusData = async (podName: string, query: string, nodeName?: stri
     //Prometheus api query using promQL(Prometheus Query Language)
     const queryResult = await axios.get(`http://localhost:9090/api/v1/query?query=${query}{${podOrNode}="${podName}"}`)
           
-    return queryResult.data.data.result[0].value; 
+    return Number(queryResult.data.data.result[0].value[1]); 
   }
   catch {
     console.log("error in fetching prometheus data");
