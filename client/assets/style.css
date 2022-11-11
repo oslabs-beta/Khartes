@@ -2,12 +2,13 @@ body {
     display: flex;
     background-color: #afe0ef;
     color: black;
-    padding-top: 50px;
+    padding-top: 80px;
+    padding-bottom: 50px;
     font-family: 'Inconsolata', monospace;
 }
 
 .button {
-    background-color: #3c78d8;
+    background-color: #4E78AC;
     color: white;
     font-family: 'Inconsolata', monospace;
 }
@@ -16,6 +17,19 @@ body {
     background-color: white;
     color: black;
     font-family: 'Inconsolata', monospace;
+}
+
+.New, 
+.Pending {
+    width: 150px;
+}
+.New {
+    background-color: #ff8d8d;
+    /* color: white; */
+}
+
+.Pending {
+    background-color: #a9df76;
 }
 
 div {
@@ -31,33 +45,90 @@ div {
     background-color: #afe0ef;
 }
 
-.contents {
+h3, p {
+    margin:0px;
+}
+/* .contents {
     background-color: #f2f2f2;
      width: 80vw;
-    height: 100vw;
+    height: 100vw; */
     /* padding: 20vw; */
-    overflow-y: scroll;
+    /* overflow-y: scroll;
     box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
-}
+} */
 
-.yamlcontents {
-    background-color: #f2f2f2;
-     width: 100%;
-    height: 100%;
-    padding: 2px;
-    overflow-y: scroll;
-    border: solid;
-    
+
+.graphcontents {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 300px;
+    height: 200px;
+    /* border: solid; */
+    /* position: relative; */
+    margin: 10px;
+    padding-bottom:20px;
 }
 
 .yamlpagecontents {
     display: flex;
     background-color: #f2f2f2;
-     width: 55vw;
-    height: 20vw;
+    width: 90%;
+    height: 70vw;
     /* padding: 20vw; */
 }
 
+.yamlcurrent, .yaml1, .yamlsuggested-container{
+    background-color: #f2f2f2;
+    width: 90%;
+    padding: 2px;
+    margin: 15px;
+    border: solid;
+    
+}
+.yamlcurrent {
+    height: 20px;
+}
+
+.yamlcontents{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.yamlsuggested, .yamlcontents {
+    background-color: #f2f2f2;
+    width: 90%;
+    height: 200px;
+    padding: 2px;
+    overflow-y: scroll;
+    border: solid;
+    margin: 15px;
+}
+
+.yamlpageheader {
+    background-color: #f2f2f2;
+    width: 300px;
+    height: 200px;
+    padding: 2px;
+    overflow-y: scroll;
+    border: solid;
+    margin: 15px;
+}
+
+
+.alertcontents {
+    border: solid black 2px;
+    width:500px;
+    padding-left:2%;
+    background-color: #f3dBa8;
+    border-radius: 3px;
+    box-shadow:5px 5px 15px -5px #c9a66a;
+    margin-right:10px;
+    margin-left:10px;
+    margin-top: 20px;
+}
 #list {
     display: flex;
     flex-direction: column;
@@ -67,32 +138,48 @@ div {
     padding: 5px;
     
 }
+.problemdiv {
+    width: 80vw;
+}
 
 .problemobject {
     /* display: table-row; */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 98%;
-    height: 30px;
+    grid-template-rows: auto auto;
+    /* grid-template-areas: 
+    "left right"
+    "bottom bottom"; */
+
+    width: 100%;
+    height: auto;
     margin: 5px;
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    background-color: #d4ac80;
+    background-color: #f3dBa8;
     justify-content: center;
     box-shadow:5px 5px 15px -5px #c9a66a;
     border-radius: 2px;
     padding: 4px;
+    padding-right:10px;
 }
 
 /* .problemobject >  */
 #left {
+    /* grid-area: left; */
+    display:flex;
+    flex-direction: column;
     justify-content: left;
     align-items: left;
     float: left;
+    margin-right: 20px;
+    padding-right: 20px;
 }
 /* .problemobject >  */
 #right {
+    /* grid-area: right; */
+    padding-left: 20px;
     align-items: right;
     float: right;
     justify-self: center;
@@ -101,11 +188,19 @@ div {
 button {
     margin: 2px;
     float: right;
+    background-color: #ff8d8d;
 }
 
+.status-button {
+    margin: 2px;
+    float: right;
+    background-color: #a9df76;
+}
+/* Styling for navbar */
 .nav {
     padding-left: 5px;
-    height: 20px;
+    margin-left: -8px;
+    height: 40px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -113,10 +208,24 @@ button {
     position: fixed;
     top: 0;
     padding: 0.5rem 0rem;
-    background-color: rgb(25, 135, 246);
+    background-color: #4E78AC;
     color: rgb(250, 249, 249);
     box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+    z-index: 100;
 }
+
+.welcome {
+    padding-left: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.alerts {
+    padding-right: 90px;
+    text-decoration: none;
+    color: white;
+}
+
 
 #welcome-page {
     display: flex;
@@ -124,4 +233,99 @@ button {
 
 u {
     color: white;
+    text-decoration: none;
+}
+
+.visualization-grid {
+    /* grid-area: bottom; */
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    border: solid;
+    background-color: white;
+    padding: 20px;
+}
+
+.left-grid {
+    display: flex;
+    flex-direction: column;
+    /* background-color: green; */
+    align-items: center;
+}
+
+.right-grid {
+    display: flex;
+    flex-direction: column;
+    /* background-color: pink; */
+    align-items: center;
+}
+
+.graph-container{
+    background-color: white;
+    text-align: center;
+    width: 90%;
+}
+
+.alertcontents {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    width: 80%;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.fixcontents {
+    border: solid black 2px;
+    padding-bottom:20px;
+}
+
+.fixOptions {
+    margin-top: 10px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.link {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.logo {
+    width: 40%;
+    margin: 2px;
+    /* height: auto; */
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.welcomeflex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.welcometext {
+    width: 55%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+a {
+    color: #4E78AC;
+    text-decoration: none;
 }

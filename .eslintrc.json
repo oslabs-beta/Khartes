@@ -1,0 +1,28 @@
+// need global objects for node and the browser so env includes shared-node-browser
+{
+    "env": {
+        "shared-node-browser": true,
+        "es2021": true,
+        "commonjs": true,
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+        // because we are not using eslint to enforce we aren't extending any other popular style guide (like airbnb)
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+    }
+}
