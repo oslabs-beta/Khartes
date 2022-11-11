@@ -50,18 +50,18 @@ npm start
 3. Click "alerts" to see your alerts. Hopefully you don't have any!
   - Khartes checks for known issues every minute.
 
-![Khartes alerts](./client/assets/alerts.png)
+![Khartes alerts](./client/assets/alertsPage.png)
 
 4. Click on "See Details" to see metrics from the hour leading up to the alert, YAML details for memory and CPU limits, etc. 
 
-![Khartes alert details](./client/assets/details.png)
+![Khartes alert details](./client/assets/visualizationPage.png)
 
 5. If you want to raise the limits, you can enter a percentage you want them fixed by, then click "Create fixed Yaml" and Khartes will give you a changed YAML section to paste into your deployment YAML. 
  - Most production environments will want deployment YAML files to go through a versioning tool and review process. If you are learning, it's OK to just apply your deployment YAML file. We hope to add functionality to deploy fixes in the future.
 6. If you have your YAML file under your DevOps process but not yet deployed, you do not want to see this error pop up again. Click "Toggle Status" and your alert will be "Pending". You can later delete the alert at the Alerts page. 
 
 
-
+![Khartes Demo](./client/assets/KhartesDemo.png)
 
 
 ## The Team
