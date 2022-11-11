@@ -21,7 +21,7 @@ app.use(express.json());
 //Get the controllers
 import {dbController} from './Controllers/dbController';
 import fixTheYaml from './Controllers/fixTheYaml';
-import mapMapker from './Controllers/mapMaker';
+import {mapMaker} from './Controllers/mapMaker';
 
 // My little tester middleware for seeing what's what.
 const holler = (request: Request, response: Response, next: NextFunction) => {
@@ -73,8 +73,11 @@ app.patch('/fix/:percentage',
   );
 
   app.get('/map',
+  // holler,
   mapMaker,
-  (request: Request, response: Response ) => {response.json(response.locals.updated);}
+  holler,
+  // (request: Request, response: Response ) => {response.json(response.locals.map);}
+  (request: Request, response: Response ) => {response.send("testing");}
   );
 
 

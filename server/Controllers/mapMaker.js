@@ -22,8 +22,8 @@ loop through array items.
 
 */
 
-import { response } from 'express';
-import getPods from './getPods';
+//import { response } from 'express';
+// const getPods = require('./Controllers/getPods');
 
 
 const fs = require('fs');
@@ -32,18 +32,39 @@ const {exec} = require('child_process');
 const YAML = require('yaml');
 
 
-default export async function mapMaker (request: Request, response: Response, next: NextFunction) => {
+export async function mapMaker (request, response, next){
         
   //get everything I need.
   ourPods = await getPods();
+  console.log("our pod list is...", ourPods)
   let mapObject = {};
 
-  
+  //convert to object with arrays.
+  ourPods.forEach(element => {
+    mapObject[element[1].node] = element[0].pod;
+  });
   
   //write the map to the response.
-  response.locals.map = 
+  console.log("Our map is... ", mapObject);
+  response.locals.map = mapObject;
 
   return next();
-},
+};
 
 
+async function getPods(){ 
+  
+  const { stdout, stderr } = await exec('kubectl get pods -o yaml');
+
+  const yamls = YAML.parse(stdout).items;
+    
+  const arrPodsNodes = [];
+
+  yamls.forEach((el) => {
+    const name = el.metadata.name;
+    const node = el.spec.nodeName;
+    const obj = {pod: name, node: node};
+    arrPodsNodes.push(obj)
+  })
+  return arrPodsNodes;
+};
