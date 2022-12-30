@@ -67,7 +67,7 @@ npm start
 
 ## The Team
 - Kristen Cendana       [Github](https://github.com/kristencendana) [LinkedIn](https://www.linkedin.com/in/kristenabby/)
-- Mark Nichting         [Github](https://github.com/omahomie1) [LinkedIn](https://www.linkedin.com/in/mark-nichting/)
+- Mark Nichting         [Github](https://github.com/marknichting) [LinkedIn](https://www.linkedin.com/in/mark-nichting/)
 - Joseph Heffernan      [Github](https://github.com/interim17) [LinkedIn](https://www.linkedin.com/in/joseph-heffernan/)
 - JP Keith              [Github](https://github.com/JPKeith15) [LinkedIn](https://www.linkedin.com/in/jpkeith/)
 - Tony Diethelm         [Github](https://github.com/tonydiethelm) [LinkedIn](https://www.linkedin.com/in/tonydiethelm/)
