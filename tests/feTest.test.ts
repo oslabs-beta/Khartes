@@ -1,16 +1,11 @@
+import { render, screen } from '@testing-library/react';
+import Visualization  from '../client/components/Visualization';
 
-// what do we need to install?
-  // for what?  
-// what do we need to import?
-
-// what do we need to transpile?
-
-// if issues break it down into smaller pieces
-
-
+// we may need other imports depending on what we end up doing - maybe even additional dependencies
+// maybe we need to e need to type visualization?
 
 describe("Create alert tests", () => {
-    test('what should this test do?', () => {
-      // expect(createAlert()).toBe();
+    test('testing x in Visualization component', () => {
+      render(<Visualization>);
     });
 })

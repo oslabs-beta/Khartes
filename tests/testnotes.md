@@ -19,6 +19,7 @@ Oh hi Mark (do you get that a lot?) yes hahaha
 what I have done:
 - installed @types/jest to get types for testing functions. 
 - installed ts-jest created jest.config.js to config jest for TS and somehow it fixed es module issue as well..
+- installed @testing-library/react so we can use react testing library
 
 notes:
 - jest cannot use es modules out of the box (import/export) we need to configure it to do so
