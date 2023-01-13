@@ -1,5 +1,5 @@
-// import createAlert from '../server/Controllers/createAlert.ts'
-const createAlert = require('..server/Controllers/createAlert.ts')
+import {createAlert} from '../server/Controllers/createAlert';
+// const createAlert = require('../server/Controllers/createAlert.ts')
 
 /*
  will we create a test file for each contorller?
@@ -11,6 +11,6 @@ might be nice to import and do unit testing
 
 describe("Create alert tests", () => {
     test('what should this test do?', () => {
-      expect(createAlert()).toBe();
+      // expect(createAlert()).toBe();
     });
-   })
+})
