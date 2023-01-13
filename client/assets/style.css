@@ -7,6 +7,11 @@ body {
     font-family: 'Inconsolata', monospace;
 }
 
+#page {
+    padding: 10px;
+    align-items: center;
+}
+
 .button {
     background-color: #4E78AC;
     color: white;
